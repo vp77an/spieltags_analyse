@@ -58,6 +58,16 @@ class SetJson:
 class MatchJson:
     sets: list[SetJson]
 
+    def to_dict(self) -> dict:
+        return asdict(self)
+
+    def to_json(self) -> str:
+        return json.dumps(
+            self.to_dict(),
+            indent=2,
+            ensure_ascii=False
+        )
+
 
 SET_PANELS = (
     SetPanel(
@@ -311,11 +321,11 @@ class PdfScoreSheetParser:
         )
         left_substitutions = self._read_substitutions(
             words, panel.left_rotation_x, panel.rotation_y,
-            left_rotation, team_names, scale_x, scale_y
+            left_rotation, left_team, right_team, scale_x, scale_y
         )
         right_substitutions = self._read_substitutions(
             words, panel.right_rotation_x, panel.rotation_y,
-            right_rotation, team_names, scale_x, scale_y
+            right_rotation, right_team, left_team, scale_x, scale_y
         )
 
         return SetJson(
@@ -470,7 +480,8 @@ class PdfScoreSheetParser:
         rotation_x: tuple[float, ...],
         rotation_y: float,
         rotation: list[int],
-        team_names: dict[str, str],
+        team: str,
+        opponent: str,
         scale_x: float,
         scale_y: float
     ) -> list[Substitution]:
@@ -497,7 +508,7 @@ class PdfScoreSheetParser:
             ]
 
             for score in sorted(score_words, key=lambda item: item.y0):
-                team_a_score, team_b_score = map(
+                team_score, opponent_score = map(
                     int,
                     score.text.split(":")
                 )
@@ -507,8 +518,8 @@ class PdfScoreSheetParser:
                         score.x0,
                         slot,
                         int(player.text),
-                        team_a_score,
-                        team_b_score
+                        team_score,
+                        opponent_score
                     )
                 )
 
@@ -518,7 +529,7 @@ class PdfScoreSheetParser:
             slot: player_in
             for _, _, slot, player_in, _, _ in events
         }
-        for _, _, slot, _, team_a_score, team_b_score in sorted(events):
+        for _, _, slot, _, team_score, opponent_score in sorted(events):
             player_out = players_on_court[slot]
             player_in = replacements[slot]
             substitutions.append(
@@ -526,8 +537,8 @@ class PdfScoreSheetParser:
                     player_in=player_in,
                     player_out=player_out,
                     score={
-                        team_names["A"]: team_a_score,
-                        team_names["B"]: team_b_score
+                        team: team_score,
+                        opponent: opponent_score
                     }
                 )
             )
