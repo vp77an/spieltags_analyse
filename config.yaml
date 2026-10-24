@@ -1,0 +1,13 @@
+pdf_file: Spielbericht_ANS_HAHNBACH.pdf
+match_json: match.json
+point_by_point_json: point_by_point.json
+analysis_output_dir: analysis
+
+teams:
+  # Setter numbers are ordered by priority; an empty list means unknown.
+  A:
+    name: TSV Ansbach
+    setters: [8, 11]
+  B:
+    name: SV Hahnbach
+    setters: [2]
