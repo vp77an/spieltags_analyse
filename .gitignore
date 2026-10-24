@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 
-# Generated PDF text and legacy cell-grid caches
-pdf_text.json
+# Legacy cell-grid caches
 cell_grid.json
 cells.json

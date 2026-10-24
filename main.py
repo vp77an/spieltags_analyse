@@ -13,8 +13,6 @@ from pdf_score_sheet import PdfScoreSheetParser
 
 def main(
     pdf_file="Spielbericht_ANS_HAHNBACH.pdf",
-    cache_file="pdf_text.json",
-    load_cache=False,
     output_file="match.json",
     points_output_file="point_by_point.json",
     load_match=False
@@ -23,11 +21,7 @@ def main(
         match_data = load_match_json(output_file)
     else:
         parser = PdfScoreSheetParser()
-        if load_cache:
-            page = parser.load_page(cache_file)
-        else:
-            page = parser.extract_page(pdf_file)
-            parser.save_page(page, cache_file)
+        page = parser.extract_page(pdf_file)
         match = parser.parse_match(page)
         Path(output_file).write_text(
             match.to_json() + "\n",
@@ -49,18 +43,6 @@ if __name__ == "__main__":
         default="Spielbericht_ANS_HAHNBACH.pdf"
     )
     parser.add_argument(
-        "--cache-file",
-        dest="cache_file",
-        default="pdf_text.json",
-        help="JSON file used to cache extracted positioned PDF text"
-    )
-    parser.add_argument(
-        "--load-cache",
-        dest="load_cache",
-        action="store_true",
-        help="Load cached positioned text instead of parsing the PDF"
-    )
-    parser.add_argument(
         "--output",
         default="match.json",
         help="JSON file to write parsed match data to"
@@ -79,8 +61,6 @@ if __name__ == "__main__":
 
     main(
         pdf_file=args.pdf_file,
-        cache_file=args.cache_file,
-        load_cache=args.load_cache,
         output_file=args.output,
         points_output_file=args.points_output,
         load_match=args.load_match

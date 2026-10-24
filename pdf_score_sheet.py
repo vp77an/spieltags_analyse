@@ -179,31 +179,6 @@ class PdfScoreSheetParser:
             words=words
         )
 
-    def save_page(self, page: PdfPage, outfile: str | Path) -> None:
-        data = {
-            "width": page.width,
-            "height": page.height,
-            "words": [asdict(word) for word in page.words]
-        }
-        with open(outfile, "w", encoding="utf8") as file:
-            json.dump(data, file, indent=2, ensure_ascii=False)
-
-    def load_page(self, infile: str | Path) -> PdfPage:
-        with open(infile, "r", encoding="utf8") as file:
-            data = json.load(file)
-
-        if not isinstance(data, dict) or not isinstance(data.get("words"), list):
-            raise ValueError("PDF text cache must contain a 'words' list")
-
-        try:
-            width = float(data["width"])
-            height = float(data["height"])
-            words = [PositionedWord(**word) for word in data["words"]]
-        except (KeyError, TypeError, ValueError) as error:
-            raise ValueError("PDF text cache has an invalid structure") from error
-
-        return PdfPage(width=width, height=height, words=words)
-
     def parse_match(self, page: PdfPage) -> MatchJson:
         scale_x = page.width / 841.92
         scale_y = page.height / 595.92
