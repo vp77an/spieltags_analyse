@@ -5,8 +5,6 @@ import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass
 from pathlib import Path
 
-from sams_mapper import MatchJson, SetJson, Substitution
-
 
 @dataclass(frozen=True)
 class PositionedWord:
@@ -26,51 +24,97 @@ class PdfPage:
 
 @dataclass(frozen=True)
 class SetPanel:
+    team_marker_y: float
+    left_team_marker_x: float
+    right_team_marker_x: float
     rotation_y: float
-    rotation_x: tuple[float, ...]
+    left_rotation_x: tuple[float, ...]
+    right_rotation_x: tuple[float, ...]
     score_y: float
-    own_score_x: float
-    opp_score_x: float
+    left_score_x: float
+    right_score_x: float
     serve_y: float
-    serve_x: tuple[float, ...]
+    left_serve_x: tuple[float, ...]
+    right_serve_x: tuple[float, ...]
+
+
+@dataclass
+class Substitution:
+    player_in: int
+    player_out: int
+    score: dict[str, int]
+
+
+@dataclass
+class SetJson:
+    set_no: int
+    start_rotation: dict[str, list[int]]
+    serve_rounds: dict[str, dict[int, list[int]]]
+    substitutions: dict[str, list[Substitution]]
+    points: dict[str, int]
+
+
+@dataclass
+class MatchJson:
+    sets: list[SetJson]
 
 
 SET_PANELS = (
     SetPanel(
+        team_marker_y=71.3,
+        left_team_marker_x=190.5,
+        right_team_marker_x=345.6,
         rotation_y=95.4,
-        rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
+        left_rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
+        right_rotation_x=(286.4, 307.8, 326.9, 348.3, 372.2, 393.6),
         score_y=100.6,
-        own_score_x=255.4,
-        opp_score_x=411.4,
+        left_score_x=255.4,
+        right_score_x=411.4,
         serve_y=139.6,
-        serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7)
+        left_serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7),
+        right_serve_x=(278.4, 299.9, 321.3, 342.8, 364.2, 385.7)
     ),
     SetPanel(
+        team_marker_y=71.3,
+        left_team_marker_x=520.3,
+        right_team_marker_x=677.1,
         rotation_y=95.4,
-        rotation_x=(461.1, 480.1, 501.6, 525.4, 546.8, 568.3),
+        left_rotation_x=(461.1, 480.1, 501.6, 525.4, 546.8, 568.3),
+        right_rotation_x=(614.7, 636.1, 658.1, 681.4, 702.8, 724.3),
         score_y=100.6,
-        own_score_x=586.1,
-        opp_score_x=738.0,
+        left_score_x=586.1,
+        right_score_x=742.1,
         serve_y=139.6,
-        serve_x=(453.1, 474.6, 496.0, 517.5, 538.9, 560.3)
+        left_serve_x=(453.1, 474.6, 496.0, 517.5, 538.9, 560.3),
+        right_serve_x=(609.1, 630.6, 652.0, 673.5, 694.9, 716.3)
     ),
     SetPanel(
+        team_marker_y=184.5,
+        left_team_marker_x=190.5,
+        right_team_marker_x=345.6,
         rotation_y=208.0,
-        rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
+        left_rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
+        right_rotation_x=(286.4, 307.8, 326.9, 348.3, 372.2, 393.6),
         score_y=214.6,
-        own_score_x=255.4,
-        opp_score_x=411.4,
+        left_score_x=255.4,
+        right_score_x=411.4,
         serve_y=253.6,
-        serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7)
+        left_serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7),
+        right_serve_x=(278.4, 299.9, 321.3, 342.8, 364.2, 385.7)
     ),
     SetPanel(
+        team_marker_y=184.5,
+        left_team_marker_x=520.3,
+        right_team_marker_x=677.1,
         rotation_y=208.0,
-        rotation_x=(461.1, 480.1, 501.6, 525.4, 546.8, 568.3),
+        left_rotation_x=(461.1, 480.1, 501.6, 525.4, 546.8, 568.3),
+        right_rotation_x=(614.7, 636.1, 658.1, 681.4, 702.8, 724.3),
         score_y=214.6,
-        own_score_x=586.1,
-        opp_score_x=738.0,
+        left_score_x=586.1,
+        right_score_x=742.1,
         serve_y=253.6,
-        serve_x=(453.1, 474.6, 496.0, 517.5, 538.9, 560.3)
+        left_serve_x=(453.1, 474.6, 496.0, 517.5, 538.9, 560.3),
+        right_serve_x=(609.1, 630.6, 652.0, 673.5, 694.9, 716.3)
     )
 )
 
@@ -115,7 +159,8 @@ class PdfScoreSheetParser:
 
         if not words:
             raise ValueError(
-                "No embedded text found in the PDF; use the OCR extractor for scanned PDFs"
+                "No embedded text found in the PDF; this parser requires a formatted "
+                "score sheet with an embedded text layer"
             )
 
         return PdfPage(
@@ -152,26 +197,184 @@ class PdfScoreSheetParser:
     def parse_match(self, page: PdfPage) -> MatchJson:
         scale_x = page.width / 841.92
         scale_y = page.height / 595.92
+        team_names = self._read_team_names(page.words)
         sets = [
-            self._parse_set(page.words, panel, scale_x, scale_y, set_no)
+            self._parse_set(
+                page.words,
+                panel,
+                team_names,
+                scale_x,
+                scale_y,
+                set_no
+            )
             for set_no, panel in enumerate(SET_PANELS, start=1)
         ]
         return MatchJson(sets=sets)
+
+    def _read_team_names(
+        self,
+        words: list[PositionedWord]
+    ) -> dict[str, str]:
+        versus = next(
+            (word for word in words if word.text.lower() == "vs."),
+            None
+        )
+        if versus is None:
+            raise ValueError("Could not find the team names in the PDF header")
+
+        marker_a = self._nearest_word(
+            words,
+            x=(versus.x0 - 65),
+            y=versus.y0,
+            x_tolerance=100,
+            y_tolerance=4,
+            pattern=r"A"
+        )
+        marker_b = self._nearest_word(
+            words,
+            x=(versus.x1 + 65),
+            y=versus.y0,
+            x_tolerance=100,
+            y_tolerance=4,
+            pattern=r"B"
+        )
+        if marker_a is None or marker_b is None:
+            raise ValueError("Could not find the team identifiers in the PDF header")
+
+        header_words = [
+            word for word in words
+            if abs(word.y0 - versus.y0) <= 4
+        ]
+        team_a_words = [
+            word.text for word in sorted(header_words, key=lambda item: item.x0)
+            if word.x0 >= marker_a.x1 and word.x1 <= versus.x0
+        ]
+        team_b_words = [
+            word.text for word in sorted(header_words, key=lambda item: item.x0)
+            if word.x0 >= versus.x1 and word.x1 <= marker_b.x0
+        ]
+        if not team_a_words or not team_b_words:
+            raise ValueError("Could not read both team names in the PDF header")
+
+        return {
+            "A": " ".join(team_a_words),
+            "B": " ".join(team_b_words)
+        }
 
     def _parse_set(
         self,
         words: list[PositionedWord],
         panel: SetPanel,
+        team_names: dict[str, str],
         scale_x: float,
         scale_y: float,
         set_no: int
     ) -> SetJson:
+        left_team_code = self._read_team_code(
+            words, panel.left_team_marker_x * scale_x,
+            panel.team_marker_y * scale_y, scale_x, scale_y, set_no
+        )
+        right_team_code = self._read_team_code(
+            words, panel.right_team_marker_x * scale_x,
+            panel.team_marker_y * scale_y, scale_x, scale_y, set_no
+        )
+        if left_team_code == right_team_code:
+            raise ValueError(f"Both sides of set {set_no} have the same team marker")
+
+        left_team = team_names[left_team_code]
+        right_team = team_names[right_team_code]
+        left_rotation = self._read_rotation(
+            words, panel.left_rotation_x, panel.rotation_y,
+            scale_x, scale_y, set_no, left_team
+        )
+        right_rotation = self._read_rotation(
+            words, panel.right_rotation_x, panel.rotation_y,
+            scale_x, scale_y, set_no, right_team
+        )
+
+        left_points = self._read_score(
+            words, panel.left_score_x * scale_x, panel.score_y * scale_y,
+            scale_x, scale_y, set_no, left_team
+        )
+        right_points = self._read_score(
+            words, panel.right_score_x * scale_x, panel.score_y * scale_y,
+            scale_x, scale_y, set_no, right_team
+        )
+
+        left_serve_rounds = self._read_serve_rounds(
+            words, panel.serve_y, panel.left_serve_x,
+            left_rotation, scale_x, scale_y
+        )
+        right_serve_rounds = self._read_serve_rounds(
+            words, panel.serve_y, panel.right_serve_x,
+            right_rotation, scale_x, scale_y
+        )
+        left_substitutions = self._read_substitutions(
+            words, panel.left_rotation_x, panel.rotation_y,
+            left_rotation, team_names, scale_x, scale_y
+        )
+        right_substitutions = self._read_substitutions(
+            words, panel.right_rotation_x, panel.rotation_y,
+            right_rotation, team_names, scale_x, scale_y
+        )
+
+        return SetJson(
+            set_no=set_no,
+            start_rotation={
+                left_team: left_rotation,
+                right_team: right_rotation
+            },
+            serve_rounds={
+                left_team: left_serve_rounds,
+                right_team: right_serve_rounds
+            },
+            substitutions={
+                left_team: left_substitutions,
+                right_team: right_substitutions
+            },
+            points={
+                left_team: left_points,
+                right_team: right_points
+            }
+        )
+
+    def _read_team_code(
+        self,
+        words: list[PositionedWord],
+        x: float,
+        y: float,
+        scale_x: float,
+        scale_y: float,
+        set_no: int
+    ) -> str:
+        marker = self._nearest_word(
+            words,
+            x=x,
+            y=y,
+            x_tolerance=6 * scale_x,
+            y_tolerance=3 * scale_y,
+            pattern=r"[AB]"
+        )
+        if marker is None:
+            raise ValueError(f"Could not identify a team side for set {set_no}")
+        return marker.text
+
+    def _read_rotation(
+        self,
+        words: list[PositionedWord],
+        positions: tuple[float, ...],
+        y: float,
+        scale_x: float,
+        scale_y: float,
+        set_no: int,
+        team: str
+    ) -> list[int]:
         rotation = []
-        for target_x in panel.rotation_x:
+        for target_x in positions:
             word = self._nearest_word(
                 words,
                 x=target_x * scale_x,
-                y=panel.rotation_y * scale_y,
+                y=y * scale_y,
                 x_tolerance=8 * scale_x,
                 y_tolerance=3 * scale_y,
                 pattern=r"\d{1,2}"
@@ -179,34 +382,10 @@ class PdfScoreSheetParser:
             if word is None:
                 raise ValueError(
                     f"Could not read starting rotation position {len(rotation) + 1} "
-                    f"for set {set_no}"
+                    f"for {team} in set {set_no}"
                 )
             rotation.append(int(word.text))
-
-        own_points = self._read_score(
-            words, panel.own_score_x * scale_x, panel.score_y * scale_y,
-            scale_x, scale_y, set_no, "own"
-        )
-        opp_points = self._read_score(
-            words, panel.opp_score_x * scale_x, panel.score_y * scale_y,
-            scale_x, scale_y, set_no, "opponent"
-        )
-
-        serve_rounds = self._read_serve_rounds(
-            words, panel, rotation, scale_x, scale_y
-        )
-        substitutions = self._read_substitutions(
-            words, panel, rotation, scale_x, scale_y
-        )
-
-        return SetJson(
-            set_no=set_no,
-            start_rotation=rotation,
-            serve_rounds=serve_rounds,
-            substitutions=substitutions,
-            own_points=own_points,
-            opp_points=opp_points
-        )
+        return rotation
 
     def _read_score(
         self,
@@ -216,7 +395,7 @@ class PdfScoreSheetParser:
         scale_x: float,
         scale_y: float,
         set_no: int,
-        side: str
+        team: str
     ) -> int:
         word = self._nearest_word(
             words,
@@ -227,25 +406,26 @@ class PdfScoreSheetParser:
             pattern=r"\d{1,2}"
         )
         if word is None:
-            raise ValueError(f"Could not read {side} score for set {set_no}")
+            raise ValueError(f"Could not read {team} score for set {set_no}")
         return int(word.text)
 
     def _read_serve_rounds(
         self,
         words: list[PositionedWord],
-        panel: SetPanel,
+        serve_y: float,
+        serve_x: tuple[float, ...],
         rotation: list[int],
         scale_x: float,
         scale_y: float
     ) -> dict[int, list[int]]:
         rounds = {player: [] for player in rotation}
 
-        for player, target_x in zip(rotation, panel.serve_x):
+        for player, target_x in zip(rotation, serve_x):
             column_words = [
                 word for word in words
                 if abs(word.x0 - target_x * scale_x) <= 8 * scale_x
-                and panel.serve_y * scale_y <= word.y0
-                <= (panel.serve_y + 34) * scale_y
+                and serve_y * scale_y <= word.y0
+                <= (serve_y + 34) * scale_y
             ]
             scores = []
             for word in sorted(column_words, key=lambda item: item.y0):
@@ -287,18 +467,20 @@ class PdfScoreSheetParser:
     def _read_substitutions(
         self,
         words: list[PositionedWord],
-        panel: SetPanel,
+        rotation_x: tuple[float, ...],
+        rotation_y: float,
         rotation: list[int],
+        team_names: dict[str, str],
         scale_x: float,
         scale_y: float
     ) -> list[Substitution]:
         events = []
 
-        for slot, player_x in enumerate(panel.rotation_x):
+        for slot, player_x in enumerate(rotation_x):
             player = self._nearest_word(
                 words,
                 x=player_x * scale_x,
-                y=(panel.rotation_y + 11) * scale_y,
+                y=(rotation_y + 11) * scale_y,
                 x_tolerance=8 * scale_x,
                 y_tolerance=5 * scale_y,
                 pattern=r"\d{1,2}"
@@ -309,15 +491,25 @@ class PdfScoreSheetParser:
             score_words = [
                 word for word in words
                 if abs(word.x0 - player_x * scale_x) <= 10 * scale_x
-                and (panel.rotation_y + 19) * scale_y <= word.y0
-                <= (panel.rotation_y + 42) * scale_y
+                and (rotation_y + 19) * scale_y <= word.y0
+                <= (rotation_y + 42) * scale_y
                 and re.fullmatch(r"\d{1,2}:\d{1,2}", word.text)
             ]
 
             for score in sorted(score_words, key=lambda item: item.y0):
-                own, opponent = map(int, score.text.split(":"))
+                team_a_score, team_b_score = map(
+                    int,
+                    score.text.split(":")
+                )
                 events.append(
-                    (score.y0, score.x0, slot, int(player.text), own, opponent)
+                    (
+                        score.y0,
+                        score.x0,
+                        slot,
+                        int(player.text),
+                        team_a_score,
+                        team_b_score
+                    )
                 )
 
         substitutions = []
@@ -326,15 +518,17 @@ class PdfScoreSheetParser:
             slot: player_in
             for _, _, slot, player_in, _, _ in events
         }
-        for _, _, slot, _, own, opponent in sorted(events):
+        for _, _, slot, _, team_a_score, team_b_score in sorted(events):
             player_out = players_on_court[slot]
             player_in = replacements[slot]
             substitutions.append(
                 Substitution(
                     player_in=player_in,
                     player_out=player_out,
-                    own_score=own,
-                    opp_score=opponent
+                    score={
+                        team_names["A"]: team_a_score,
+                        team_names["B"]: team_b_score
+                    }
                 )
             )
             players_on_court[slot] = player_in

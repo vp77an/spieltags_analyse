@@ -28,3 +28,8 @@ python main.py --load-cache
 ```
 
 Choose another cache path with `--cache-file`.
+
+## TODO:
+
+- Handling of 5th set
+- Handling of U14 (4 players)
