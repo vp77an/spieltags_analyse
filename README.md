@@ -2,6 +2,8 @@
 
 Parses match and set information from formatted SAMS volleyball score-sheet PDFs.
 The parser reads the PDF's embedded text and its positions; it does not use OCR.
+For five-set matches, it identifies all three fifth-set panels from their headers
+and merges the two side-switch panels for the same team.
 
 ## Requirements
 
@@ -57,5 +59,4 @@ setter is on court are included under `Unknown`.
 
 ## TODO:
 
-- Handling of 5th set
 - Handling of U14 (4 players)

@@ -38,11 +38,28 @@ class SetPanel:
     right_serve_x: tuple[float, ...]
 
 
+@dataclass(frozen=True)
+class SetPanelRegion:
+    team_marker_x: float
+    rotation_x: tuple[float, ...]
+    score_x: float
+    serve_x: tuple[float, ...]
+
+
 @dataclass
 class Substitution:
     player_in: int
     player_out: int
     score: dict[str, int]
+
+
+@dataclass(frozen=True)
+class ParsedPanelRegion:
+    team: str
+    rotation: list[int]
+    points: int
+    serve_rounds: dict[int, list[int]]
+    substitutions: list[Substitution]
 
 
 @dataclass
@@ -128,9 +145,30 @@ SET_PANELS = (
     )
 )
 
+FIFTH_SET_REGIONS = (
+    SetPanelRegion(
+        team_marker_x=190.5,
+        rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
+        score_x=255.4,
+        serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7)
+    ),
+    SetPanelRegion(
+        team_marker_x=345.6,
+        rotation_x=(286.4, 307.8, 326.9, 348.3, 372.2, 393.6),
+        score_x=411.4,
+        serve_x=(278.4, 299.9, 321.3, 342.8, 364.2, 385.7)
+    ),
+    SetPanelRegion(
+        team_marker_x=505.3,
+        rotation_x=(442.4, 463.8, 482.9, 504.3, 525.8, 549.6),
+        score_x=563.1,
+        serve_x=(434.4, 455.9, 477.3, 498.8, 520.2, 541.7)
+    )
+)
+
 
 class PdfScoreSheetParser:
-    """Extract the four score panels from a SAMS PDF's embedded text layer."""
+    """Extract set score panels from a SAMS PDF's embedded text layer."""
 
     def extract_page(self, pdf_file: str | Path) -> PdfPage:
         result = subprocess.run(
@@ -194,7 +232,134 @@ class PdfScoreSheetParser:
             )
             for set_no, panel in enumerate(SET_PANELS, start=1)
         ]
+        fifth_set = self._parse_fifth_set(
+            page.words,
+            team_names,
+            scale_x,
+            scale_y
+        )
+        if fifth_set is not None:
+            sets.append(fifth_set)
         return MatchJson(sets=sets)
+
+    def _parse_fifth_set(
+        self,
+        words: list[PositionedWord],
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float
+    ) -> SetJson | None:
+        team_codes = [
+            self._nearest_word(
+                words,
+                x=region.team_marker_x * scale_x,
+                y=299.3 * scale_y,
+                x_tolerance=6 * scale_x,
+                y_tolerance=3 * scale_y,
+                pattern=r"[AB]"
+            )
+            for region in FIFTH_SET_REGIONS
+        ]
+        if all(code is None for code in team_codes):
+            return None
+        if any(code is None for code in team_codes):
+            raise ValueError("Could not identify all three team headers in set 5")
+
+        left_code, middle_code, right_code = [
+            code.text for code in team_codes if code is not None
+        ]
+        if left_code != right_code or left_code == middle_code:
+            raise ValueError(
+                "Set 5 must show the same team in the left and right panels "
+                "and the other team in the middle panel"
+            )
+
+        panel_data = [
+            self._parse_panel_region(
+                words,
+                region,
+                team_names[team_code],
+                team_names["B" if team_code == "A" else "A"],
+                scale_x,
+                scale_y,
+                5
+            )
+            for region, team_code in zip(
+                FIFTH_SET_REGIONS,
+                (left_code, middle_code, right_code)
+            )
+        ]
+        left, middle, right = panel_data
+        split_team = left.team
+        if left.rotation != right.rotation:
+            raise ValueError(
+                f"Set 5: {split_team} has inconsistent rotations across "
+                "the side-switch panels"
+            )
+
+        serve_rounds = {
+            player: [
+                *left.serve_rounds[player],
+                *right.serve_rounds[player]
+            ]
+            for player in left.rotation
+        }
+        substitutions = {
+            split_team: [
+                *left.substitutions,
+                *right.substitutions
+            ],
+            middle.team: middle.substitutions
+        }
+        return SetJson(
+            set_no=5,
+            start_rotation={
+                split_team: left.rotation,
+                middle.team: middle.rotation
+            },
+            serve_rounds={
+                split_team: serve_rounds,
+                middle.team: middle.serve_rounds
+            },
+            substitutions=substitutions,
+            points={
+                split_team: right.points,
+                middle.team: middle.points
+            }
+        )
+
+    def _parse_panel_region(
+        self,
+        words: list[PositionedWord],
+        region: SetPanelRegion,
+        team: str,
+        opponent: str,
+        scale_x: float,
+        scale_y: float,
+        set_no: int
+    ) -> ParsedPanelRegion:
+        rotation = self._read_rotation(
+            words, region.rotation_x, 323.4,
+            scale_x, scale_y, set_no, team
+        )
+        points = self._read_score(
+            words, region.score_x * scale_x, 328.6 * scale_y,
+            scale_x, scale_y, set_no, team
+        )
+        serve_rounds = self._read_serve_rounds(
+            words, 367.6, region.serve_x, rotation, scale_x, scale_y
+        )
+        substitutions = self._read_substitutions(
+            words, region.rotation_x, 323.4,
+            rotation, team, opponent, scale_x, scale_y
+        )
+        return ParsedPanelRegion(
+            team=team,
+            rotation=rotation,
+            points=points,
+            serve_rounds=serve_rounds,
+            substitutions=substitutions
+        )
 
     def _read_team_names(
         self,
