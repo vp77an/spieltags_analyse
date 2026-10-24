@@ -399,51 +399,41 @@ def _plot_team_distribution(
     rotations: list[dict[str, Any]],
     output_file: Path
 ) -> None:
-    lengths = sorted(
-        {
-            int(length)
-            for rotation in rotations
-            for length in rotation["run_length_distribution"]
-        }
+    _plot_run_distribution_bars(
+        team_name,
+        rotations,
+        output_file,
+        title=f"Opponent scoring runs while {team_name} held rotation",
+        x_label="Consecutive points scored by opponent",
+        legend_title="Rotation",
+        empty_length=1
     )
-    if not lengths:
-        lengths = [1]
-
-    figure, axis = plt.subplots(figsize=(10, 6))
-    for index, rotation in enumerate(rotations):
-        distribution = rotation["run_length_distribution"]
-        frequencies = [distribution.get(str(length), 0) for length in lengths]
-        color = colorsys.hsv_to_rgb(
-            index / max(len(rotations), 1),
-            0.7,
-            0.8
-        )
-        axis.plot(
-            lengths,
-            frequencies,
-            marker="o",
-            color=color,
-            label=rotation["label"]
-        )
-
-    axis.set_title(
-        f"Opponent scoring runs while {team_name} held rotation"
-    )
-    axis.set_xlabel("Consecutive points scored by opponent")
-    axis.set_ylabel("Number of runs")
-    axis.set_xticks(lengths)
-    axis.grid(True, alpha=0.3)
-    if rotations:
-        axis.legend(title="Rotation", bbox_to_anchor=(1.02, 1), loc="upper left")
-    figure.tight_layout()
-    figure.savefig(str(output_file), dpi=160, bbox_inches="tight")
-    plt.close(figure)
 
 
 def _plot_service_run_distribution(
     team_name: str,
     rotations: list[dict[str, Any]],
     output_file: Path
+) -> None:
+    _plot_run_distribution_bars(
+        team_name,
+        rotations,
+        output_file,
+        title=f"{team_name} points scored during own service runs",
+        x_label="Points won before losing serve",
+        legend_title="Setter position",
+        empty_length=0
+    )
+
+
+def _plot_run_distribution_bars(
+    team_name: str,
+    rotations: list[dict[str, Any]],
+    output_file: Path,
+    title: str,
+    x_label: str,
+    legend_title: str,
+    empty_length: int
 ) -> None:
     observed_lengths = [
         int(length)
@@ -453,10 +443,11 @@ def _plot_service_run_distribution(
     lengths = (
         list(range(min(observed_lengths), max(observed_lengths) + 1))
         if observed_lengths
-        else [0]
+        else [empty_length]
     )
 
     figure, axis = plt.subplots(figsize=(10, 6))
+    bar_width = 0.8 / max(len(rotations), 1)
     for index, rotation in enumerate(rotations):
         distribution = rotation["run_length_distribution"]
         frequencies = [distribution.get(str(length), 0) for length in lengths]
@@ -465,22 +456,34 @@ def _plot_service_run_distribution(
             0.7,
             0.8
         )
-        axis.plot(
-            lengths,
+        offset = (index - (len(rotations) - 1) / 2) * bar_width
+        axis.bar(
+            [length + offset for length in lengths],
             frequencies,
-            marker="o",
+            width=bar_width,
             color=color,
+            edgecolor="white",
+            linewidth=0.6,
             label=rotation["label"]
         )
 
-    axis.set_title(f"{team_name} points scored during own service runs")
-    axis.set_xlabel("Points won before losing serve")
-    axis.set_ylabel("Number of service runs")
+    for left_length, right_length in zip(lengths, lengths[1:]):
+        axis.axvline(
+            (left_length + right_length) / 2,
+            color="0.55",
+            linestyle="--",
+            linewidth=0.8,
+            alpha=0.7
+        )
+
+    axis.set_title(title)
+    axis.set_xlabel(x_label)
+    axis.set_ylabel("Number of runs")
     axis.set_xticks(lengths)
-    axis.grid(True, alpha=0.3)
+    axis.grid(axis="y", alpha=0.3)
     if rotations:
         axis.legend(
-            title="Setter position",
+            title=legend_title,
             bbox_to_anchor=(1.02, 1),
             loc="upper left"
         )
