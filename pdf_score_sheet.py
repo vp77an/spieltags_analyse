@@ -445,7 +445,7 @@ class PdfScoreSheetParser:
             return None
 
         sequence = find_sequence(0, -1)
-        if sequence is None or len(sequence) < 3:
+        if sequence is None or len(sequence) < 2:
             return []
         return sequence
 

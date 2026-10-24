@@ -25,7 +25,8 @@ JSON, analysis output directory, team names, and setters. Use `--config` to load
 another YAML config. Each team's `setters` is an ordered list of jersey numbers;
 the first listed player is the primary setter, and an empty list means the setter
 is unknown. If multiple listed setters are on court at once, the first listed is
-treated as the setter.
+treated as the setter. When a team's setter list is empty, the analysis assumes
+the setter is at position I and follows that position through the rotations.
 
 Point-by-point reconstruction is also saved as `point_by_point.json` by
 default. It is generated from the saved `match.json` data. To rerun only the

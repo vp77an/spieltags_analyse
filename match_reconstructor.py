@@ -262,13 +262,7 @@ def _integer(value: Any, description: str) -> int:
 
 
 def _set_is_complete(scores: dict[str, int], final_score: dict[str, int]) -> bool:
-    return any(
-        scores[team] == final_score[team]
-        and scores[team] - scores[other] >= 2
-        for team in scores
-        for other in scores
-        if team != other
-    )
+    return scores == final_score
 
 
 def write_reconstruction(

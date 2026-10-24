@@ -53,11 +53,18 @@ def analyze_rotation_runs(
         if not points:
             continue
 
+        setters_by_team = {}
         for team_name in team_names:
             if team_name not in points[0].get("rotations", {}):
                 raise ValueError(
                     f"Set {set_no}: team {team_name!r} is missing from point data"
                 )
+            initial_rotation = _rotation_for(points[0], team_name, set_no)
+            setters_by_team[team_name] = (
+                team_names[team_name]
+                if team_names[team_name]
+                else [initial_rotation[0]]
+            )
             for point in points:
                 if point.get("scoring_team") not in team_names:
                     raise ValueError(
@@ -65,7 +72,9 @@ def analyze_rotation_runs(
                         f"{point.get('scoring_team')!r}"
                     )
                 rotation = _rotation_for(point, team_name, set_no)
-                rotation_key = _rotation_key(rotation, team_names[team_name])
+                rotation_key = _rotation_key(
+                    rotation, setters_by_team[team_name]
+                )
                 rotation_data[team_name].setdefault(
                     rotation_key,
                     {"runs": [], "counts": Counter(), "lineups": set()}
@@ -73,7 +82,7 @@ def analyze_rotation_runs(
                 rotation_data[team_name][rotation_key]["lineups"].add(rotation)
 
                 setter_position = _setter_position(
-                    rotation, team_names[team_name]
+                    rotation, setters_by_team[team_name]
                 )
                 point_result = (
                     ":own"
@@ -92,7 +101,9 @@ def analyze_rotation_runs(
                     continue
 
                 rotation = _rotation_for(points[index], team_name, set_no)
-                rotation_key = _rotation_key(rotation, team_names[team_name])
+                rotation_key = _rotation_key(
+                    rotation, setters_by_team[team_name]
+                )
                 end_index = index + 1
                 while end_index < len(points):
                     next_rotation = _rotation_for(
@@ -101,7 +112,7 @@ def analyze_rotation_runs(
                     if (
                         points[end_index].get("scoring_team") == team_name
                         or _rotation_key(
-                            next_rotation, team_names[team_name]
+                            next_rotation, setters_by_team[team_name]
                         ) != rotation_key
                     ):
                         break
@@ -137,7 +148,9 @@ def analyze_rotation_runs(
                 end_index += 1
 
             rotation = _rotation_for(points[index], serving_team, set_no)
-            rotation_key = _rotation_key(rotation, team_names[serving_team])
+            rotation_key = _rotation_key(
+                rotation, setters_by_team[serving_team]
+            )
             stats = service_run_data[serving_team].setdefault(
                 rotation_key,
                 {"runs": [], "counts": Counter(), "lineups": set()}
@@ -284,6 +297,8 @@ def _rotation_key(
     rotation: tuple[int, ...],
     setters: list[int]
 ) -> tuple[Any, ...]:
+    if not setters:
+        return ("setter", 0)
     active_setter = next(
         (setter for setter in setters if setter in rotation),
         None
@@ -296,18 +311,22 @@ def _rotation_key(
 def _setter_position(
     rotation: tuple[int, ...],
     setters: list[int]
-) -> int | None:
+) -> int:
+    if not setters:
+        return 0
     active_setter = next(
         (setter for setter in setters if setter in rotation),
         None
     )
-    return rotation.index(active_setter) if active_setter is not None else None
+    if active_setter is None:
+        return -1
+    return rotation.index(active_setter)
 
 
 def _setter_position_label(position: int | None) -> str:
     return (
         f"Laeufer {ROMAN_NUMERALS[position]}"
-        if position is not None
+        if position is not None and position >= 0
         else "Unknown"
     )
 
