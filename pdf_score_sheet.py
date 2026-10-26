@@ -225,8 +225,27 @@ class PdfScoreSheetParser:
         team_names = self._read_team_names(page.words)
         player_names = self._read_player_names(page.words, team_names)
         match_date = self._read_match_date(page.words)
-        sets = [
-            self._parse_set(
+        sets = []
+        sets_won = {team: 0 for team in team_names.values()}
+        for set_no, panel in enumerate(SET_PANELS, start=1):
+            team_codes = self._panel_team_codes(
+                page.words,
+                panel,
+                scale_x,
+                scale_y
+            )
+            if team_codes == (None, None):
+                if max(sets_won.values(), default=0) == 3:
+                    break
+                raise ValueError(
+                    f"Set {set_no} is missing from the PDF before either "
+                    "team reached three set wins"
+                )
+            if None in team_codes:
+                raise ValueError(
+                    f"Could not identify both team sides for set {set_no}"
+                )
+            set_data = self._parse_set(
                 page.words,
                 panel,
                 team_names,
@@ -234,21 +253,52 @@ class PdfScoreSheetParser:
                 scale_y,
                 set_no
             )
-            for set_no, panel in enumerate(SET_PANELS, start=1)
-        ]
-        fifth_set = self._parse_fifth_set(
-            page.words,
-            team_names,
-            scale_x,
-            scale_y
-        )
-        if fifth_set is not None:
+            sets.append(set_data)
+            self._record_set_win(sets_won, set_data)
+            if max(sets_won.values()) == 3:
+                break
+
+        if max(sets_won.values(), default=0) < 3:
+            fifth_set = self._parse_fifth_set(
+                page.words,
+                team_names,
+                scale_x,
+                scale_y
+            )
+            if fifth_set is None:
+                raise ValueError(
+                    "The first four sets did not produce a winner and no "
+                    "fifth set was found in the PDF"
+                )
             sets.append(fifth_set)
+            self._record_set_win(sets_won, fifth_set)
+            if max(sets_won.values()) != 3:
+                raise ValueError(
+                    "The parsed fifth set did not produce a team with three "
+                    "set wins"
+                )
         return MatchJson(
             sets=sets,
             player_names=player_names,
             match_date=match_date
         )
+
+    @staticmethod
+    def _record_set_win(
+        sets_won: dict[str, int],
+        set_data: SetJson
+    ) -> None:
+        highest_score = max(set_data.points.values())
+        winners = [
+            team
+            for team, score in set_data.points.items()
+            if score == highest_score
+        ]
+        if len(winners) != 1:
+            raise ValueError(
+                f"Set {set_data.set_no} does not have a unique winning team"
+            )
+        sets_won[winners[0]] += 1
 
     def extract_player_names(
         self,
@@ -624,6 +674,29 @@ class PdfScoreSheetParser:
             raise ValueError(f"Could not identify a team side for set {set_no}")
         return marker.text
 
+    def _panel_team_codes(
+        self,
+        words: list[PositionedWord],
+        panel: SetPanel,
+        scale_x: float,
+        scale_y: float
+    ) -> tuple[str | None, str | None]:
+        codes = []
+        for x in (
+            panel.left_team_marker_x,
+            panel.right_team_marker_x
+        ):
+            marker = self._nearest_word(
+                words,
+                x=x * scale_x,
+                y=panel.team_marker_y * scale_y,
+                x_tolerance=6 * scale_x,
+                y_tolerance=3 * scale_y,
+                pattern=r"[AB]"
+            )
+            codes.append(marker.text if marker is not None else None)
+        return codes[0], codes[1]
+
     def _read_rotation(
         self,
         words: list[PositionedWord],
@@ -698,7 +771,7 @@ class PdfScoreSheetParser:
                     scores.append(int(word.text))
                 elif (
                     re.fullmatch(r"\d{3,}", word.text)
-                    and word.y1 - word.y0 >= 20 * scale_y
+                    and word.y1 - word.y0 >= 18 * scale_y
                 ):
                     scores.extend(
                         self._split_stacked_scores(word.text)
@@ -740,8 +813,7 @@ class PdfScoreSheetParser:
         scale_x: float,
         scale_y: float
     ) -> list[Substitution]:
-        events = []
-
+        replacement_players = {}
         for slot, player_x in enumerate(rotation_x):
             player = self._nearest_word(
                 words,
@@ -751,28 +823,54 @@ class PdfScoreSheetParser:
                 y_tolerance=5 * scale_y,
                 pattern=r"\d{1,2}"
             )
-            if player is None:
-                continue
+            if player is not None:
+                replacement_players[slot] = int(player.text)
 
-            score_words = [
-                word for word in words
-                if abs(word.x0 - player_x * scale_x) <= 10 * scale_x
-                and (rotation_y + 19) * scale_y <= word.y0
-                <= (rotation_y + 42) * scale_y
-                and re.fullmatch(r"\d{1,2}:\d{1,2}", word.text)
-            ]
+        if not replacement_players:
+            return []
 
-            for score in sorted(score_words, key=lambda item: item.y0):
+        score_words = [
+            word
+            for word in words
+            if min(rotation_x) * scale_x - 12 * scale_x
+            <= word.x0
+            <= max(rotation_x) * scale_x + 12 * scale_x
+            and (rotation_y + 19) * scale_y <= word.y0
+            <= (rotation_y + 42) * scale_y
+            and re.search(r"\d{1,2}:\d{1,2}", word.text)
+        ]
+        events = []
+        for score_word in score_words:
+            score_matches = list(
+                re.finditer(r"\d{1,2}:\d{1,2}", score_word.text)
+            )
+            for score_match in score_matches:
+                token_x = score_word.x0 + (
+                    (
+                        score_match.start() + score_match.end()
+                    ) / (2 * len(score_word.text))
+                ) * (score_word.x1 - score_word.x0)
+                slot = min(
+                    replacement_players,
+                    key=lambda candidate: abs(
+                        token_x - rotation_x[candidate] * scale_x
+                    )
+                )
+                if (
+                    abs(token_x - rotation_x[slot] * scale_x)
+                    > 12 * scale_x
+                ):
+                    continue
                 team_score, opponent_score = map(
                     int,
-                    score.text.split(":")
+                    score_match.group().split(":")
                 )
                 events.append(
                     (
-                        score.y0,
-                        score.x0,
+                        score_word.y0,
+                        token_x,
                         slot,
-                        int(player.text),
+                        replacement_players[slot],
                         team_score,
                         opponent_score
                     )

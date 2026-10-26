@@ -79,12 +79,7 @@ def analyze_rotation_runs(
                 raise ValueError(
                     f"Set {set_no}: team {team_name!r} is missing from point data"
                 )
-            initial_rotation = _rotation_for(points[0], team_name, set_no)
-            setters_by_team[team_name] = (
-                team_names[team_name]
-                if team_names[team_name]
-                else [initial_rotation[0]]
-            )
+            setters_by_team[team_name] = team_names[team_name]
             for point in points:
                 if point.get("scoring_team") not in team_names:
                     raise ValueError(
@@ -348,7 +343,7 @@ def _rotation_key(
     setters: list[int]
 ) -> tuple[Any, ...]:
     if not setters:
-        return ("setter", 0)
+        return ("lineup", rotation)
     active_setter = next(
         (setter for setter in setters if setter in rotation),
         None
@@ -361,9 +356,9 @@ def _rotation_key(
 def _setter_position(
     rotation: tuple[int, ...],
     setters: list[int]
-) -> int:
+) -> int | None:
     if not setters:
-        return 0
+        return None
     active_setter = next(
         (setter for setter in setters if setter in rotation),
         None
@@ -836,7 +831,7 @@ def _extreme_summary(
         )
 
     return (
-        f"For {category}, the best Laeufer rotation(s) were "
+        f"For {category}, the best rotation(s) were "
         f"{describe(best)} and the worst were {describe(worst)} "
         f"({interpretation})."
     )
