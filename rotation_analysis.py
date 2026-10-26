@@ -212,6 +212,7 @@ def analyze_rotation_runs(
                         rotation_key, stats["lineups"], setters
                     ),
                     "run_length_distribution": distribution,
+                    "mean_run_length": _mean_run_length(stats["runs"]),
                     "runs": stats["runs"]
                 }
             )
@@ -345,6 +346,12 @@ def _rotation_label(
     return f"Rotation {numbers}"
 
 
+def _mean_run_length(runs: list[dict[str, Any]]) -> float | None:
+    if not runs:
+        return None
+    return sum(run["length"] for run in runs) / len(runs)
+
+
 def _distribution_results(
     data: dict[tuple[Any, ...], dict[str, Any]],
     setters: list[int]
@@ -369,6 +376,7 @@ def _distribution_results(
                     str(length): stats["counts"][length]
                     for length in sorted(stats["counts"])
                 },
+                "mean_run_length": _mean_run_length(stats["runs"]),
                 "runs": stats["runs"]
             }
         )
@@ -464,7 +472,12 @@ def _plot_run_distribution_bars(
             color=color,
             edgecolor="white",
             linewidth=0.6,
-            label=rotation["label"]
+            label=(
+                f"{rotation['label']} "
+                f"(mean: {rotation['mean_run_length']:.2f})"
+                if rotation["mean_run_length"] is not None
+                else f"{rotation['label']} (mean: n/a)"
+            )
         )
 
     for left_length, right_length in zip(lengths, lengths[1:]):
