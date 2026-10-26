@@ -25,10 +25,14 @@ python main.py
 The default [config.yaml](./config.yaml) names the PDF, match JSON, point-by-point
 JSON, analysis output directory, team names, and setters. Use `--config` to load
 another YAML config. Each team's `setters` is an ordered list of jersey numbers;
-the first listed player is the primary setter, and an empty list means the setter
-is unknown. If multiple listed setters are on court at once, the first listed is
-treated as the setter. When a team's setter list is empty, the analysis assumes
-the setter is at position I and follows that position through the rotations.
+`header_order` must list both team names from left to right as they appear in
+the PDF match header. The program checks this order before parsing and reports
+the configured and detected orders if they differ.
+The first listed setter is the primary setter, and an empty list means the
+setter is unknown. If multiple listed setters are on court at once, the first
+listed is treated as the setter. When a team's setter list is empty, the
+analysis assumes the setter is at position I and follows that position through
+the rotations.
 
 Point-by-point reconstruction is also saved as `point_by_point.json` by
 default. It is generated from the saved `match.json` data. To rerun only the
@@ -56,6 +60,19 @@ Finally, each team gets a grouped bar plot comparing its own points and the
 opponent's points by the team's setter position. The underlying totals are
 saved in `points_by_setter_position.json`. Points for which no configured
 setter is on court are included under `Unknown`.
+
+Each analysis run also creates Markdown and PDF reports in the analysis output
+directory. Both filenames include the two team names and match date, for
+example `report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.md` and the matching
+`.pdf`.
+Its **Performance per Set of Players** section groups both teams' points by
+the exact six-player lineup on court and sorts lineups by team-points-to-
+opponent-points ratio. Player first names and last-name initials are read from
+the score-sheet roster when available; otherwise the report shows jersey
+numbers alone. A zero opponent-point count is shown as an infinite ratio.
+The **Length of Service Runs** section embeds the generated run and setter-
+position plots and summarizes, for each team, the best and worst Laeufer
+rotations for own service runs and opponent scoring runs.
 
 ## TODO:
 

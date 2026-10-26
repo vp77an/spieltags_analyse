@@ -2,7 +2,7 @@ import json
 import re
 import subprocess
 import xml.etree.ElementTree as ET
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 
@@ -74,6 +74,8 @@ class SetJson:
 @dataclass
 class MatchJson:
     sets: list[SetJson]
+    player_names: dict[str, dict[str, str]] = field(default_factory=dict)
+    match_date: str | None = None
 
     def to_dict(self) -> dict:
         return asdict(self)
@@ -221,6 +223,8 @@ class PdfScoreSheetParser:
         scale_x = page.width / 841.92
         scale_y = page.height / 595.92
         team_names = self._read_team_names(page.words)
+        player_names = self._read_player_names(page.words, team_names)
+        match_date = self._read_match_date(page.words)
         sets = [
             self._parse_set(
                 page.words,
@@ -240,7 +244,31 @@ class PdfScoreSheetParser:
         )
         if fifth_set is not None:
             sets.append(fifth_set)
-        return MatchJson(sets=sets)
+        return MatchJson(
+            sets=sets,
+            player_names=player_names,
+            match_date=match_date
+        )
+
+    def extract_player_names(
+        self,
+        pdf_file: str | Path
+    ) -> dict[str, dict[str, str]]:
+        page = self.extract_page(pdf_file)
+        return self._read_player_names(
+            page.words,
+            self._read_team_names(page.words)
+        )
+
+    def extract_match_date(self, pdf_file: str | Path) -> str:
+        return self._read_match_date(self.extract_page(pdf_file).words)
+
+    def _read_match_date(self, words: list[PositionedWord]) -> str:
+        header = " ".join(word.text for word in words if word.y0 < 110)
+        match_date = re.search(r"\b\d{1,2}\.\d{1,2}\.\d{4}\b", header)
+        if match_date is None:
+            raise ValueError("Could not find the match date in the PDF header")
+        return match_date.group(0)
 
     def _parse_fifth_set(
         self,
@@ -361,10 +389,76 @@ class PdfScoreSheetParser:
             substitutions=substitutions
         )
 
+    def _read_player_names(
+        self,
+        words: list[PositionedWord],
+        team_names: dict[str, str]
+    ) -> dict[str, dict[str, str]]:
+        player_names = {team: {} for team in team_names.values()}
+        columns = (
+            (585, 700, 693),
+            (700, 820, 808)
+        )
+        for number_min, number_max, name_max in columns:
+            team_markers = [
+                word
+                for word in words
+                if word.text in {"A", "B"}
+                and number_min <= word.x0 < number_max
+                and 290 <= word.y0 <= 310
+            ]
+            if len(team_markers) != 1:
+                raise ValueError(
+                    "Could not determine the team for a player-roster column"
+                )
+            team_code = team_markers[0].text
+            team_name = team_names[team_code]
+            numbers = [
+                word
+                for word in words
+                if number_min <= word.x0 < number_max
+                and 300 <= word.y0 <= 445
+                and re.fullmatch(r"\d{1,2}", word.text)
+            ]
+            for number in numbers:
+                name_words = sorted(
+                    (
+                        word
+                        for word in words
+                        if number.x1 < word.x0 < name_max
+                        and abs(word.y0 - number.y0) <= 4
+                        and word.text != "C"
+                    ),
+                    key=lambda word: word.x0
+                )
+                if not name_words:
+                    continue
+                name = " ".join(word.text for word in name_words)
+                last_name, separator, first_names = name.partition(",")
+                first_name = first_names.strip().split()
+                if not separator or not last_name.strip() or not first_name:
+                    continue
+                player_names[team_name][number.text] = (
+                    f"{first_name[0]}, {last_name.strip()[0].upper()}."
+                )
+        return player_names
+
     def _read_team_names(
         self,
         words: list[PositionedWord]
     ) -> dict[str, str]:
+        team_names, _ = self._read_team_header(words)
+        return team_names
+
+    def extract_team_header_order(self, pdf_file: str | Path) -> list[str]:
+        page = self.extract_page(pdf_file)
+        _, team_order = self._read_team_header(page.words)
+        return team_order
+
+    def _read_team_header(
+        self,
+        words: list[PositionedWord]
+    ) -> tuple[dict[str, str], list[str]]:
         versus = next(
             (word for word in words if word.text.lower() == "vs."),
             None
@@ -372,44 +466,65 @@ class PdfScoreSheetParser:
         if versus is None:
             raise ValueError("Could not find the team names in the PDF header")
 
-        marker_a = self._nearest_word(
-            words,
-            x=(versus.x0 - 65),
-            y=versus.y0,
-            x_tolerance=100,
-            y_tolerance=4,
-            pattern=r"A"
+        header_markers = [
+            word
+            for word in words
+            if word.text in {"A", "B"}
+            and abs(word.y0 - versus.y0) <= 4
+        ]
+        marker_a = min(
+            (word for word in header_markers if word.text == "A"),
+            key=lambda word: abs(word.x0 - versus.x0),
+            default=None
         )
-        marker_b = self._nearest_word(
-            words,
-            x=(versus.x1 + 65),
-            y=versus.y0,
-            x_tolerance=100,
-            y_tolerance=4,
-            pattern=r"B"
+        marker_b = min(
+            (word for word in header_markers if word.text == "B"),
+            key=lambda word: abs(word.x0 - versus.x0),
+            default=None
         )
         if marker_a is None or marker_b is None:
             raise ValueError("Could not find the team identifiers in the PDF header")
 
-        header_words = [
-            word for word in words
-            if abs(word.y0 - versus.y0) <= 4
-        ]
+        if marker_a.x1 < versus.x0 and versus.x1 < marker_b.x0:
+            team_a_bounds = (marker_a.x1, versus.x0)
+            team_b_bounds = (versus.x1, marker_b.x0)
+        elif marker_b.x1 < versus.x0 and versus.x1 < marker_a.x0:
+            team_b_bounds = (marker_b.x1, versus.x0)
+            team_a_bounds = (versus.x1, marker_a.x0)
+        else:
+            raise ValueError(
+                "Could not determine team order from the PDF header identifiers"
+            )
+
+        header_words = sorted(
+            (
+                word for word in words
+                if abs(word.y0 - versus.y0) <= 4
+            ),
+            key=lambda item: item.x0
+        )
         team_a_words = [
-            word.text for word in sorted(header_words, key=lambda item: item.x0)
-            if word.x0 >= marker_a.x1 and word.x1 <= versus.x0
+            word.text
+            for word in header_words
+            if team_a_bounds[0] <= word.x0 and word.x1 <= team_a_bounds[1]
         ]
         team_b_words = [
-            word.text for word in sorted(header_words, key=lambda item: item.x0)
-            if word.x0 >= versus.x1 and word.x1 <= marker_b.x0
+            word.text
+            for word in header_words
+            if team_b_bounds[0] <= word.x0 and word.x1 <= team_b_bounds[1]
         ]
         if not team_a_words or not team_b_words:
             raise ValueError("Could not read both team names in the PDF header")
 
-        return {
+        team_names = {
             "A": " ".join(team_a_words),
             "B": " ".join(team_b_words)
         }
+        team_order = [
+            team_names[marker.text]
+            for marker in sorted((marker_a, marker_b), key=lambda word: word.x0)
+        ]
+        return team_names, team_order
 
     def _parse_set(
         self,

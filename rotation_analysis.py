@@ -2,10 +2,24 @@ import colorsys
 import json
 import re
 from collections import Counter
+from datetime import datetime
 from pathlib import Path
 from typing import Any
+from xml.sax.saxutils import escape
 
 import matplotlib
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4, landscape
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.units import mm
+from reportlab.platypus import (
+    Image,
+    Paragraph,
+    SimpleDocTemplate,
+    Spacer,
+    Table,
+    TableStyle
+)
 
 matplotlib.use("Agg")
 
@@ -44,6 +58,12 @@ def analyze_rotation_runs(
         team_name: Counter()
         for team_name in team_names
     }
+    points_by_lineup: dict[
+        str, dict[tuple[int, ...], Counter[str]]
+    ] = {
+        team_name: {}
+        for team_name in team_names
+    }
 
     for set_data in point_data["sets"]:
         set_no = set_data.get("set_no")
@@ -80,6 +100,17 @@ def analyze_rotation_runs(
                     {"runs": [], "counts": Counter(), "lineups": set()}
                 )
                 rotation_data[team_name][rotation_key]["lineups"].add(rotation)
+
+                lineup_totals = points_by_lineup[team_name].setdefault(
+                    tuple(sorted(rotation)),
+                    Counter()
+                )
+                lineup_result = (
+                    "own_points"
+                    if point["scoring_team"] == team_name
+                    else "opponent_points"
+                )
+                lineup_totals[lineup_result] += 1
 
                 setter_position = _setter_position(
                     rotation, setters_by_team[team_name]
@@ -187,6 +218,8 @@ def analyze_rotation_runs(
     report = {"teams": []}
     service_report = {"teams": []}
     points_report = {"teams": []}
+    performance_report = {"teams": []}
+    player_names = point_data.get("player_names", {})
     for team_name, setters in team_names.items():
         rotations = rotation_data[team_name]
         rotation_items = sorted(
@@ -253,6 +286,15 @@ def analyze_rotation_runs(
             output_path
             / f"{_filename_slug(team_name)}_points_by_setter_position.png"
         )
+        performance_report["teams"].append(
+            {
+                "team": team_name,
+                "lineups": _lineup_performance_results(
+                    points_by_lineup[team_name],
+                    player_names.get(team_name, {})
+                )
+            }
+        )
 
     (output_path / "rotation_run_distributions.json").write_text(
         json.dumps(report, indent=2, ensure_ascii=False) + "\n",
@@ -265,6 +307,13 @@ def analyze_rotation_runs(
     (output_path / "points_by_setter_position.json").write_text(
         json.dumps(points_report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8"
+    )
+    _write_markdown_report(
+        output_path,
+        performance_report,
+        report,
+        service_report,
+        point_data["match_date"]
     )
     return report
 
@@ -400,6 +449,397 @@ def _point_totals_results(
             "Unknown"
         ]
     ]
+
+
+def _lineup_performance_results(
+    totals_by_lineup: dict[tuple[int, ...], Counter[str]],
+    player_names: dict[str, str]
+) -> list[dict[str, Any]]:
+    results = []
+    for lineup, totals in totals_by_lineup.items():
+        own_points = totals["own_points"]
+        opponent_points = totals["opponent_points"]
+        results.append(
+            {
+                "players": [
+                    {
+                        "jersey": jersey,
+                        "name": player_names.get(str(jersey))
+                    }
+                    for jersey in lineup
+                ],
+                "own_points": own_points,
+                "opponent_points": opponent_points,
+                "ratio": (
+                    own_points / opponent_points
+                    if opponent_points
+                    else None
+                )
+            }
+        )
+    results.sort(
+        key=lambda result: (
+            0 if result["ratio"] is None else 1,
+            -(result["ratio"] or 0),
+            tuple(player["jersey"] for player in result["players"])
+        )
+    )
+    return results
+
+
+def _write_markdown_report(
+    output_path: Path,
+    performance_report: dict[str, Any],
+    opponent_run_report: dict[str, Any],
+    service_run_report: dict[str, Any],
+    match_date: str
+) -> None:
+    team_names = [
+        team["team"]
+        for team in performance_report["teams"]
+    ]
+    report_stem = _report_stem(team_names, match_date)
+    lines = [
+        f"# Match analysis - {match_date}",
+        "",
+        "## Performance per Set of Players",
+        "",
+        "Lineups are grouped by the six jersey numbers on court. The ratio is "
+        "team points scored divided by opponent points scored; a lineup that "
+        "conceded no points is shown as `∞`.",
+        ""
+    ]
+    for team in performance_report["teams"]:
+        lines.extend(
+            [
+                f"### {team['team']}",
+                "",
+                "| Players on court | Team points | Opponent points | Ratio "
+                "(team:opponent) |",
+                "|---|---:|---:|---:|"
+            ]
+        )
+        for lineup in team["lineups"]:
+            players = ", ".join(
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+                for player in lineup["players"]
+            )
+            ratio = (
+                "∞"
+                if lineup["ratio"] is None
+                else f"{lineup['ratio']:.2f}"
+            )
+            lines.append(
+                f"| {players} | {lineup['own_points']} | "
+                f"{lineup['opponent_points']} | {ratio} |"
+            )
+        lines.append("")
+
+    lines.extend(["## Length of Service Runs", ""])
+    for team_name in (
+        team["team"] for team in performance_report["teams"]
+    ):
+        team_slug = _filename_slug(team_name)
+        own_rotations = next(
+            team["setter_positions"]
+            for team in service_run_report["teams"]
+            if team["team"] == team_name
+        )
+        opponent_rotations = next(
+            team["rotations"]
+            for team in opponent_run_report["teams"]
+            if team["team"] == team_name
+        )
+        own_best, own_worst = _rotation_extremes(
+            own_rotations,
+            best_is_high=True
+        )
+        opponent_best, opponent_worst = _rotation_extremes(
+            opponent_rotations,
+            best_is_high=False
+        )
+        lines.extend(
+            [
+                f"### {team_name}",
+                "",
+                _extreme_summary(
+                    "own service runs",
+                    own_best,
+                    own_worst,
+                    "more points per run is better"
+                ),
+                _extreme_summary(
+                    "opponent scoring runs",
+                    opponent_best,
+                    opponent_worst,
+                    "fewer points conceded per run is better"
+                ),
+                "",
+                "#### Own service-run length distribution",
+                "",
+                f"![Own service-run lengths for {team_name}]"
+                f"({team_slug}_service_runs.png)",
+                "",
+                "#### Opponent scoring-run length by rotation",
+                "",
+                f"![Opponent scoring-run lengths for {team_name}]"
+                f"({team_slug}_rotation_runs.png)",
+                "",
+                "#### Points by setter position",
+                "",
+                f"![Points by setter position for {team_name}]"
+                f"({team_slug}_points_by_setter_position.png)",
+                ""
+            ]
+        )
+    report_path = output_path / f"{report_stem}.md"
+    report_path.write_text(
+        "\n".join(lines),
+        encoding="utf-8"
+    )
+    _write_pdf_report(
+        output_path / f"{report_stem}.pdf",
+        report_path,
+        performance_report,
+        opponent_run_report,
+        service_run_report,
+        match_date
+    )
+
+
+def _report_stem(team_names: list[str], match_date: str) -> str:
+    if len(team_names) != 2:
+        raise ValueError("The match report requires exactly two team names")
+    try:
+        filename_date = datetime.strptime(match_date, "%d.%m.%Y").strftime(
+            "%Y-%m-%d"
+        )
+    except ValueError as error:
+        raise ValueError(
+            f"Invalid match date for report filename: {match_date!r}"
+        ) from error
+    return (
+        f"report_{_filename_slug(team_names[0])}_vs_"
+        f"{_filename_slug(team_names[1])}_{filename_date}"
+    )
+
+
+def _write_pdf_report(
+    output_file: Path,
+    markdown_file: Path,
+    performance_report: dict[str, Any],
+    opponent_run_report: dict[str, Any],
+    service_run_report: dict[str, Any],
+    match_date: str
+) -> None:
+    styles = getSampleStyleSheet()
+    body_style = styles["BodyText"]
+    story = [
+        Paragraph(
+            f"Match analysis - {escape(match_date)}",
+            styles["Title"]
+        ),
+        Paragraph("Performance per Set of Players", styles["Heading1"]),
+        Paragraph(
+            "Lineups are grouped by the six jersey numbers on court. The ratio "
+            "is team points scored divided by opponent points scored; a lineup "
+            "that conceded no points is shown as infinity.",
+            body_style
+        ),
+        Spacer(1, 4 * mm)
+    ]
+    for team in performance_report["teams"]:
+        story.extend(
+            [
+                Paragraph(escape(team["team"]), styles["Heading2"]),
+                Spacer(1, 2 * mm)
+            ]
+        )
+        table_data = [[
+            "Players on court",
+            "Team points",
+            "Opponent points",
+            "Ratio"
+        ]]
+        for lineup in team["lineups"]:
+            players = ", ".join(
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+                for player in lineup["players"]
+            )
+            ratio = (
+                "Infinity"
+                if lineup["ratio"] is None
+                else f"{lineup['ratio']:.2f}"
+            )
+            table_data.append(
+                [
+                    Paragraph(escape(players), body_style),
+                    str(lineup["own_points"]),
+                    str(lineup["opponent_points"]),
+                    ratio
+                ]
+            )
+        lineup_table = Table(
+            table_data,
+            colWidths=[183 * mm, 28 * mm, 32 * mm, 24 * mm],
+            repeatRows=1
+        )
+        lineup_table.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef5")),
+                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("ALIGN", (1, 1), (-1, -1), "RIGHT"),
+                    ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                    ("TOPPADDING", (0, 0), (-1, -1), 5)
+                ]
+            )
+        )
+        story.extend([lineup_table, Spacer(1, 5 * mm)])
+
+    story.append(Paragraph("Length of Service Runs", styles["Heading1"]))
+    for team_name in (
+        team["team"] for team in performance_report["teams"]
+    ):
+        own_rotations = next(
+            team["setter_positions"]
+            for team in service_run_report["teams"]
+            if team["team"] == team_name
+        )
+        opponent_rotations = next(
+            team["rotations"]
+            for team in opponent_run_report["teams"]
+            if team["team"] == team_name
+        )
+        own_best, own_worst = _rotation_extremes(
+            own_rotations,
+            best_is_high=True
+        )
+        opponent_best, opponent_worst = _rotation_extremes(
+            opponent_rotations,
+            best_is_high=False
+        )
+        story.extend(
+            [
+                Paragraph(escape(team_name), styles["Heading2"]),
+                Paragraph(
+                    escape(
+                        _extreme_summary(
+                            "own service runs",
+                            own_best,
+                            own_worst,
+                            "more points per run is better"
+                        )
+                    ),
+                    body_style
+                ),
+                Paragraph(
+                    escape(
+                        _extreme_summary(
+                            "opponent scoring runs",
+                            opponent_best,
+                            opponent_worst,
+                            "fewer points conceded per run is better"
+                        )
+                    ),
+                    body_style
+                )
+            ]
+        )
+        team_slug = _filename_slug(team_name)
+        for heading, image_name in (
+            ("Own service-run length distribution", f"{team_slug}_service_runs.png"),
+            ("Opponent scoring-run length by rotation", f"{team_slug}_rotation_runs.png"),
+            ("Points by setter position", f"{team_slug}_points_by_setter_position.png")
+        ):
+            image_path = markdown_file.parent / image_name
+            if not image_path.is_file():
+                raise FileNotFoundError(
+                    f"Cannot create report PDF; plot is missing: {image_path}"
+                )
+            image = Image(str(image_path))
+            image_width = 170 * mm
+            scale = min(image_width / image.imageWidth, 110 * mm / image.imageHeight)
+            image.drawWidth *= scale
+            image.drawHeight *= scale
+            story.extend(
+                [
+                    Paragraph(escape(heading), styles["Heading3"]),
+                    image,
+                    Spacer(1, 4 * mm)
+                ]
+            )
+
+    document = SimpleDocTemplate(
+        str(output_file),
+        pagesize=landscape(A4),
+        rightMargin=15 * mm,
+        leftMargin=15 * mm,
+        topMargin=15 * mm,
+        bottomMargin=15 * mm,
+        title="Match analysis"
+    )
+    document.build(story)
+
+
+def _rotation_extremes(
+    rotations: list[dict[str, Any]],
+    best_is_high: bool
+) -> tuple[list[tuple[str, float]], list[tuple[str, float]]]:
+    observed = [
+        (rotation["label"], rotation["mean_run_length"])
+        for rotation in rotations
+        if rotation["mean_run_length"] is not None
+    ]
+    if not observed:
+        return [], []
+    best_value = (
+        max if best_is_high else min
+    )(value for _, value in observed)
+    worst_value = (
+        min if best_is_high else max
+    )(value for _, value in observed)
+    return (
+        [
+            (label, value)
+            for label, value in observed
+            if value == best_value
+        ],
+        [
+            (label, value)
+            for label, value in observed
+            if value == worst_value
+        ]
+    )
+
+
+def _extreme_summary(
+    category: str,
+    best: list[tuple[str, float]],
+    worst: list[tuple[str, float]],
+    interpretation: str
+) -> str:
+    if not best:
+        return f"No {category} were recorded."
+
+    def describe(rotations: list[tuple[str, float]]) -> str:
+        return ", ".join(
+            f"{label} ({mean:.2f} points/run)"
+            for label, mean in rotations
+        )
+
+    return (
+        f"For {category}, the best Laeufer rotation(s) were "
+        f"{describe(best)} and the worst were {describe(worst)} "
+        f"({interpretation})."
+    )
 
 
 def _plot_team_distribution(

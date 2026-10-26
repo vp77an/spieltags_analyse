@@ -16,7 +16,12 @@ def reconstruct_match(match: dict[str, Any]) -> dict[str, Any]:
         _reconstruct_set(set_data)
         for set_data in match["sets"]
     ]
-    return {"sets": reconstructed_sets}
+    reconstruction = {"sets": reconstructed_sets}
+    if "player_names" in match:
+        reconstruction["player_names"] = match["player_names"]
+    if "match_date" in match:
+        reconstruction["match_date"] = match["match_date"]
+    return reconstruction
 
 
 def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:

@@ -12,18 +12,30 @@ from match_reconstructor import (
     write_reconstruction
 )
 from pdf_score_sheet import PdfScoreSheetParser
-from rotation_analysis import analyze_rotation_runs, load_point_by_point
+from rotation_analysis import (
+    _report_stem,
+    analyze_rotation_runs,
+    load_point_by_point
+)
 
 
 def main(config_file="config.yaml", load_match=False, analyze_only=False):
     config = _load_config(config_file)
     points_output_file = config["point_by_point_json"]
+    parser = PdfScoreSheetParser()
+    pdf_team_order = parser.extract_team_header_order(config["pdf_file"])
+    if pdf_team_order != config["header_order"]:
+        raise ValueError(
+            "Configured header_order does not match the team order in the PDF "
+            f"header. Configured (left to right): {config['header_order']}; "
+            f"PDF (left to right): {pdf_team_order}. Update header_order in "
+            f"{config_file} to match the PDF."
+        )
 
     if not analyze_only:
         if load_match:
             match_data = load_match_json(config["match_json"])
         else:
-            parser = PdfScoreSheetParser()
             page = parser.extract_page(config["pdf_file"])
             match = parser.parse_match(page)
             Path(config["match_json"]).write_text(
@@ -33,11 +45,26 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
             match_data = load_match_json(config["match_json"])
             print(f"Saved match data to {config['match_json']}")
 
+        if not match_data.get("match_date"):
+            match_data["match_date"] = PdfScoreSheetParser().extract_match_date(
+                config["pdf_file"]
+            )
         reconstruction = reconstruct_match(match_data)
         write_reconstruction(reconstruction, points_output_file)
         print(f"Saved point-by-point reconstruction to {points_output_file}")
 
     point_data = load_point_by_point(points_output_file)
+    if (
+        not point_data.get("player_names")
+        and Path(config["pdf_file"]).is_file()
+    ):
+        point_data["player_names"] = PdfScoreSheetParser().extract_player_names(
+            config["pdf_file"]
+        )
+    if not point_data.get("match_date"):
+        point_data["match_date"] = PdfScoreSheetParser().extract_match_date(
+            config["pdf_file"]
+        )
     analysis = analyze_rotation_runs(
         point_data,
         config["teams"],
@@ -48,6 +75,18 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
             f"Saved rotation-run, service-run, and setter-point analyses for "
             f"{team_result['team']} to {config['analysis_output_dir']}"
         )
+    report_stem = _report_stem(
+        [team["name"] for team in config["teams"].values()],
+        point_data["match_date"]
+    )
+    print(
+        "Saved Markdown report to "
+        f"{config['analysis_output_dir']}/{report_stem}.md"
+    )
+    print(
+        "Saved PDF report to "
+        f"{config['analysis_output_dir']}/{report_stem}.pdf"
+    )
 
 
 def _load_config(config_file):
@@ -99,9 +138,22 @@ def _load_config(config_file):
             raise ValueError(f"Setter numbers for team {team_code} must be unique")
         normalized_teams[team_code] = {"name": name, "setters": setters}
 
+    header_order = config.get("header_order")
+    if (
+        not isinstance(header_order, list)
+        or len(header_order) != 2
+        or any(not isinstance(name, str) or not name for name in header_order)
+        or set(header_order) != names
+    ):
+        raise ValueError(
+            "Config 'header_order' must list both configured team names "
+            "exactly once, in the same left-to-right order as the PDF header"
+        )
+
     return {
         **config,
-        "teams": normalized_teams
+        "teams": normalized_teams,
+        "header_order": header_order
     }
 
 
