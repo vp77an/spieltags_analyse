@@ -64,6 +64,10 @@ def analyze_rotation_runs(
         team_name: {}
         for team_name in team_names
     }
+    points_by_player: dict[str, dict[int, Counter[str]]] = {
+        team_name: {}
+        for team_name in team_names
+    }
 
     for set_data in point_data["sets"]:
         set_no = set_data.get("set_no")
@@ -106,6 +110,13 @@ def analyze_rotation_runs(
                     else "opponent_points"
                 )
                 lineup_totals[lineup_result] += 1
+                for jersey in rotation:
+                    player_totals = points_by_player[team_name].setdefault(
+                        jersey,
+                        Counter()
+                    )
+                    player_totals["points_played"] += 1
+                    player_totals[lineup_result] += 1
 
                 setter_position = _setter_position(
                     rotation, setters_by_team[team_name]
@@ -286,6 +297,10 @@ def analyze_rotation_runs(
                 "team": team_name,
                 "lineups": _lineup_performance_results(
                     points_by_lineup[team_name],
+                    player_names.get(team_name, {})
+                ),
+                "players": _player_performance_results(
+                    points_by_player[team_name],
                     player_names.get(team_name, {})
                 )
             }
@@ -482,6 +497,39 @@ def _lineup_performance_results(
     return results
 
 
+def _player_performance_results(
+    totals_by_player: dict[int, Counter[str]],
+    player_names: dict[str, str]
+) -> list[dict[str, Any]]:
+    results = []
+    for jersey, totals in totals_by_player.items():
+        won_points = totals["own_points"]
+        lost_points = totals["opponent_points"]
+        results.append(
+            {
+                "jersey": jersey,
+                "name": player_names.get(str(jersey)),
+                "points_played": totals["points_played"],
+                "won_points": won_points,
+                "lost_points": lost_points,
+                "ratio": (
+                    won_points / lost_points
+                    if lost_points
+                    else None
+                )
+            }
+        )
+    results.sort(
+        key=lambda result: (
+            0 if result["ratio"] is None else 1,
+            -(result["ratio"] or 0),
+            -result["points_played"],
+            result["jersey"]
+        )
+    )
+    return results
+
+
 def _write_markdown_report(
     output_path: Path,
     performance_report: dict[str, Any],
@@ -496,6 +544,12 @@ def _write_markdown_report(
     report_stem = _report_stem(team_names, match_date)
     lines = [
         f"# Match analysis - {match_date}",
+        "",
+        "## Contents",
+        "",
+        "- [Performance per Set of Players](#performance-per-set-of-players)",
+        "- [Performance per Player](#performance-per-player)",
+        "- [Length of Service Runs](#length-of-service-runs)",
         "",
         "## Performance per Set of Players",
         "",
@@ -529,6 +583,41 @@ def _write_markdown_report(
             lines.append(
                 f"| {players} | {lineup['own_points']} | "
                 f"{lineup['opponent_points']} | {ratio} |"
+            )
+        lines.append("")
+
+    lines.extend(["## Performance per Player", ""])
+    lines.append(
+        "Points played counts every rally while the player was on court. "
+        "Won/lost ratio is team points won divided by points lost while "
+        "they were on court; a player with no lost points is shown as `∞`."
+    )
+    lines.append("")
+    for team in performance_report["teams"]:
+        lines.extend(
+            [
+                f"### {team['team']}",
+                "",
+                "| Player | Points played | Points won | Points lost | "
+                "Won/lost ratio |",
+                "|---|---:|---:|---:|---:|"
+            ]
+        )
+        for player in team["players"]:
+            name = (
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+            )
+            ratio = (
+                "∞"
+                if player["ratio"] is None
+                else f"{player['ratio']:.2f}"
+            )
+            lines.append(
+                f"| {name} | {player['points_played']} | "
+                f"{player['won_points']} | {player['lost_points']} | "
+                f"{ratio} |"
             )
         lines.append("")
 
@@ -636,7 +725,28 @@ def _write_pdf_report(
             f"Match analysis - {escape(match_date)}",
             styles["Title"]
         ),
-        Paragraph("Performance per Set of Players", styles["Heading1"]),
+        Paragraph("Contents", styles["Heading1"]),
+        Paragraph(
+            '<link href="#performance-per-set-of-players" color="blue">'
+            "Performance per Set of Players</link>",
+            body_style
+        ),
+        Paragraph(
+            '<link href="#performance-per-player" color="blue">'
+            "Performance per Player</link>",
+            body_style
+        ),
+        Paragraph(
+            '<link href="#length-of-service-runs" color="blue">'
+            "Length of Service Runs</link>",
+            body_style
+        ),
+        Spacer(1, 4 * mm),
+        Paragraph(
+            '<a name="performance-per-set-of-players"/>'
+            "Performance per Set of Players",
+            styles["Heading1"]
+        ),
         Paragraph(
             "Lineups are grouped by the six jersey numbers on court. The ratio "
             "is team points scored divided by opponent points scored; a lineup "
@@ -699,7 +809,83 @@ def _write_pdf_report(
         )
         story.extend([lineup_table, Spacer(1, 5 * mm)])
 
-    story.append(Paragraph("Length of Service Runs", styles["Heading1"]))
+    story.extend(
+        [
+            Paragraph(
+                '<a name="performance-per-player"/>Performance per Player',
+                styles["Heading1"]
+            ),
+            Paragraph(
+                "Points played counts every rally while the player was on "
+                "court. Won/lost ratio is team points won divided by points "
+                "lost while they were on court; a player with no lost points "
+                "is shown as infinity.",
+                body_style
+            ),
+            Spacer(1, 4 * mm)
+        ]
+    )
+    for team in performance_report["teams"]:
+        story.extend(
+            [
+                Paragraph(escape(team["team"]), styles["Heading2"]),
+                Spacer(1, 2 * mm)
+            ]
+        )
+        table_data = [[
+            "Player",
+            "Points played",
+            "Points won",
+            "Points lost",
+            "Won/lost ratio"
+        ]]
+        for player in team["players"]:
+            name = (
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+            )
+            ratio = (
+                "Infinity"
+                if player["ratio"] is None
+                else f"{player['ratio']:.2f}"
+            )
+            table_data.append(
+                [
+                    Paragraph(escape(name), body_style),
+                    str(player["points_played"]),
+                    str(player["won_points"]),
+                    str(player["lost_points"]),
+                    ratio
+                ]
+            )
+        player_table = Table(
+            table_data,
+            colWidths=[145 * mm, 30 * mm, 25 * mm, 25 * mm, 35 * mm],
+            repeatRows=1
+        )
+        player_table.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef5")),
+                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("ALIGN", (1, 1), (-1, -1), "RIGHT"),
+                    ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                    ("TOPPADDING", (0, 0), (-1, -1), 5)
+                ]
+            )
+        )
+        story.extend([player_table, Spacer(1, 5 * mm)])
+
+    story.append(
+        Paragraph(
+            '<a name="length-of-service-runs"/>Length of Service Runs',
+            styles["Heading1"]
+        )
+    )
     for team_name in (
         team["team"] for team in performance_report["teams"]
     ):
