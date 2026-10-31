@@ -5,3 +5,11 @@ __pycache__/
 *.pdf
 config_*.yaml
 *.json
+analysis/*.png
+analysis/*.md
+
+# Keep regression-test fixtures and references in version control.
+!tests/**/*.pdf
+!tests/**/*.json
+!tests/**/*.yaml
+!tests/**/*.yml
