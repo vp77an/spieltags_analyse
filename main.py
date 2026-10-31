@@ -1,9 +1,10 @@
 # Requires Poppler's pdftotext utility (poppler-utils on Linux).
 
 import argparse
-from collections.abc import Mapping
+import json
 from pathlib import Path
 
+from jsonschema import Draft202012Validator
 import yaml
 
 from match_reconstructor import (
@@ -24,13 +25,24 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
     points_output_file = config["point_by_point_json"]
     parser = PdfScoreSheetParser()
     pdf_team_order = parser.extract_team_header_order(config["pdf_file"])
-    if pdf_team_order != config["header_order"]:
+    teams_by_name = {
+        team["name"]: team
+        for team in config["teams"]
+    }
+    configured_team_names = set(teams_by_name)
+    pdf_team_names = set(pdf_team_order)
+    if pdf_team_names != configured_team_names:
+        missing_teams = sorted(pdf_team_names - configured_team_names)
+        unexpected_teams = sorted(configured_team_names - pdf_team_names)
         raise ValueError(
-            "Configured header_order does not match the team order in the PDF "
-            f"header. Configured (left to right): {config['header_order']}; "
-            f"PDF (left to right): {pdf_team_order}. Update header_order in "
-            f"{config_file} to match the PDF."
+            "The configured teams do not match the teams in the PDF header. "
+            f"Missing from config: {missing_teams or 'none'}; "
+            f"not found in PDF: {unexpected_teams or 'none'}."
         )
+    teams_in_pdf_order = [
+        teams_by_name[team_name]
+        for team_name in pdf_team_order
+    ]
 
     if not analyze_only:
         if load_match:
@@ -67,7 +79,7 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
         )
     analysis = analyze_rotation_runs(
         point_data,
-        config["teams"],
+        teams_in_pdf_order,
         config["analysis_output_dir"]
     )
     for team_result in analysis["teams"]:
@@ -76,7 +88,7 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
             f"{team_result['team']} to {config['analysis_output_dir']}"
         )
     report_stem = _report_stem(
-        [team["name"] for team in config["teams"].values()],
+        pdf_team_order,
         point_data["match_date"]
     )
     print(
@@ -92,69 +104,44 @@ def main(config_file="config.yaml", load_match=False, analyze_only=False):
 def _load_config(config_file):
     with Path(config_file).open(encoding="utf-8") as file:
         config = yaml.safe_load(file)
-    if not isinstance(config, Mapping):
-        raise ValueError("Config YAML must contain a mapping")
+    schema_path = Path(__file__).with_name("config.schema.json")
+    with schema_path.open(encoding="utf-8") as schema_file:
+        schema = json.load(schema_file)
 
-    required_paths = (
-        "pdf_file",
-        "match_json",
-        "point_by_point_json",
-        "analysis_output_dir"
+    validator = Draft202012Validator(schema)
+    errors = sorted(
+        validator.iter_errors(config),
+        key=lambda error: tuple(str(part) for part in error.absolute_path)
     )
-    for key in required_paths:
-        if not isinstance(config.get(key), str) or not config[key]:
-            raise ValueError(f"Config must define a non-empty {key!r}")
-
-    team_config = config.get("teams")
-    if not isinstance(team_config, Mapping) or set(team_config) != {"A", "B"}:
-        raise ValueError("Config 'teams' must define exactly teams A and B")
-
-    normalized_teams = {}
-    names = set()
-    for team_code in ("A", "B"):
-        team = team_config[team_code]
-        if not isinstance(team, Mapping):
-            raise ValueError(f"Config for team {team_code} must be a mapping")
-        name = team.get("name")
-        if not isinstance(name, str) or not name:
-            raise ValueError(f"Config for team {team_code} needs a team name")
-        if name in names:
-            raise ValueError("Team names in config must be unique")
-        names.add(name)
-
-        setters = team.get("setters", [])
-        if setters is None:
-            setters = []
-        if not isinstance(setters, list) or any(
-            not isinstance(number, int)
-            or isinstance(number, bool)
-            or number <= 0
-            for number in setters
-        ):
-            raise ValueError(
-                f"Setters for team {team_code} must be a list of jersey numbers"
-            )
-        if len(set(setters)) != len(setters):
-            raise ValueError(f"Setter numbers for team {team_code} must be unique")
-        normalized_teams[team_code] = {"name": name, "setters": setters}
-
-    header_order = config.get("header_order")
-    if (
-        not isinstance(header_order, list)
-        or len(header_order) != 2
-        or any(not isinstance(name, str) or not name for name in header_order)
-        or set(header_order) != names
-    ):
+    if errors:
+        error = errors[0]
+        location = ".".join(str(part) for part in error.absolute_path) or "<root>"
         raise ValueError(
-            "Config 'header_order' must list both configured team names "
-            "exactly once, in the same left-to-right order as the PDF header"
+            f"Invalid config {config_file!r} at {location}: {error.message}"
         )
 
-    return {
+    teams = config["teams"]
+    team_names = [team["name"] for team in teams]
+    if len(set(team_names)) != len(team_names):
+        raise ValueError("Team names in config must be unique")
+
+    normalized_config = {
         **config,
-        "teams": normalized_teams,
-        "header_order": header_order
+        "match_json": config.get("match_json", "match.json"),
+        "point_by_point_json": config.get(
+            "point_by_point_json",
+            "point_by_point.json"
+        ),
+        "analysis_output_dir": config.get("analysis_output_dir", "analysis"),
+        "teams": [
+            {
+                "name": team["name"],
+                "setters": team.get("setters", [])
+            }
+            for team in teams
+        ]
     }
+    return normalized_config
 
 
 if __name__ == "__main__":

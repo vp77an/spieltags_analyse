@@ -1,16 +1,9 @@
+# yaml-language-server: $schema=./config.schema.json
 pdf_file: Spielbericht_ANS_HAHNBACH.pdf
-match_json: match.json
-point_by_point_json: point_by_point.json
-analysis_output_dir: analysis
-
-# Team names from left to right in the PDF match header.
-header_order: [TSV Ansbach, SV Hahnbach]
 
 teams:
-  # Setter numbers are ordered by priority; an empty list means unknown.
-  A:
-    name: TSV Ansbach
+  # Team entries can be in any order.
+  - name: TSV Ansbach
     setters: [8, 11]
-  B:
-    name: SV Hahnbach
+  - name: SV Hahnbach
     setters: [2]

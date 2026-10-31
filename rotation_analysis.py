@@ -39,14 +39,14 @@ def load_point_by_point(path: str | Path) -> dict[str, Any]:
 
 def analyze_rotation_runs(
     point_data: dict[str, Any],
-    teams: dict[str, dict[str, Any]],
+    teams: list[dict[str, Any]],
     output_dir: str | Path
 ) -> dict[str, Any]:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
     team_names = {
-        config["name"]: config["setters"]
-        for config in teams.values()
+        team["name"]: team["setters"]
+        for team in teams
     }
     rotation_data: dict[str, dict[tuple[Any, ...], dict[str, Any]]] = {
         team_name: {} for team_name in team_names

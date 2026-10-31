@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Volleyball match analysis configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "pdf_file",
+    "teams"
+  ],
+  "properties": {
+    "pdf_file": {
+      "type": "string",
+      "minLength": 1
+    },
+    "match_json": {
+      "type": "string",
+      "minLength": 1,
+      "default": "match.json"
+    },
+    "point_by_point_json": {
+      "type": "string",
+      "minLength": 1,
+      "default": "point_by_point.json"
+    },
+    "analysis_output_dir": {
+      "type": "string",
+      "minLength": 1,
+      "default": "analysis"
+    },
+    "teams": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "setters": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "default": []
+          }
+        }
+      }
+    }
+  }
+}

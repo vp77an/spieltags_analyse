@@ -23,12 +23,28 @@ Parse the included report:
 python main.py
 ```
 
-The default [config.yaml](./config.yaml) names the PDF, match JSON, point-by-point
-JSON, analysis output directory, team names, and setters. Use `--config` to load
-another YAML config. Each team's `setters` is an ordered list of jersey numbers;
-`header_order` must list both team names from left to right as they appear in
-the PDF match header. The program checks this order before parsing and reports
-the configured and detected orders if they differ.
+The default [config.yaml](./config.yaml) names the PDF and teams. Use `--config`
+to load another YAML config. The program identifies each team from the PDF
+header and matches it to the configured team by name, so team entries may be
+listed in any order. Each team's `setters` is an ordered list of jersey numbers:
+
+```yaml
+# yaml-language-server: $schema=./config.schema.json
+pdf_file: match.pdf
+teams:
+  - name: TSV Ansbach
+    setters: [8, 11]
+  - name: DJK Augsburg Hochzoll
+    setters: [16, 13]
+```
+
+Config files are validated against [config.schema.json](./config.schema.json).
+The YAML language-server schema directive at the top of each example config
+also enables editor validation.
+`pdf_file` and `teams` are required; the teams list must contain exactly two
+teams. `setters` may be omitted when unknown. The optional `match_json`,
+`point_by_point_json`, and `analysis_output_dir` fields default to `match.json`,
+`point_by_point.json`, and `analysis`, respectively.
 The first listed setter is the primary setter, and an empty list means the
 setter is unknown. If multiple listed setters are on court at once, the first
 listed is treated as the setter. When no setter is configured, rotation
