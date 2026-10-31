@@ -610,7 +610,9 @@ def _write_markdown_report(
     ]
     report_stem = _report_stem(team_names, match_date)
     lines = [
-        f"# Match analysis - {match_date}",
+        f"# {team_names[0]} vs {team_names[1]}",
+        "",
+        f"## Match analysis - {match_date}",
         "",
         "## Contents",
         "",

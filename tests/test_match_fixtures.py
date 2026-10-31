@@ -299,6 +299,8 @@ def test_u14_analysis_json_matches_reference(
     )
     report_file = next(tmp_path.glob("report_*.md"))
     report_text = report_file.read_text(encoding="utf-8")
+    assert report_text.startswith("# TV Altdorf vs TSV Ansbach\n")
+    assert "## Contents" in report_text
     assert "Points by setter position" not in report_text
     assert "Own service runs are shown as an overall distribution" in report_text
     assert "opponent scoring runs by own rotation" in report_text
