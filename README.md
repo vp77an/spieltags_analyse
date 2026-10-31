@@ -17,6 +17,20 @@ Install the Python dependencies with:
 python -m pip install -r requirements.txt
 ```
 
+Install test dependencies and run the test suite with:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest
+```
+
+The PDF regression fixtures are in [tests/](./tests/). Each of the `3-set`,
+`4-set`, and `5-set` folders contains a score-sheet PDF and the reference
+`match.json` and `point_by_point.json` outputs used to verify parsing and
+point-by-point reconstruction. They also contain references for the generated
+`rotation_run_distributions.json`, `service_run_distributions.json`, and
+`points_by_setter_position.json` analysis results.
+
 Parse the included report:
 
 ```bash

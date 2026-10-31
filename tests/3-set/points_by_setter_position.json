@@ -1,0 +1,84 @@
+{
+  "teams": [
+    {
+      "team": "TV Planegg Krailling II",
+      "setter_positions": [
+        {
+          "setter_position": "Laeufer I",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer II",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer III",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer IV",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer V",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer VI",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Unknown",
+          "own_points": 76,
+          "opponent_points": 61
+        }
+      ]
+    },
+    {
+      "team": "TV/DJK Hammelburg",
+      "setter_positions": [
+        {
+          "setter_position": "Laeufer I",
+          "own_points": 12,
+          "opponent_points": 15
+        },
+        {
+          "setter_position": "Laeufer II",
+          "own_points": 9,
+          "opponent_points": 10
+        },
+        {
+          "setter_position": "Laeufer III",
+          "own_points": 7,
+          "opponent_points": 11
+        },
+        {
+          "setter_position": "Laeufer IV",
+          "own_points": 9,
+          "opponent_points": 14
+        },
+        {
+          "setter_position": "Laeufer V",
+          "own_points": 11,
+          "opponent_points": 13
+        },
+        {
+          "setter_position": "Laeufer VI",
+          "own_points": 13,
+          "opponent_points": 13
+        },
+        {
+          "setter_position": "Unknown",
+          "own_points": 0,
+          "opponent_points": 0
+        }
+      ]
+    }
+  ]
+}

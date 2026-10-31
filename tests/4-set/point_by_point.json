@@ -1,0 +1,4941 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 0,
+            "DJK Augsburg Hochzoll": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 1,
+            "DJK Augsburg Hochzoll": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 1,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 2,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 4,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 4,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 5,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 5,
+            "DJK Augsburg Hochzoll": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 5,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 6,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 6,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 7,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 8,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 8,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 9,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 10,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 12,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 12,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 14,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 14,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 15,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 16,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 17,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 17,
+            "DJK Augsburg Hochzoll": 18
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 17,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              14
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 18,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 19,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 21,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 22,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 22,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 22,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 22,
+            "DJK Augsburg Hochzoll": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 2,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TV Bad Grönenbach": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TV Bad Grönenbach": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TV Bad Grönenbach": 1
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TV Bad Grönenbach": 1
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TV Bad Grönenbach": 3
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TV Bad Grönenbach": 3
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TV Bad Grönenbach": 4
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              1
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TV Bad Grönenbach": 5
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              1
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              1
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 6
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 7
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TV Bad Grönenbach": 7
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TV Bad Grönenbach": 7
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TV Bad Grönenbach": 8
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TV Bad Grönenbach": 8
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TV Bad Grönenbach": 9
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ],
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              1,
+              9,
+              7,
+              14
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TV Bad Grönenbach": 10
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ],
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              1,
+              9,
+              7,
+              14
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TV Bad Grönenbach": 10
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              1,
+              9,
+              7,
+              14
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TV Bad Grönenbach": 11
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TV Bad Grönenbach": 12
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 12
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              1,
+              9,
+              7,
+              14,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 13
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 14
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 15
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 16
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              2,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              2,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              2,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              2,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              2,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              9,
+              7,
+              14,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TV Bad Grönenbach": 18
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              2,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              1
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TV Bad Grönenbach": 18
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              2,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              1
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TV Bad Grönenbach": 19
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              2,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TV Bad Grönenbach": 20
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              2,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TV Bad Grönenbach": 21
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              2,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 21
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              2,
+              15,
+              7,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              1,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 22
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              2,
+              15,
+              7,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 23
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              2,
+              15,
+              7,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 24
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              2,
+              15,
+              7,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TV Bad Grönenbach": 24
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              2,
+              15,
+              7,
+              6,
+              9,
+              19
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              1,
+              9,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TV Bad Grönenbach": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 3,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 1,
+            "DJK Augsburg Hochzoll": 0
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 2,
+            "DJK Augsburg Hochzoll": 0
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 2,
+            "DJK Augsburg Hochzoll": 1
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 2,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 5
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 3,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 4,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 4,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 5,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 5,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 6,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 6,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 7,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 7,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 7,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 8,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 8,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 9,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 9,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 10,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              8,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 10,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              8,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 11,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 12,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              8,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              8,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              17
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 18
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              8,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 13,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              8,
+              1
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 14,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              8,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 15,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              8,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              15,
+              16,
+              6,
+              9,
+              17,
+              3
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 15,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              8,
+              1,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 16,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              8,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 16,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              8,
+              1,
+              6,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 17,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 18,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 19,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 19,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 19,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              9,
+              8,
+              1,
+              6,
+              11,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              8,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TV Bad Grönenbach": 20,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              8,
+              1,
+              6,
+              11,
+              4,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 21,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 22,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 23,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 48,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 24,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 49,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 25,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 50,
+          "rotations": {
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "TV Bad Grönenbach": 26,
+            "DJK Augsburg Hochzoll": 24
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 4,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TV Bad Grönenbach": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              9,
+              17,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TV Bad Grönenbach": 2
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TV Bad Grönenbach": 3
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              17,
+              3,
+              15,
+              16
+            ],
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 3
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 4
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 6
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TV Bad Grönenbach": 7
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              17,
+              3,
+              15,
+              16,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TV Bad Grönenbach": 7
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              1,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TV Bad Grönenbach": 8
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TV Bad Grönenbach": 9
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              7,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TV Bad Grönenbach": 10
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              7,
+              3,
+              15,
+              16,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TV Bad Grönenbach": 10
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              1,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TV Bad Grönenbach": 11
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              16,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TV Bad Grönenbach": 12
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              19,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TV Bad Grönenbach": 12
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              19,
+              6,
+              9,
+              7,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TV Bad Grönenbach": 12
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              19,
+              6,
+              9,
+              7,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              1,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TV Bad Grönenbach": 13
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              19,
+              6,
+              9,
+              7,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              1
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 13
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              6,
+              11,
+              4,
+              9,
+              7,
+              1
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 14
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 15
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 16
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 17
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 18
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TV Bad Grönenbach": 19
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              19,
+              6,
+              9,
+              7,
+              3,
+              15
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TV Bad Grönenbach": 19
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              7,
+              3,
+              15,
+              19
+            ],
+            "TV Bad Grönenbach": [
+              11,
+              4,
+              9,
+              7,
+              1,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TV Bad Grönenbach": 20
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              9,
+              7,
+              3,
+              15,
+              19
+            ],
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TV Bad Grönenbach": 20
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              7,
+              3,
+              15,
+              19,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              4,
+              9,
+              7,
+              1,
+              6,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TV Bad Grönenbach": 21
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              7,
+              3,
+              15,
+              19,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TV Bad Grönenbach": 22
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              9,
+              7,
+              3,
+              15,
+              19,
+              6
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TV Bad Grönenbach": 22
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              7,
+              3,
+              15,
+              19,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TV Bad Grönenbach": 22
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              7,
+              3,
+              15,
+              19,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              9,
+              7,
+              14,
+              6,
+              11,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TV Bad Grönenbach": 23
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              7,
+              3,
+              15,
+              19,
+              6,
+              9
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TV Bad Grönenbach": 23
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              19,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 23
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              19,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              7,
+              14,
+              6,
+              11,
+              4,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TV Bad Grönenbach": 24
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              3,
+              15,
+              19,
+              6,
+              9,
+              7
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "TV Bad Grönenbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TV Bad Grönenbach": 24
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              15,
+              19,
+              6,
+              9,
+              7,
+              3
+            ],
+            "TV Bad Grönenbach": [
+              14,
+              6,
+              11,
+              4,
+              9,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TV Bad Grönenbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TV Bad Grönenbach": 25
+          }
+        }
+      ]
+    }
+  ],
+  "player_names": {
+    "TV Bad Grönenbach": {
+      "2": "Carolin, S.",
+      "3": "Laura, B.",
+      "4": "Amelie, S.",
+      "6": "Melanie, B.",
+      "7": "Tamara, S.",
+      "8": "Jule, M.",
+      "9": "Katrin, T.",
+      "11": "Lena, B.",
+      "12": "Ida, W.",
+      "14": "Laura, S.",
+      "15": "Anna, H.",
+      "1": "Ines, W."
+    },
+    "DJK Augsburg Hochzoll": {
+      "2": "Caja, K.",
+      "3": "…, B.",
+      "4": "Paula, N.",
+      "6": "Leonie, M.",
+      "7": "Franziska, W.",
+      "9": "Vanessa, K.",
+      "10": "Daniela, H.",
+      "15": "Ekaterina, S.",
+      "16": "Nadine, K.",
+      "17": "Leonie, D.",
+      "19": "Nina, K."
+    }
+  },
+  "match_date": "17.10.2026"
+}

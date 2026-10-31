@@ -1,0 +1,382 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "start_rotation": {
+        "TV Planegg Krailling II": [
+          10,
+          13,
+          7,
+          16,
+          11,
+          9
+        ],
+        "TV/DJK Hammelburg": [
+          17,
+          4,
+          9,
+          13,
+          23,
+          12
+        ]
+      },
+      "serve_rounds": {
+        "TV Planegg Krailling II": {
+          "10": [
+            0,
+            10,
+            22
+          ],
+          "13": [
+            2,
+            12,
+            26
+          ],
+          "7": [
+            4,
+            13
+          ],
+          "16": [
+            6,
+            17
+          ],
+          "11": [
+            7,
+            18
+          ],
+          "9": [
+            9,
+            19
+          ]
+        },
+        "TV/DJK Hammelburg": {
+          "17": [
+            14,
+            20
+          ],
+          "4": [
+            1,
+            15,
+            24
+          ],
+          "9": [
+            4,
+            16
+          ],
+          "13": [
+            6,
+            17
+          ],
+          "23": [
+            9,
+            18
+          ],
+          "12": [
+            13,
+            19
+          ]
+        }
+      },
+      "substitutions": {
+        "TV Planegg Krailling II": [],
+        "TV/DJK Hammelburg": [
+          {
+            "player_in": 18,
+            "player_out": 4,
+            "score": {
+              "TV/DJK Hammelburg": 18,
+              "TV Planegg Krailling II": 18
+            }
+          },
+          {
+            "player_in": 22,
+            "player_out": 23,
+            "score": {
+              "TV/DJK Hammelburg": 18,
+              "TV Planegg Krailling II": 18
+            }
+          },
+          {
+            "player_in": 11,
+            "player_out": 12,
+            "score": {
+              "TV/DJK Hammelburg": 17,
+              "TV Planegg Krailling II": 16
+            }
+          },
+          {
+            "player_in": 4,
+            "player_out": 18,
+            "score": {
+              "TV/DJK Hammelburg": 20,
+              "TV Planegg Krailling II": 21
+            }
+          },
+          {
+            "player_in": 23,
+            "player_out": 22,
+            "score": {
+              "TV/DJK Hammelburg": 20,
+              "TV Planegg Krailling II": 22
+            }
+          },
+          {
+            "player_in": 12,
+            "player_out": 11,
+            "score": {
+              "TV/DJK Hammelburg": 19,
+              "TV Planegg Krailling II": 18
+            }
+          }
+        ]
+      },
+      "points": {
+        "TV Planegg Krailling II": 26,
+        "TV/DJK Hammelburg": 24
+      }
+    },
+    {
+      "set_no": 2,
+      "start_rotation": {
+        "TV/DJK Hammelburg": [
+          4,
+          9,
+          13,
+          23,
+          18,
+          17
+        ],
+        "TV Planegg Krailling II": [
+          10,
+          13,
+          7,
+          16,
+          11,
+          9
+        ]
+      },
+      "serve_rounds": {
+        "TV/DJK Hammelburg": {
+          "4": [
+            0,
+            10,
+            23
+          ],
+          "9": [
+            1,
+            14
+          ],
+          "13": [
+            3,
+            17
+          ],
+          "23": [
+            4,
+            20
+          ],
+          "18": [
+            5,
+            21
+          ],
+          "17": [
+            8,
+            22
+          ]
+        },
+        "TV Planegg Krailling II": {
+          "10": [
+            13,
+            24
+          ],
+          "13": [
+            3,
+            14,
+            25
+          ],
+          "7": [
+            6,
+            16
+          ],
+          "16": [
+            7,
+            17
+          ],
+          "11": [
+            8,
+            20
+          ],
+          "9": [
+            10,
+            21
+          ]
+        }
+      },
+      "substitutions": {
+        "TV/DJK Hammelburg": [
+          {
+            "player_in": 12,
+            "player_out": 18,
+            "score": {
+              "TV/DJK Hammelburg": 21,
+              "TV Planegg Krailling II": 20
+            }
+          }
+        ],
+        "TV Planegg Krailling II": [
+          {
+            "player_in": 3,
+            "player_out": 10,
+            "score": {
+              "TV Planegg Krailling II": 16,
+              "TV/DJK Hammelburg": 15
+            }
+          }
+        ]
+      },
+      "points": {
+        "TV/DJK Hammelburg": 23,
+        "TV Planegg Krailling II": 25
+      }
+    },
+    {
+      "set_no": 3,
+      "start_rotation": {
+        "TV Planegg Krailling II": [
+          3,
+          13,
+          7,
+          16,
+          11,
+          9
+        ],
+        "TV/DJK Hammelburg": [
+          17,
+          4,
+          9,
+          13,
+          23,
+          18
+        ]
+      },
+      "serve_rounds": {
+        "TV Planegg Krailling II": {
+          "3": [
+            1,
+            13
+          ],
+          "13": [
+            2,
+            14
+          ],
+          "7": [
+            5,
+            15
+          ],
+          "16": [
+            7,
+            16
+          ],
+          "11": [
+            8,
+            23
+          ],
+          "9": [
+            12,
+            25
+          ]
+        },
+        "TV/DJK Hammelburg": {
+          "17": [
+            7
+          ],
+          "4": [
+            1,
+            9
+          ],
+          "9": [
+            3,
+            10
+          ],
+          "13": [
+            4,
+            12
+          ],
+          "23": [
+            5,
+            13
+          ],
+          "18": [
+            6,
+            14
+          ]
+        }
+      },
+      "substitutions": {
+        "TV Planegg Krailling II": [],
+        "TV/DJK Hammelburg": [
+          {
+            "player_in": 1,
+            "player_out": 17,
+            "score": {
+              "TV/DJK Hammelburg": 6,
+              "TV Planegg Krailling II": 12
+            }
+          },
+          {
+            "player_in": 11,
+            "player_out": 23,
+            "score": {
+              "TV/DJK Hammelburg": 13,
+              "TV Planegg Krailling II": 22
+            }
+          },
+          {
+            "player_in": 12,
+            "player_out": 18,
+            "score": {
+              "TV/DJK Hammelburg": 13,
+              "TV Planegg Krailling II": 23
+            }
+          }
+        ]
+      },
+      "points": {
+        "TV Planegg Krailling II": 25,
+        "TV/DJK Hammelburg": 14
+      }
+    }
+  ],
+  "player_names": {
+    "TV Planegg Krailling II": {
+      "1": "Marija, S.",
+      "2": "Leonie, H.",
+      "3": "Lisa, B.",
+      "4": "Florence, K.",
+      "5": "Hanna, F.",
+      "6": "Stephanie, S.",
+      "7": "Jana, K.",
+      "8": "Nicole, V.",
+      "9": "Sarah, Q.",
+      "10": "Mira, M.",
+      "11": "Julia, H.",
+      "12": "Marina, K.",
+      "13": "Leonie, D.",
+      "16": "Eva, H."
+    },
+    "TV/DJK Hammelburg": {
+      "1": "Ljubica, P.",
+      "4": "Andrea, F.",
+      "7": "Hanna, S.",
+      "9": "Hannah, H.",
+      "10": "Michelle, Z.",
+      "11": "Elisabeth, K.",
+      "12": "Linda, K.",
+      "13": "Franziska, P.",
+      "17": "Paulin, R.",
+      "18": "Eva, H.",
+      "22": "Viktoria, H.",
+      "23": "Lucia, T."
+    }
+  },
+  "match_date": "24.10.2026"
+}

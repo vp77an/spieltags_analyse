@@ -1,0 +1,84 @@
+{
+  "teams": [
+    {
+      "team": "TV Bad Grönenbach",
+      "setter_positions": [
+        {
+          "setter_position": "Laeufer I",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer II",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer III",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer IV",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer V",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Laeufer VI",
+          "own_points": 0,
+          "opponent_points": 0
+        },
+        {
+          "setter_position": "Unknown",
+          "own_points": 98,
+          "opponent_points": 83
+        }
+      ]
+    },
+    {
+      "team": "DJK Augsburg Hochzoll",
+      "setter_positions": [
+        {
+          "setter_position": "Laeufer I",
+          "own_points": 17,
+          "opponent_points": 20
+        },
+        {
+          "setter_position": "Laeufer II",
+          "own_points": 9,
+          "opponent_points": 13
+        },
+        {
+          "setter_position": "Laeufer III",
+          "own_points": 8,
+          "opponent_points": 13
+        },
+        {
+          "setter_position": "Laeufer IV",
+          "own_points": 13,
+          "opponent_points": 23
+        },
+        {
+          "setter_position": "Laeufer V",
+          "own_points": 15,
+          "opponent_points": 16
+        },
+        {
+          "setter_position": "Laeufer VI",
+          "own_points": 21,
+          "opponent_points": 13
+        },
+        {
+          "setter_position": "Unknown",
+          "own_points": 0,
+          "opponent_points": 0
+        }
+      ]
+    }
+  ]
+}

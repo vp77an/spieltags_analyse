@@ -1,0 +1,1465 @@
+{
+  "teams": [
+    {
+      "team": "DJK Augsburg Hochzoll",
+      "rotations": [
+        {
+          "lineups": [
+            [
+              13,
+              2,
+              5,
+              12,
+              10,
+              8
+            ],
+            [
+              13,
+              2,
+              5,
+              17,
+              10,
+              8
+            ],
+            [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            [
+              13,
+              6,
+              5,
+              17,
+              10,
+              20
+            ],
+            [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ],
+            [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          ],
+          "label": "Laeufer I",
+          "run_length_distribution": {
+            "1": 6,
+            "2": 4,
+            "3": 1,
+            "4": 1
+          },
+          "mean_run_length": 1.75,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 6,
+              "end_point": 7,
+              "length": 2
+            },
+            {
+              "set_no": 1,
+              "start_point": 29,
+              "end_point": 29,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 4,
+              "end_point": 5,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 25,
+              "end_point": 25,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 45,
+              "end_point": 48,
+              "length": 4
+            },
+            {
+              "set_no": 3,
+              "start_point": 8,
+              "end_point": 10,
+              "length": 3
+            },
+            {
+              "set_no": 3,
+              "start_point": 35,
+              "end_point": 35,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 5,
+              "end_point": 6,
+              "length": 2
+            },
+            {
+              "set_no": 4,
+              "start_point": 25,
+              "end_point": 25,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 40,
+              "end_point": 41,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 3,
+              "end_point": 3,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 22,
+              "end_point": 22,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              8,
+              13,
+              2,
+              5,
+              17,
+              10
+            ],
+            [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ],
+            [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            [
+              20,
+              13,
+              6,
+              5,
+              17,
+              10
+            ]
+          ],
+          "label": "Laeufer II",
+          "run_length_distribution": {
+            "1": 7,
+            "2": 3,
+            "3": 3
+          },
+          "mean_run_length": 1.6923076923076923,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 4,
+              "end_point": 4,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 26,
+              "end_point": 27,
+              "length": 2
+            },
+            {
+              "set_no": 1,
+              "start_point": 44,
+              "end_point": 44,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 21,
+              "end_point": 23,
+              "length": 3
+            },
+            {
+              "set_no": 2,
+              "start_point": 42,
+              "end_point": 42,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 1,
+              "end_point": 1,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 33,
+              "end_point": 33,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 1,
+              "end_point": 3,
+              "length": 3
+            },
+            {
+              "set_no": 4,
+              "start_point": 19,
+              "end_point": 21,
+              "length": 3
+            },
+            {
+              "set_no": 4,
+              "start_point": 38,
+              "end_point": 38,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 1,
+              "end_point": 1,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 18,
+              "end_point": 19,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 35,
+              "end_point": 36,
+              "length": 2
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            [
+              10,
+              20,
+              13,
+              2,
+              5,
+              17
+            ],
+            [
+              10,
+              20,
+              13,
+              6,
+              5,
+              17
+            ]
+          ],
+          "label": "Laeufer III",
+          "run_length_distribution": {
+            "1": 6,
+            "2": 1,
+            "4": 1,
+            "5": 1
+          },
+          "mean_run_length": 1.8888888888888888,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 21,
+              "end_point": 24,
+              "length": 4
+            },
+            {
+              "set_no": 1,
+              "start_point": 42,
+              "end_point": 42,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 17,
+              "end_point": 18,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 40,
+              "end_point": 40,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 27,
+              "end_point": 31,
+              "length": 5
+            },
+            {
+              "set_no": 4,
+              "start_point": 17,
+              "end_point": 17,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 35,
+              "end_point": 35,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 14,
+              "end_point": 14,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 33,
+              "end_point": 33,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              17,
+              2,
+              8,
+              16,
+              6,
+              5
+            ],
+            [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ],
+            [
+              17,
+              10,
+              20,
+              13,
+              2,
+              5
+            ],
+            [
+              17,
+              10,
+              20,
+              13,
+              6,
+              5
+            ]
+          ],
+          "label": "Laeufer IV",
+          "run_length_distribution": {
+            "1": 8,
+            "2": 1,
+            "3": 1
+          },
+          "mean_run_length": 1.3,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 17,
+              "end_point": 17,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 38,
+              "end_point": 38,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 13,
+              "end_point": 13,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 37,
+              "end_point": 37,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 21,
+              "end_point": 23,
+              "length": 3
+            },
+            {
+              "set_no": 3,
+              "start_point": 47,
+              "end_point": 47,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 15,
+              "end_point": 15,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 33,
+              "end_point": 33,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 11,
+              "end_point": 12,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 31,
+              "end_point": 31,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ],
+            [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ],
+            [
+              5,
+              17,
+              10,
+              20,
+              13,
+              2
+            ],
+            [
+              5,
+              17,
+              10,
+              20,
+              13,
+              6
+            ]
+          ],
+          "label": "Laeufer V",
+          "run_length_distribution": {
+            "1": 5,
+            "2": 3,
+            "3": 1,
+            "4": 1
+          },
+          "mean_run_length": 1.8,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 13,
+              "end_point": 15,
+              "length": 3
+            },
+            {
+              "set_no": 1,
+              "start_point": 36,
+              "end_point": 36,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 10,
+              "end_point": 10,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 34,
+              "end_point": 34,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 15,
+              "end_point": 18,
+              "length": 4
+            },
+            {
+              "set_no": 3,
+              "start_point": 44,
+              "end_point": 45,
+              "length": 2
+            },
+            {
+              "set_no": 4,
+              "start_point": 13,
+              "end_point": 13,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 30,
+              "end_point": 31,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 9,
+              "end_point": 9,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 28,
+              "end_point": 29,
+              "length": 2
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              2,
+              5,
+              17,
+              10,
+              20,
+              13
+            ],
+            [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ],
+            [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            [
+              6,
+              5,
+              17,
+              10,
+              20,
+              13
+            ]
+          ],
+          "label": "Laeufer VI",
+          "run_length_distribution": {
+            "1": 3,
+            "2": 5,
+            "4": 1,
+            "5": 1
+          },
+          "mean_run_length": 2.2,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 10,
+              "end_point": 10,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 31,
+              "end_point": 32,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 7,
+              "end_point": 8,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 27,
+              "end_point": 31,
+              "length": 5
+            },
+            {
+              "set_no": 3,
+              "start_point": 12,
+              "end_point": 12,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 40,
+              "end_point": 40,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 8,
+              "end_point": 11,
+              "length": 4
+            },
+            {
+              "set_no": 4,
+              "start_point": 27,
+              "end_point": 28,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 5,
+              "end_point": 6,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 25,
+              "end_point": 26,
+              "length": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "team": "TSV Ansbach",
+      "rotations": [
+        {
+          "lineups": [
+            [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ],
+            [
+              8,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            [
+              8,
+              13,
+              4,
+              11,
+              9,
+              3
+            ],
+            [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ],
+            [
+              11,
+              13,
+              4,
+              16,
+              6,
+              3
+            ],
+            [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ]
+          ],
+          "label": "Laeufer I",
+          "run_length_distribution": {
+            "1": 8,
+            "2": 3,
+            "3": 1
+          },
+          "mean_run_length": 1.4166666666666667,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 16,
+              "end_point": 16,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 37,
+              "end_point": 37,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 45,
+              "end_point": 46,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 14,
+              "end_point": 16,
+              "length": 3
+            },
+            {
+              "set_no": 2,
+              "start_point": 38,
+              "end_point": 39,
+              "length": 2
+            },
+            {
+              "set_no": 3,
+              "start_point": 34,
+              "end_point": 34,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 46,
+              "end_point": 46,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 7,
+              "end_point": 7,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 26,
+              "end_point": 26,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 34,
+              "end_point": 34,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 2,
+              "end_point": 2,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 20,
+              "end_point": 21,
+              "length": 2
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ],
+            [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ]
+          ],
+          "label": "Laeufer II",
+          "run_length_distribution": {
+            "1": 3,
+            "2": 2,
+            "3": 2
+          },
+          "mean_run_length": 1.8571428571428572,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 11,
+              "end_point": 12,
+              "length": 2
+            },
+            {
+              "set_no": 1,
+              "start_point": 33,
+              "end_point": 35,
+              "length": 3
+            },
+            {
+              "set_no": 2,
+              "start_point": 11,
+              "end_point": 12,
+              "length": 2
+            },
+            {
+              "set_no": 3,
+              "start_point": 32,
+              "end_point": 32,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 4,
+              "end_point": 4,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 22,
+              "end_point": 24,
+              "length": 3
+            },
+            {
+              "set_no": 5,
+              "start_point": 34,
+              "end_point": 34,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            [
+              13,
+              4,
+              8,
+              6,
+              3,
+              11
+            ],
+            [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ]
+          ],
+          "label": "Laeufer III",
+          "run_length_distribution": {
+            "1": 4,
+            "2": 1,
+            "3": 1
+          },
+          "mean_run_length": 1.5,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 8,
+              "end_point": 9,
+              "length": 2
+            },
+            {
+              "set_no": 1,
+              "start_point": 30,
+              "end_point": 30,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 9,
+              "end_point": 9,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 24,
+              "end_point": 26,
+              "length": 3
+            },
+            {
+              "set_no": 4,
+              "start_point": 18,
+              "end_point": 18,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 32,
+              "end_point": 32,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            [
+              11,
+              13,
+              4,
+              8,
+              6,
+              3
+            ],
+            [
+              11,
+              13,
+              4,
+              8,
+              9,
+              3
+            ]
+          ],
+          "label": "Laeufer IV",
+          "run_length_distribution": {
+            "1": 7,
+            "2": 1,
+            "6": 1
+          },
+          "mean_run_length": 1.6666666666666667,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 5,
+              "end_point": 5,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 28,
+              "end_point": 28,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 6,
+              "end_point": 6,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 26,
+              "end_point": 26,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 2,
+              "end_point": 7,
+              "length": 6
+            },
+            {
+              "set_no": 3,
+              "start_point": 19,
+              "end_point": 20,
+              "length": 2
+            },
+            {
+              "set_no": 4,
+              "start_point": 16,
+              "end_point": 16,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 10,
+              "end_point": 10,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 30,
+              "end_point": 30,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              3,
+              6,
+              7,
+              4,
+              11,
+              9
+            ],
+            [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ],
+            [
+              3,
+              6,
+              13,
+              4,
+              11,
+              9
+            ],
+            [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ],
+            [
+              3,
+              11,
+              13,
+              4,
+              8,
+              9
+            ],
+            [
+              4,
+              7,
+              6,
+              3,
+              11,
+              13
+            ],
+            [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            [
+              4,
+              16,
+              6,
+              3,
+              11,
+              13
+            ]
+          ],
+          "label": "Laeufer V",
+          "run_length_distribution": {
+            "1": 7,
+            "2": 4,
+            "3": 4
+          },
+          "mean_run_length": 1.8,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 1,
+              "end_point": 3,
+              "length": 3
+            },
+            {
+              "set_no": 1,
+              "start_point": 25,
+              "end_point": 25,
+              "length": 1
+            },
+            {
+              "set_no": 1,
+              "start_point": 43,
+              "end_point": 43,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 1,
+              "end_point": 3,
+              "length": 3
+            },
+            {
+              "set_no": 2,
+              "start_point": 24,
+              "end_point": 24,
+              "length": 1
+            },
+            {
+              "set_no": 2,
+              "start_point": 35,
+              "end_point": 36,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 43,
+              "end_point": 44,
+              "length": 2
+            },
+            {
+              "set_no": 3,
+              "start_point": 13,
+              "end_point": 14,
+              "length": 2
+            },
+            {
+              "set_no": 3,
+              "start_point": 41,
+              "end_point": 43,
+              "length": 3
+            },
+            {
+              "set_no": 4,
+              "start_point": 14,
+              "end_point": 14,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 32,
+              "end_point": 32,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 39,
+              "end_point": 39,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 7,
+              "end_point": 8,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 15,
+              "end_point": 17,
+              "length": 3
+            },
+            {
+              "set_no": 5,
+              "start_point": 27,
+              "end_point": 27,
+              "length": 1
+            }
+          ]
+        },
+        {
+          "lineups": [
+            [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ],
+            [
+              6,
+              3,
+              11,
+              16,
+              4,
+              8
+            ],
+            [
+              7,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            [
+              9,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            [
+              9,
+              3,
+              11,
+              13,
+              4,
+              8
+            ],
+            [
+              13,
+              4,
+              7,
+              6,
+              3,
+              11
+            ],
+            [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            [
+              13,
+              4,
+              16,
+              6,
+              3,
+              11
+            ],
+            [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          ],
+          "label": "Laeufer VI",
+          "run_length_distribution": {
+            "1": 7,
+            "2": 4,
+            "3": 2,
+            "4": 1
+          },
+          "mean_run_length": 1.7857142857142858,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 18,
+              "end_point": 20,
+              "length": 3
+            },
+            {
+              "set_no": 1,
+              "start_point": 39,
+              "end_point": 41,
+              "length": 3
+            },
+            {
+              "set_no": 2,
+              "start_point": 19,
+              "end_point": 20,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 32,
+              "end_point": 33,
+              "length": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 41,
+              "end_point": 41,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 11,
+              "end_point": 11,
+              "length": 1
+            },
+            {
+              "set_no": 3,
+              "start_point": 36,
+              "end_point": 39,
+              "length": 4
+            },
+            {
+              "set_no": 3,
+              "start_point": 48,
+              "end_point": 48,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 12,
+              "end_point": 12,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 29,
+              "end_point": 29,
+              "length": 1
+            },
+            {
+              "set_no": 4,
+              "start_point": 36,
+              "end_point": 37,
+              "length": 2
+            },
+            {
+              "set_no": 5,
+              "start_point": 4,
+              "end_point": 4,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 13,
+              "end_point": 13,
+              "length": 1
+            },
+            {
+              "set_no": 5,
+              "start_point": 23,
+              "end_point": 24,
+              "length": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

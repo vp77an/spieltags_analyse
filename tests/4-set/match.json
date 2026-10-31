@@ -1,0 +1,444 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "start_rotation": {
+        "TV Bad Grönenbach": [
+          11,
+          4,
+          9,
+          7,
+          14,
+          6
+        ],
+        "DJK Augsburg Hochzoll": [
+          16,
+          6,
+          9,
+          17,
+          3,
+          15
+        ]
+      },
+      "serve_rounds": {
+        "TV Bad Grönenbach": {
+          "11": [
+            8,
+            20
+          ],
+          "4": [
+            1,
+            11,
+            22
+          ],
+          "9": [
+            3,
+            12
+          ],
+          "7": [
+            4,
+            13
+          ],
+          "14": [
+            5,
+            14
+          ],
+          "6": [
+            6,
+            17
+          ]
+        },
+        "DJK Augsburg Hochzoll": {
+          "16": [
+            1,
+            8,
+            22
+          ],
+          "6": [
+            2,
+            10,
+            25
+          ],
+          "9": [
+            3,
+            11
+          ],
+          "17": [
+            4,
+            16
+          ],
+          "3": [
+            6,
+            17
+          ],
+          "15": [
+            7,
+            19
+          ]
+        }
+      },
+      "substitutions": {
+        "TV Bad Grönenbach": [
+          {
+            "player_in": 1,
+            "player_out": 4,
+            "score": {
+              "TV Bad Grönenbach": 18,
+              "DJK Augsburg Hochzoll": 19
+            }
+          }
+        ],
+        "DJK Augsburg Hochzoll": []
+      },
+      "points": {
+        "TV Bad Grönenbach": 22,
+        "DJK Augsburg Hochzoll": 25
+      }
+    },
+    {
+      "set_no": 2,
+      "start_rotation": {
+        "DJK Augsburg Hochzoll": [
+          15,
+          16,
+          6,
+          9,
+          17,
+          3
+        ],
+        "TV Bad Grönenbach": [
+          11,
+          1,
+          9,
+          7,
+          14,
+          6
+        ]
+      },
+      "serve_rounds": {
+        "DJK Augsburg Hochzoll": {
+          "15": [
+            9
+          ],
+          "16": [
+            3,
+            10
+          ],
+          "6": [
+            4,
+            14
+          ],
+          "9": [
+            5,
+            15
+          ],
+          "17": [
+            7,
+            16
+          ],
+          "3": [
+            8,
+            17
+          ]
+        },
+        "TV Bad Grönenbach": {
+          "11": [
+            1,
+            12
+          ],
+          "1": [
+            3,
+            17
+          ],
+          "9": [
+            5,
+            18
+          ],
+          "7": [
+            7,
+            21
+          ],
+          "14": [
+            8,
+            24
+          ],
+          "6": [
+            10,
+            25
+          ]
+        }
+      },
+      "substitutions": {
+        "DJK Augsburg Hochzoll": [
+          {
+            "player_in": 7,
+            "player_out": 16,
+            "score": {
+              "DJK Augsburg Hochzoll": 16,
+              "TV Bad Grönenbach": 21
+            }
+          },
+          {
+            "player_in": 19,
+            "player_out": 17,
+            "score": {
+              "DJK Augsburg Hochzoll": 16,
+              "TV Bad Grönenbach": 21
+            }
+          },
+          {
+            "player_in": 2,
+            "player_out": 3,
+            "score": {
+              "DJK Augsburg Hochzoll": 10,
+              "TV Bad Grönenbach": 17
+            }
+          }
+        ],
+        "TV Bad Grönenbach": []
+      },
+      "points": {
+        "DJK Augsburg Hochzoll": 17,
+        "TV Bad Grönenbach": 25
+      }
+    },
+    {
+      "set_no": 3,
+      "start_rotation": {
+        "TV Bad Grönenbach": [
+          11,
+          4,
+          9,
+          7,
+          1,
+          6
+        ],
+        "DJK Augsburg Hochzoll": [
+          16,
+          6,
+          9,
+          17,
+          3,
+          15
+        ]
+      },
+      "serve_rounds": {
+        "TV Bad Grönenbach": {
+          "11": [
+            7,
+            15
+          ],
+          "4": [
+            2,
+            8,
+            16
+          ],
+          "9": [
+            3,
+            9,
+            19
+          ],
+          "7": [
+            4,
+            10,
+            20
+          ],
+          "1": [
+            5,
+            11,
+            26
+          ],
+          "6": [
+            6,
+            13
+          ]
+        },
+        "DJK Augsburg Hochzoll": {
+          "16": [
+            0,
+            12,
+            20
+          ],
+          "6": [
+            2,
+            13,
+            21
+          ],
+          "9": [
+            7,
+            14,
+            23
+          ],
+          "17": [
+            8,
+            15,
+            24
+          ],
+          "3": [
+            9,
+            17
+          ],
+          "15": [
+            10,
+            19
+          ]
+        }
+      },
+      "substitutions": {
+        "TV Bad Grönenbach": [
+          {
+            "player_in": 8,
+            "player_out": 7,
+            "score": {
+              "TV Bad Grönenbach": 9,
+              "DJK Augsburg Hochzoll": 14
+            }
+          }
+        ],
+        "DJK Augsburg Hochzoll": []
+      },
+      "points": {
+        "TV Bad Grönenbach": 26,
+        "DJK Augsburg Hochzoll": 24
+      }
+    },
+    {
+      "set_no": 4,
+      "start_rotation": {
+        "DJK Augsburg Hochzoll": [
+          16,
+          6,
+          9,
+          17,
+          3,
+          15
+        ],
+        "TV Bad Grönenbach": [
+          11,
+          4,
+          9,
+          7,
+          1,
+          6
+        ]
+      },
+      "serve_rounds": {
+        "DJK Augsburg Hochzoll": {
+          "16": [
+            10
+          ],
+          "6": [
+            4,
+            11
+          ],
+          "9": [
+            5,
+            12
+          ],
+          "17": [
+            6,
+            14
+          ],
+          "3": [
+            7,
+            16
+          ],
+          "15": [
+            9,
+            17
+          ]
+        },
+        "TV Bad Grönenbach": {
+          "11": [
+            2,
+            19
+          ],
+          "4": [
+            3,
+            20
+          ],
+          "9": [
+            7,
+            22
+          ],
+          "7": [
+            10,
+            23
+          ],
+          "1": [
+            12,
+            24
+          ],
+          "6": [
+            13,
+            25
+          ]
+        }
+      },
+      "substitutions": {
+        "DJK Augsburg Hochzoll": [
+          {
+            "player_in": 19,
+            "player_out": 16,
+            "score": {
+              "DJK Augsburg Hochzoll": 7,
+              "TV Bad Grönenbach": 12
+            }
+          },
+          {
+            "player_in": 7,
+            "player_out": 17,
+            "score": {
+              "DJK Augsburg Hochzoll": 6,
+              "TV Bad Grönenbach": 9
+            }
+          }
+        ],
+        "TV Bad Grönenbach": [
+          {
+            "player_in": 14,
+            "player_out": 1,
+            "score": {
+              "TV Bad Grönenbach": 21,
+              "DJK Augsburg Hochzoll": 12
+            }
+          }
+        ]
+      },
+      "points": {
+        "DJK Augsburg Hochzoll": 17,
+        "TV Bad Grönenbach": 25
+      }
+    }
+  ],
+  "player_names": {
+    "TV Bad Grönenbach": {
+      "2": "Carolin, S.",
+      "3": "Laura, B.",
+      "4": "Amelie, S.",
+      "6": "Melanie, B.",
+      "7": "Tamara, S.",
+      "8": "Jule, M.",
+      "9": "Katrin, T.",
+      "11": "Lena, B.",
+      "12": "Ida, W.",
+      "14": "Laura, S.",
+      "15": "Anna, H.",
+      "1": "Ines, W."
+    },
+    "DJK Augsburg Hochzoll": {
+      "2": "Caja, K.",
+      "3": "…, B.",
+      "4": "Paula, N.",
+      "6": "Leonie, M.",
+      "7": "Franziska, W.",
+      "9": "Vanessa, K.",
+      "10": "Daniela, H.",
+      "15": "Ekaterina, S.",
+      "16": "Nadine, K.",
+      "17": "Leonie, D.",
+      "19": "Nina, K."
+    }
+  },
+  "match_date": "17.10.2026"
+}

@@ -1,0 +1,5973 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 0,
+            "DJK Augsburg Hochzoll": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 0,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 0,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 2,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 3,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 3,
+            "DJK Augsburg Hochzoll": 5
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 3,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 6,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              2,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              2,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 9,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 10,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 11,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 13,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 14,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 14,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 15,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 15,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 16,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              2,
+              8,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 18
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "DJK Augsburg Hochzoll": 18
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              2,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              2,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TSV Ansbach": [
+              9,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              2,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TSV Ansbach": [
+              9,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TSV Ansbach": [
+              9,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TSV Ansbach": [
+              9,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              7,
+              4,
+              11,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              2,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              9
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              2
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 21,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              13,
+              4,
+              11,
+              9,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 21,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              13,
+              4,
+              11,
+              9,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 21,
+            "DJK Augsburg Hochzoll": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 2,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 0
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 0
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 0
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 1
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              16,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 3
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              16,
+              3,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              16,
+              3,
+              6,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              16,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              16,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 13
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 18,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 18,
+            "TSV Ansbach": 19
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 19,
+            "TSV Ansbach": 19
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 20,
+            "TSV Ansbach": 19
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 20,
+            "TSV Ansbach": 20
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              7,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 21,
+            "TSV Ansbach": 20
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              7,
+              3,
+              6,
+              13,
+              4,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 21,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 22,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 23,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 23,
+            "TSV Ansbach": 22
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 23,
+            "TSV Ansbach": 23
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 23,
+            "TSV Ansbach": 24
+          }
+        },
+        {
+          "point_no": 48,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 23,
+            "TSV Ansbach": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 3,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              6,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 0
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              16,
+              6,
+              5,
+              17,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 3
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 4
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 5
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TSV Ansbach": [
+              6,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 2,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 3,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "DJK Augsburg Hochzoll": 6
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              16,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "DJK Augsburg Hochzoll": 7
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "DJK Augsburg Hochzoll": 8
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 6,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 9,
+            "DJK Augsburg Hochzoll": 9
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              16,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 9,
+            "DJK Augsburg Hochzoll": 10
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 9,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              8,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 10,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 11,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 11
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              16,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 12
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 13
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              8,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 13,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 14,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              16,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 15,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 16,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 14
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TSV Ansbach": [
+              3,
+              8,
+              13,
+              4,
+              11,
+              7
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "DJK Augsburg Hochzoll": 15
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              13,
+              4,
+              11,
+              7,
+              3
+            ],
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 16
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 17
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 18
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 19
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TSV Ansbach": [
+              13,
+              4,
+              11,
+              7,
+              3,
+              8
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 20
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 21
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 22
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              11,
+              7,
+              3,
+              8,
+              13
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 21,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "DJK Augsburg Hochzoll": 23
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "TSV Ansbach": [
+              11,
+              7,
+              3,
+              6,
+              13,
+              4
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 23,
+            "DJK Augsburg Hochzoll": 24
+          }
+        },
+        {
+          "point_no": 48,
+          "rotations": {
+            "TSV Ansbach": [
+              7,
+              3,
+              6,
+              13,
+              4,
+              11
+            ],
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "TSV Ansbach": 23,
+            "DJK Augsburg Hochzoll": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 4,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TSV Ansbach": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TSV Ansbach": 3
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 3
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              20,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              20,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              20,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              20,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              6,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              20,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              6,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              20,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              8,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              20,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              8,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 13
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              20,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              20,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              20,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              20
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              20
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              20
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              20
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              20,
+              13
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              20,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              2,
+              5,
+              17,
+              10,
+              20,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              20,
+              13,
+              2
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 19
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              20,
+              13,
+              2
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 20
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              20,
+              13,
+              2
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 20
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              20,
+              13,
+              2,
+              5
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              20,
+              13,
+              2,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              16,
+              6,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              20,
+              13,
+              2,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              16,
+              6,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 22
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              20,
+              13,
+              2,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              16,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 22
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              2,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              16,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TSV Ansbach": 22
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              2,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              16,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TSV Ansbach": 23
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              2,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              16,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 23
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              2,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              4,
+              16,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 24
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              2,
+              5,
+              12,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 25
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 5,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 0,
+            "TSV Ansbach": 1
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 1,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 3
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 2,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 3,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              6
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 4,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              6,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              6,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              7,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 5,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              7,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              7,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 6,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              4,
+              7,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 7,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              7,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 8,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              7,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              7,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 9,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 10,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 11,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              13,
+              6,
+              5,
+              17,
+              10,
+              8
+            ],
+            "TSV Ansbach": [
+              6,
+              3,
+              11,
+              16,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 12,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              9,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              9,
+              3,
+              11,
+              13,
+              4,
+              8
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              9
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 13,
+            "TSV Ansbach": 13
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              6,
+              5,
+              17,
+              10,
+              8,
+              13
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              9
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 13
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              3,
+              11,
+              13,
+              4,
+              8,
+              9
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              9,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 14,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              5,
+              17,
+              10,
+              8,
+              13,
+              6
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              9,
+              3
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              11,
+              13,
+              4,
+              8,
+              9,
+              3
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 15,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              17,
+              10,
+              8,
+              13,
+              6,
+              5
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              8,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              13,
+              4,
+              8,
+              6,
+              3,
+              11
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 16,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              10,
+              8,
+              13,
+              6,
+              5,
+              17
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "DJK Augsburg Hochzoll",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              6,
+              3,
+              11,
+              13
+            ]
+          },
+          "serving_team": "DJK Augsburg Hochzoll",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "DJK Augsburg Hochzoll": [
+              8,
+              13,
+              6,
+              5,
+              17,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              6,
+              3,
+              11,
+              13,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "DJK Augsburg Hochzoll": 17,
+            "TSV Ansbach": 19
+          }
+        }
+      ]
+    }
+  ],
+  "player_names": {
+    "TSV Ansbach": {
+      "3": "Franziska, K.",
+      "4": "Vera, M.",
+      "6": "Amélie, S.",
+      "7": "Franzis…, H.",
+      "8": "Magdalena, H.",
+      "9": "Aljana, R.",
+      "11": "Anna, L.",
+      "13": "Nina, H.",
+      "14": "Pia, L.",
+      "16": "Eva, S."
+    },
+    "DJK Augsburg Hochzoll": {
+      "2": "Caja, K.",
+      "3": "Lynn, D.",
+      "4": "Paula, N.",
+      "5": "Vanessa, K.",
+      "6": "Leonie, M.",
+      "7": "Lisa, M.",
+      "8": "Franziska, S.",
+      "10": "Jacqueline, H.",
+      "12": "Elena, F.",
+      "13": "Nina, K.",
+      "16": "Nadine, K.",
+      "17": "Leonie, D.",
+      "19": "…, B.",
+      "20": "Franziska, B."
+    }
+  },
+  "match_date": "24.10.2026"
+}
