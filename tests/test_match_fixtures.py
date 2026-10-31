@@ -303,8 +303,11 @@ def test_u14_analysis_json_matches_reference(
     assert "## Contents" in report_text
     assert "Points by setter position" not in report_text
     assert "Own service runs are shown as an overall distribution" in report_text
-    assert "opponent scoring runs by own rotation" in report_text
+    assert "opponent scoring runs by own rotation" in report_text.lower()
     assert "Laeufer III" not in report_text
+    assert "\n- Opponent scoring runs by own rotation (" in report_text
+    assert "\n  - Best rotations:\n    - " in report_text
+    assert "\n  - Worst rotations:\n    - " in report_text
     service_run_section = report_text.split("## Length of Service Runs", 1)[1]
     ansbach_summary = service_run_section.split("### TSV Ansbach", 1)[1]
     assert all(

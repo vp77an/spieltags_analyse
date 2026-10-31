@@ -10,7 +10,7 @@ from xml.sax.saxutils import escape
 import matplotlib
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
 from reportlab.platypus import (
     Image,
@@ -715,13 +715,19 @@ def _write_markdown_report(
                 [
                     "Own service runs are shown as an overall distribution; "
                     "rotation comparisons are omitted.",
-                    _extreme_summary(
-                        "opponent scoring runs by own rotation",
-                        opponent_best,
-                        opponent_worst,
-                        "fewer points conceded per run is better"
-                    ),
-                    "",
+                    ""
+                ]
+            )
+            lines.extend(
+                _extreme_summary_lines(
+                    "Opponent scoring runs by own rotation",
+                    opponent_best,
+                    opponent_worst,
+                    "fewer points conceded per run is better"
+                )
+            )
+            lines.extend(
+                [
                     "#### Own service-run length distribution",
                     "",
                     f"![Own service-run lengths for {team_name}]"
@@ -740,20 +746,23 @@ def _write_markdown_report(
                 best_is_high=True
             )
             lines.extend(
+                _extreme_summary_lines(
+                    "Own service runs",
+                    own_best,
+                    own_worst,
+                    "more points per run is better"
+                )
+            )
+            lines.extend(
+                _extreme_summary_lines(
+                    "Opponent scoring runs",
+                    opponent_best,
+                    opponent_worst,
+                    "fewer points conceded per run is better"
+                )
+            )
+            lines.extend(
                 [
-                    _extreme_summary(
-                        "own service runs",
-                        own_best,
-                        own_worst,
-                        "more points per run is better"
-                    ),
-                    _extreme_summary(
-                        "opponent scoring runs",
-                        opponent_best,
-                        opponent_worst,
-                        "fewer points conceded per run is better"
-                    ),
-                    "",
                     "#### Own service-run length distribution",
                     "",
                     f"![Own service-run lengths for {team_name}]"
@@ -1022,19 +1031,17 @@ def _write_pdf_report(
                         "Own service runs are shown as an overall "
                         "distribution; rotation comparisons are omitted.",
                         body_style
-                    ),
-                    Paragraph(
-                        escape(
-                            _extreme_summary(
-                                "opponent scoring runs by own rotation",
-                                opponent_best,
-                                opponent_worst,
-                                "fewer points conceded per run is better"
-                            )
-                        ),
-                        body_style
                     )
                 ]
+            )
+            story.extend(
+                _extreme_summary_paragraphs(
+                    "Opponent scoring runs by own rotation",
+                    opponent_best,
+                    opponent_worst,
+                    "fewer points conceded per run is better",
+                    body_style
+                )
             )
         else:
             own_best, own_worst = _rotation_extremes(
@@ -1043,26 +1050,18 @@ def _write_pdf_report(
             )
             story.extend(
                 [
-                    Paragraph(
-                        escape(
-                            _extreme_summary(
-                                "own service runs",
-                                own_best,
-                                own_worst,
-                                "more points per run is better"
-                            )
-                        ),
+                    *_extreme_summary_paragraphs(
+                        "Own service runs",
+                        own_best,
+                        own_worst,
+                        "more points per run is better",
                         body_style
                     ),
-                    Paragraph(
-                        escape(
-                            _extreme_summary(
-                                "opponent scoring runs",
-                                opponent_best,
-                                opponent_worst,
-                                "fewer points conceded per run is better"
-                            )
-                        ),
+                    *_extreme_summary_paragraphs(
+                        "Opponent scoring runs",
+                        opponent_best,
+                        opponent_worst,
+                        "fewer points conceded per run is better",
                         body_style
                     )
                 ]
@@ -1149,26 +1148,62 @@ def _rotation_extremes(
     )
 
 
-def _extreme_summary(
+def _extreme_summary_lines(
     category: str,
     best: list[tuple[str, float]],
     worst: list[tuple[str, float]],
     interpretation: str
-) -> str:
+) -> list[str]:
     if not best:
-        return f"No {category} were recorded."
+        return [f"- No {category.lower()} were recorded."]
 
-    def describe(rotations: list[tuple[str, float]]) -> str:
-        return ", ".join(
-            f"{label} ({mean:.2f} points/run)"
-            for label, mean in rotations
-        )
-
-    return (
-        f"For {category}, the best rotation(s) were "
-        f"{describe(best)} and the worst were {describe(worst)} "
-        f"({interpretation})."
+    lines = [f"- {category} ({interpretation})", "  - Best rotations:"]
+    lines.extend(
+        f"    - {label} ({mean:.2f} points/run)"
+        for label, mean in best
     )
+    lines.append("  - Worst rotations:")
+    lines.extend(
+        f"    - {label} ({mean:.2f} points/run)"
+        for label, mean in worst
+    )
+    lines.append("")
+    return lines
+
+
+def _extreme_summary_paragraphs(
+    category: str,
+    best: list[tuple[str, float]],
+    worst: list[tuple[str, float]],
+    interpretation: str,
+    style: Any
+) -> list[Paragraph]:
+    lines = _extreme_summary_lines(
+        category,
+        best,
+        worst,
+        interpretation
+    )
+    paragraphs = []
+    for line in lines:
+        if not line:
+            paragraphs.append(Spacer(1, 2 * mm))
+            continue
+        level = (len(line) - len(line.lstrip())) // 2
+        text = line.lstrip()[2:]
+        paragraphs.append(
+            Paragraph(
+                escape(text),
+                bulletText="-",
+                style=ParagraphStyle(
+                    name=f"ExtremeBullet{level}",
+                    parent=style,
+                    leftIndent=(level + 1) * 5 * mm,
+                    firstLineIndent=-3 * mm
+                )
+            )
+        )
+    return paragraphs
 
 
 def _plot_team_distribution(
