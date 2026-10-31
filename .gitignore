@@ -1,7 +1,3 @@
 .venv/
 __pycache__/
 *.py[cod]
-
-# Legacy cell-grid caches
-cell_grid.json
-cells.json
