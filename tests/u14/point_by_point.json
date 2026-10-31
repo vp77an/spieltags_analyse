@@ -1,0 +1,2267 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 1,
+            "TSV Ansbach": 0
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 1,
+            "TSV Ansbach": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 1,
+            "TSV Ansbach": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 1,
+            "TSV Ansbach": 3
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 1,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 2,
+            "TSV Ansbach": 4
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 2,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 3,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 4,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 5,
+            "TSV Ansbach": 5
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 5,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 6,
+            "TSV Ansbach": 6
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 6,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 7,
+            "TSV Ansbach": 7
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 7,
+            "TSV Ansbach": 8
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 7,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 8,
+            "TSV Ansbach": 9
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 8,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 9,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 10,
+            "TSV Ansbach": 10
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 10,
+            "TSV Ansbach": 11
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 10,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 11,
+            "TSV Ansbach": 12
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 11,
+            "TSV Ansbach": 13
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 11,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 12,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 13,
+            "TSV Ansbach": 14
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              2,
+              8
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 13,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 14,
+            "TSV Ansbach": 15
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              5,
+              2,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 14,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 15,
+            "TSV Ansbach": 16
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              2,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 15,
+            "TSV Ansbach": 17
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 15,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 16,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 17,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              2
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 18,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              4
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 19,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              4
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 20,
+            "TSV Ansbach": 18
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              4
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 20,
+            "TSV Ansbach": 19
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 20,
+            "TSV Ansbach": 20
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 20,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TV Altdorf": [
+              7,
+              1,
+              10,
+              12
+            ],
+            "TSV Ansbach": [
+              5,
+              4,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 21,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              5,
+              4,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 22,
+            "TSV Ansbach": 21
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              5,
+              4,
+              8,
+              14
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 22,
+            "TSV Ansbach": 22
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 22,
+            "TSV Ansbach": 23
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TV Altdorf": [
+              1,
+              10,
+              12,
+              7
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 23,
+            "TSV Ansbach": 23
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              4,
+              8,
+              14,
+              5
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 23,
+            "TSV Ansbach": 24
+          }
+        },
+        {
+          "point_no": 48,
+          "rotations": {
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              1
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TV Altdorf": 24,
+            "TSV Ansbach": 24
+          }
+        },
+        {
+          "point_no": 49,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              8,
+              14,
+              5,
+              4
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 24,
+            "TSV Ansbach": 25
+          }
+        },
+        {
+          "point_no": 50,
+          "rotations": {
+            "TV Altdorf": [
+              12,
+              7,
+              1,
+              10
+            ],
+            "TSV Ansbach": [
+              14,
+              5,
+              4,
+              8
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TV Altdorf": 24,
+            "TSV Ansbach": 26
+          }
+        }
+      ]
+    },
+    {
+      "set_no": 2,
+      "points": [
+        {
+          "point_no": 1,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "TV Altdorf": 0
+          }
+        },
+        {
+          "point_no": 2,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "TV Altdorf": 1
+          }
+        },
+        {
+          "point_no": 3,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 1,
+            "TV Altdorf": 2
+          }
+        },
+        {
+          "point_no": 4,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 2,
+            "TV Altdorf": 2
+          }
+        },
+        {
+          "point_no": 5,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 3,
+            "TV Altdorf": 2
+          }
+        },
+        {
+          "point_no": 6,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "TV Altdorf": 2
+          }
+        },
+        {
+          "point_no": 7,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 4,
+            "TV Altdorf": 3
+          }
+        },
+        {
+          "point_no": 8,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "TV Altdorf": 3
+          }
+        },
+        {
+          "point_no": 9,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 5,
+            "TV Altdorf": 4
+          }
+        },
+        {
+          "point_no": 10,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 6,
+            "TV Altdorf": 4
+          }
+        },
+        {
+          "point_no": 11,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 4
+          }
+        },
+        {
+          "point_no": 12,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 5
+          }
+        },
+        {
+          "point_no": 13,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 6
+          }
+        },
+        {
+          "point_no": 14,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 7
+          }
+        },
+        {
+          "point_no": 15,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 8
+          }
+        },
+        {
+          "point_no": 16,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 9
+          }
+        },
+        {
+          "point_no": 17,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 7,
+            "TV Altdorf": 10
+          }
+        },
+        {
+          "point_no": 18,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 8,
+            "TV Altdorf": 10
+          }
+        },
+        {
+          "point_no": 19,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 9,
+            "TV Altdorf": 10
+          }
+        },
+        {
+          "point_no": 20,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 10,
+            "TV Altdorf": 10
+          }
+        },
+        {
+          "point_no": 21,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 10,
+            "TV Altdorf": 11
+          }
+        },
+        {
+          "point_no": 22,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 11,
+            "TV Altdorf": 11
+          }
+        },
+        {
+          "point_no": 23,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 11,
+            "TV Altdorf": 12
+          }
+        },
+        {
+          "point_no": 24,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 12,
+            "TV Altdorf": 12
+          }
+        },
+        {
+          "point_no": 25,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 13,
+            "TV Altdorf": 12
+          }
+        },
+        {
+          "point_no": 26,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 13,
+            "TV Altdorf": 13
+          }
+        },
+        {
+          "point_no": 27,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 13,
+            "TV Altdorf": 14
+          }
+        },
+        {
+          "point_no": 28,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 14,
+            "TV Altdorf": 14
+          }
+        },
+        {
+          "point_no": 29,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 15,
+            "TV Altdorf": 14
+          }
+        },
+        {
+          "point_no": 30,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 15,
+            "TV Altdorf": 15
+          }
+        },
+        {
+          "point_no": 31,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 16,
+            "TV Altdorf": 15
+          }
+        },
+        {
+          "point_no": 32,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 17,
+            "TV Altdorf": 15
+          }
+        },
+        {
+          "point_no": 33,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              4
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "TV Altdorf": 15
+          }
+        },
+        {
+          "point_no": 34,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              16,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "TV Altdorf": 16
+          }
+        },
+        {
+          "point_no": 35,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "TV Altdorf": 17
+          }
+        },
+        {
+          "point_no": 36,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              16
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 18,
+            "TV Altdorf": 18
+          }
+        },
+        {
+          "point_no": 37,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              4,
+              5
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 19,
+            "TV Altdorf": 18
+          }
+        },
+        {
+          "point_no": 38,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 20,
+            "TV Altdorf": 18
+          }
+        },
+        {
+          "point_no": 39,
+          "rotations": {
+            "TSV Ansbach": [
+              14,
+              4,
+              5,
+              8
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 21,
+            "TV Altdorf": 18
+          }
+        },
+        {
+          "point_no": 40,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "TV Altdorf": 18
+          }
+        },
+        {
+          "point_no": 41,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              12,
+              7,
+              16,
+              10
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "TV Altdorf": 19
+          }
+        },
+        {
+          "point_no": 42,
+          "rotations": {
+            "TSV Ansbach": [
+              4,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "TV Altdorf": 20
+          }
+        },
+        {
+          "point_no": 43,
+          "rotations": {
+            "TSV Ansbach": [
+              1,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              7,
+              16,
+              10,
+              12
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 22,
+            "TV Altdorf": 21
+          }
+        },
+        {
+          "point_no": 44,
+          "rotations": {
+            "TSV Ansbach": [
+              1,
+              5,
+              8,
+              14
+            ],
+            "TV Altdorf": [
+              4,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 23,
+            "TV Altdorf": 21
+          }
+        },
+        {
+          "point_no": 45,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              1
+            ],
+            "TV Altdorf": [
+              4,
+              10,
+              12,
+              7
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TV Altdorf",
+          "score_after": {
+            "TSV Ansbach": 23,
+            "TV Altdorf": 22
+          }
+        },
+        {
+          "point_no": 46,
+          "rotations": {
+            "TSV Ansbach": [
+              5,
+              8,
+              14,
+              1
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              4
+            ]
+          },
+          "serving_team": "TV Altdorf",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 24,
+            "TV Altdorf": 22
+          }
+        },
+        {
+          "point_no": 47,
+          "rotations": {
+            "TSV Ansbach": [
+              8,
+              14,
+              1,
+              5
+            ],
+            "TV Altdorf": [
+              10,
+              12,
+              7,
+              4
+            ]
+          },
+          "serving_team": "TSV Ansbach",
+          "scoring_team": "TSV Ansbach",
+          "score_after": {
+            "TSV Ansbach": 25,
+            "TV Altdorf": 22
+          }
+        }
+      ]
+    }
+  ],
+  "player_names": {
+    "TV Altdorf": {
+      "1": "Sabrina, L.",
+      "4": "Suzanne, D.",
+      "7": "Anna, M.",
+      "8": "Adriana, N.",
+      "9": "Selina, T.",
+      "10": "Sophy, B.",
+      "12": "Simona, R.",
+      "16": "Maya, R."
+    },
+    "TSV Ansbach": {
+      "1": "Kristin, R.",
+      "2": "Eva, L.",
+      "4": "Laura, S.",
+      "5": "Lea, G.",
+      "8": "Frida, H.",
+      "14": "Malena, W."
+    }
+  },
+  "match_date": "18.10.2026",
+  "match_type": "U14"
+}

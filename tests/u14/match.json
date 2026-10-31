@@ -1,0 +1,215 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "start_rotation": {
+        "TV Altdorf": [
+          10,
+          12,
+          7,
+          1
+        ],
+        "TSV Ansbach": [
+          8,
+          14,
+          5,
+          2
+        ]
+      },
+      "serve_rounds": {
+        "TV Altdorf": {
+          "10": [
+            1,
+            6,
+            11,
+            18,
+            23
+          ],
+          "12": [
+            2,
+            7,
+            13,
+            20,
+            24
+          ],
+          "7": [
+            5,
+            8,
+            14,
+            20
+          ],
+          "1": [
+            5,
+            10,
+            15,
+            22
+          ]
+        },
+        "TSV Ansbach": {
+          "8": [
+            6,
+            12,
+            18,
+            24
+          ],
+          "14": [
+            3,
+            7,
+            14,
+            21,
+            26
+          ],
+          "5": [
+            4,
+            9,
+            15,
+            21
+          ],
+          "2": [
+            5,
+            10,
+            16,
+            23
+          ]
+        }
+      },
+      "substitutions": {
+        "TV Altdorf": [],
+        "TSV Ansbach": [
+          {
+            "player_in": 4,
+            "player_out": 2,
+            "score": {
+              "TSV Ansbach": 18,
+              "TV Altdorf": 18
+            }
+          }
+        ]
+      },
+      "points": {
+        "TV Altdorf": 24,
+        "TSV Ansbach": 26
+      },
+      "first_serving_team": "TV Altdorf"
+    },
+    {
+      "set_no": 2,
+      "start_rotation": {
+        "TSV Ansbach": [
+          14,
+          4,
+          5,
+          8
+        ],
+        "TV Altdorf": [
+          12,
+          7,
+          16,
+          10
+        ]
+      },
+      "serve_rounds": {
+        "TSV Ansbach": {
+          "14": [
+            1,
+            7,
+            13,
+            21
+          ],
+          "4": [
+            4,
+            10,
+            15,
+            22
+          ],
+          "5": [
+            4,
+            10,
+            18,
+            23
+          ],
+          "8": [
+            5,
+            11,
+            18,
+            25
+          ]
+        },
+        "TV Altdorf": {
+          "12": [
+            7,
+            12,
+            18
+          ],
+          "7": [
+            2,
+            9,
+            14,
+            21
+          ],
+          "16": [
+            3,
+            10,
+            15,
+            21
+          ],
+          "10": [
+            4,
+            11,
+            18,
+            22
+          ]
+        }
+      },
+      "substitutions": {
+        "TSV Ansbach": [
+          {
+            "player_in": 1,
+            "player_out": 4,
+            "score": {
+              "TSV Ansbach": 22,
+              "TV Altdorf": 20
+            }
+          }
+        ],
+        "TV Altdorf": [
+          {
+            "player_in": 4,
+            "player_out": 16,
+            "score": {
+              "TV Altdorf": 21,
+              "TSV Ansbach": 22
+            }
+          }
+        ]
+      },
+      "points": {
+        "TSV Ansbach": 25,
+        "TV Altdorf": 22
+      },
+      "first_serving_team": "TSV Ansbach"
+    }
+  ],
+  "player_names": {
+    "TV Altdorf": {
+      "1": "Sabrina, L.",
+      "4": "Suzanne, D.",
+      "7": "Anna, M.",
+      "8": "Adriana, N.",
+      "9": "Selina, T.",
+      "10": "Sophy, B.",
+      "12": "Simona, R.",
+      "16": "Maya, R."
+    },
+    "TSV Ansbach": {
+      "1": "Kristin, R.",
+      "2": "Eva, L.",
+      "4": "Laura, S.",
+      "5": "Lea, G.",
+      "8": "Frida, H.",
+      "14": "Malena, W."
+    }
+  },
+  "match_date": "18.10.2026",
+  "match_type": "U14"
+}

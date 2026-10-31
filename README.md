@@ -2,9 +2,11 @@
 
 Parses match and set information from formatted SAMS volleyball score-sheet PDFs.
 The parser reads the PDF's embedded text and its positions; it does not use OCR.
-Matches are parsed through the winning third set; unplayed set panels are
-ignored. For a 2-2 match, it identifies all three fifth-set panels from their
-headers and merges the two side-switch panels for the same team.
+Regular matches are parsed through the set that gives a team its third win;
+unplayed set panels are ignored. For a 2-2 match, the parser identifies all
+three fifth-set panels from their headers and merges the two side-switch panels
+for the same team. U14 matches are detected from a `U14` age-grade marker in
+the PDF header and end when a team wins two sets.
 
 ## Requirements
 
@@ -24,12 +26,21 @@ python -m pip install -r requirements-dev.txt
 python -m pytest
 ```
 
-The PDF regression fixtures are in [tests/](./tests/). Each of the `3-set`,
-`4-set`, and `5-set` folders contains a score-sheet PDF and the reference
-`match.json` and `point_by_point.json` outputs used to verify parsing and
-point-by-point reconstruction. They also contain references for the generated
+The PDF regression fixtures are in [tests/](./tests/). The `3-set`, `4-set`,
+and `5-set` folders contain regular-match PDFs; `u14` contains a four-player
+U14 match. Each fixture includes reference `match.json` and
+`point_by_point.json` outputs, plus references for the generated
 `rotation_run_distributions.json`, `service_run_distributions.json`, and
 `points_by_setter_position.json` analysis results.
+
+U14 matches use four players per team, are played as best-of-three sets, and
+use a 25-point target for the first two sets and 15 points for a deciding set.
+All sets require a two-point lead. The set header's `S`/`R` marks identify the
+opening server; the serving team's position-I player serves first. After a
+team gains service, it rotates before serving. During a service turn it rotates
+after scoring two points; zero or one point ends the turn without that
+additional rotation. Position III is treated as the setter position for U14
+analysis.
 
 Parse the included report:
 
@@ -62,7 +73,7 @@ teams. `setters` may be omitted when unknown. The optional `match_json`,
 The first listed setter is the primary setter, and an empty list means the
 setter is unknown. If multiple listed setters are on court at once, the first
 listed is treated as the setter. When no setter is configured, rotation
-analysis uses the six jersey numbers on court instead of assigning Laeufer
+analysis uses the jersey numbers on court instead of assigning Laeufer
 positions.
 
 Point-by-point reconstruction is also saved as `point_by_point.json` by
@@ -92,12 +103,19 @@ opponent's points by the team's setter position. The underlying totals are
 saved in `points_by_setter_position.json`. Points for which no configured
 setter is on court are included under `Unknown`.
 
+For U14 matches, opponent scoring runs are grouped by the exact own rotation,
+with each player's current position shown in the legend. Player names and last
+name initials are included when roster information is available. Own service
+runs are shown as an aggregate distribution rather than compared by rotation.
+The setter-position chart and `points_by_setter_position.json` are not
+generated for U14 matches.
+
 Each analysis run also creates Markdown and PDF reports in the analysis output
 directory. Both filenames include the two team names and match date, for
 example `report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.md` and the matching
 `.pdf`.
 Its **Performance per Set of Players** section groups both teams' points by
-the exact six-player lineup on court and sorts lineups by team-points-to-
+the exact lineup on court and sorts lineups by team-points-to-
 opponent-points ratio. Player first names and last-name initials are read from
 the score-sheet roster when available; otherwise the report shows jersey
 numbers alone. A zero opponent-point count is shown as an infinite ratio.
@@ -108,7 +126,3 @@ with no lost points is shown with an infinite ratio.
 The **Length of Service Runs** section embeds the generated run and setter-
 position plots and summarizes, for each team, the best and worst rotations
 for own service runs and opponent scoring runs.
-
-## TODO:
-
-- Handling of U14 (4 players)

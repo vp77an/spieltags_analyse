@@ -44,6 +44,8 @@ def analyze_rotation_runs(
 ) -> dict[str, Any]:
     output_path = Path(output_dir)
     output_path.mkdir(parents=True, exist_ok=True)
+    is_u14 = point_data.get("match_type") == "U14"
+    player_count = 4 if is_u14 else 6
     team_names = {
         team["name"]: team["setters"]
         for team in teams
@@ -90,9 +92,11 @@ def analyze_rotation_runs(
                         f"Set {set_no}: invalid scoring team "
                         f"{point.get('scoring_team')!r}"
                     )
-                rotation = _rotation_for(point, team_name, set_no)
+                rotation = _rotation_for(
+                    point, team_name, set_no, player_count
+                )
                 rotation_key = _rotation_key(
-                    rotation, setters_by_team[team_name]
+                    rotation, setters_by_team[team_name], is_u14=is_u14
                 )
                 rotation_data[team_name].setdefault(
                     rotation_key,
@@ -118,17 +122,18 @@ def analyze_rotation_runs(
                     player_totals["points_played"] += 1
                     player_totals[lineup_result] += 1
 
-                setter_position = _setter_position(
-                    rotation, setters_by_team[team_name]
-                )
-                point_result = (
-                    ":own"
-                    if point["scoring_team"] == team_name
-                    else ":opponent"
-                )
-                points_by_setter_position[team_name][
-                    _setter_position_label(setter_position) + point_result
-                ] += 1
+                if not is_u14:
+                    setter_position = _setter_position(
+                        rotation, setters_by_team[team_name]
+                    )
+                    point_result = (
+                        ":own"
+                        if point["scoring_team"] == team_name
+                        else ":opponent"
+                    )
+                    points_by_setter_position[team_name][
+                        _setter_position_label(setter_position) + point_result
+                    ] += 1
 
             index = 0
             while index < len(points):
@@ -137,19 +142,26 @@ def analyze_rotation_runs(
                     index += 1
                     continue
 
-                rotation = _rotation_for(points[index], team_name, set_no)
+                rotation = _rotation_for(
+                    points[index], team_name, set_no, player_count
+                )
                 rotation_key = _rotation_key(
-                    rotation, setters_by_team[team_name]
+                    rotation, setters_by_team[team_name], is_u14=is_u14
                 )
                 end_index = index + 1
                 while end_index < len(points):
                     next_rotation = _rotation_for(
-                        points[end_index], team_name, set_no
+                        points[end_index],
+                        team_name,
+                        set_no,
+                        player_count
                     )
                     if (
                         points[end_index].get("scoring_team") == team_name
                         or _rotation_key(
-                            next_rotation, setters_by_team[team_name]
+                            next_rotation,
+                            setters_by_team[team_name],
+                            is_u14=is_u14
                         ) != rotation_key
                     ):
                         break
@@ -184,9 +196,16 @@ def analyze_rotation_runs(
             ):
                 end_index += 1
 
-            rotation = _rotation_for(points[index], serving_team, set_no)
-            rotation_key = _rotation_key(
-                rotation, setters_by_team[serving_team]
+            rotation = _rotation_for(
+                points[index], serving_team, set_no, player_count
+            )
+            rotation_key = (
+                ("all",)
+                if is_u14
+                else _rotation_key(
+                    rotation,
+                    setters_by_team[serving_team]
+                )
             )
             stats = service_run_data[serving_team].setdefault(
                 rotation_key,
@@ -248,7 +267,11 @@ def analyze_rotation_runs(
                         for lineup in sorted(stats["lineups"])
                     ],
                     "label": _rotation_label(
-                        rotation_key, stats["lineups"], setters
+                        rotation_key,
+                        stats["lineups"],
+                        setters,
+                        is_u14=is_u14,
+                        player_names=player_names.get(team_name, {})
                     ),
                     "run_length_distribution": distribution,
                     "mean_run_length": _mean_run_length(stats["runs"]),
@@ -265,33 +288,40 @@ def analyze_rotation_runs(
         _plot_team_distribution(
             team_name,
             rotation_results,
-            output_path / f"{_filename_slug(team_name)}_rotation_runs.png"
+            output_path / f"{_filename_slug(team_name)}_rotation_runs.png",
+            u14=is_u14
         )
 
         service_results = _distribution_results(
-            service_run_data[team_name], setters
+            service_run_data[team_name],
+            setters,
+            is_u14=is_u14,
+            player_names=player_names.get(team_name, {})
         )
-        service_report["teams"].append(
-            {"team": team_name, "setter_positions": service_results}
-        )
+        service_report["teams"].append({
+            "team": team_name,
+            ("rotations" if is_u14 else "setter_positions"): service_results
+        })
         _plot_service_run_distribution(
             team_name,
             service_results,
-            output_path / f"{_filename_slug(team_name)}_service_runs.png"
+            output_path / f"{_filename_slug(team_name)}_service_runs.png",
+            u14=is_u14
         )
 
-        point_totals = _point_totals_results(
-            points_by_setter_position[team_name]
-        )
-        points_report["teams"].append(
-            {"team": team_name, "setter_positions": point_totals}
-        )
-        _plot_points_by_setter_position(
-            team_name,
-            point_totals,
-            output_path
-            / f"{_filename_slug(team_name)}_points_by_setter_position.png"
-        )
+        if not is_u14:
+            point_totals = _point_totals_results(
+                points_by_setter_position[team_name]
+            )
+            points_report["teams"].append(
+                {"team": team_name, "setter_positions": point_totals}
+            )
+            _plot_points_by_setter_position(
+                team_name,
+                point_totals,
+                output_path
+                / f"{_filename_slug(team_name)}_points_by_setter_position.png"
+            )
         performance_report["teams"].append(
             {
                 "team": team_name,
@@ -314,16 +344,27 @@ def analyze_rotation_runs(
         json.dumps(service_report, indent=2, ensure_ascii=False) + "\n",
         encoding="utf-8"
     )
-    (output_path / "points_by_setter_position.json").write_text(
-        json.dumps(points_report, indent=2, ensure_ascii=False) + "\n",
-        encoding="utf-8"
-    )
+    if is_u14:
+        (output_path / "points_by_setter_position.json").unlink(
+            missing_ok=True
+        )
+        for team_name in team_names:
+            (
+                output_path
+                / f"{_filename_slug(team_name)}_points_by_setter_position.png"
+            ).unlink(missing_ok=True)
+    else:
+        (output_path / "points_by_setter_position.json").write_text(
+            json.dumps(points_report, indent=2, ensure_ascii=False) + "\n",
+            encoding="utf-8"
+        )
     _write_markdown_report(
         output_path,
         performance_report,
         report,
         service_report,
-        point_data["match_date"]
+        point_data["match_date"],
+        is_u14=is_u14
     )
     return report
 
@@ -331,7 +372,8 @@ def analyze_rotation_runs(
 def _rotation_for(
     point: dict[str, Any],
     team_name: str,
-    set_no: Any
+    set_no: Any,
+    player_count: int = 6
 ) -> tuple[int, ...]:
     rotations = point.get("rotations")
     if not isinstance(rotations, dict) or team_name not in rotations:
@@ -341,22 +383,26 @@ def _rotation_for(
     rotation = rotations[team_name]
     if (
         not isinstance(rotation, list)
-        or len(rotation) != 6
+        or len(rotation) != player_count
         or any(
             not isinstance(player, int) or isinstance(player, bool)
             for player in rotation
         )
     ):
         raise ValueError(
-            f"Set {set_no}: invalid six-player rotation for {team_name!r}"
+            f"Set {set_no}: invalid {player_count}-player rotation for "
+            f"{team_name!r}"
         )
     return tuple(rotation)
 
 
 def _rotation_key(
     rotation: tuple[int, ...],
-    setters: list[int]
+    setters: list[int],
+    is_u14: bool = False
 ) -> tuple[Any, ...]:
+    if is_u14:
+        return ("lineup", rotation)
     if not setters:
         return ("lineup", rotation)
     active_setter = next(
@@ -394,8 +440,24 @@ def _setter_position_label(position: int | None) -> str:
 def _rotation_label(
     rotation_key: tuple[Any, ...],
     lineups: set[tuple[int, ...]],
-    setters: list[int]
+    setters: list[int],
+    is_u14: bool = False,
+    player_names: dict[str, str] | None = None
 ) -> str:
+    if rotation_key[0] == "all":
+        return "All serving rotations"
+    if is_u14:
+        lineup = rotation_key[1]
+        player_names = player_names or {}
+        return " | ".join(
+            f"{ROMAN_NUMERALS[position]}: #{jersey}"
+            + (
+                f" ({player_names[str(jersey)]})"
+                if str(jersey) in player_names
+                else ""
+            )
+            for position, jersey in enumerate(lineup)
+        )
     if rotation_key[0] == "setter":
         return f"Laeufer {ROMAN_NUMERALS[rotation_key[1]]}"
     lineup = next(iter(lineups))
@@ -413,23 +475,30 @@ def _mean_run_length(runs: list[dict[str, Any]]) -> float | None:
 
 def _distribution_results(
     data: dict[tuple[Any, ...], dict[str, Any]],
-    setters: list[int]
+    setters: list[int],
+    is_u14: bool = False,
+    player_names: dict[str, str] | None = None
 ) -> list[dict[str, Any]]:
     results = []
     for rotation_key, stats in sorted(
         data.items(),
         key=lambda item: (
             0 if item[0][0] == "setter" else 1,
-            item[0][1]
+            item[0][1] if len(item[0]) > 1 else ()
         )
     ):
         results.append(
             {
                 "lineups": [
-                    list(lineup) for lineup in sorted(stats["lineups"])
-                ],
+                    list(lineup)
+                    for lineup in sorted(stats["lineups"])
+                ] if rotation_key[0] != "all" else [],
                 "label": _rotation_label(
-                    rotation_key, stats["lineups"], setters
+                    rotation_key,
+                    stats["lineups"],
+                    setters,
+                    is_u14=is_u14,
+                    player_names=player_names
                 ),
                 "run_length_distribution": {
                     str(length): stats["counts"][length]
@@ -452,10 +521,7 @@ def _point_totals_results(
             "opponent_points": totals[f"{label}:opponent"]
         }
         for label in [
-            *(
-                f"Laeufer {numeral}"
-                for numeral in ROMAN_NUMERALS
-            ),
+            *(f"Laeufer {numeral}" for numeral in ROMAN_NUMERALS),
             "Unknown"
         ]
     ]
@@ -535,7 +601,8 @@ def _write_markdown_report(
     performance_report: dict[str, Any],
     opponent_run_report: dict[str, Any],
     service_run_report: dict[str, Any],
-    match_date: str
+    match_date: str,
+    is_u14: bool = False
 ) -> None:
     team_names = [
         team["team"]
@@ -553,7 +620,7 @@ def _write_markdown_report(
         "",
         "## Performance per Set of Players",
         "",
-        "Lineups are grouped by the six jersey numbers on court. The ratio is "
+        "Lineups are grouped by the jersey numbers on court. The ratio is "
         "team points scored divided by opponent points scored; a lineup that "
         "conceded no points is shown as `∞`.",
         ""
@@ -626,8 +693,8 @@ def _write_markdown_report(
         team["team"] for team in performance_report["teams"]
     ):
         team_slug = _filename_slug(team_name)
-        own_rotations = next(
-            team["setter_positions"]
+        service_runs = next(
+            team["rotations" if is_u14 else "setter_positions"]
             for team in service_run_report["teams"]
             if team["team"] == team_name
         )
@@ -636,48 +703,72 @@ def _write_markdown_report(
             for team in opponent_run_report["teams"]
             if team["team"] == team_name
         )
-        own_best, own_worst = _rotation_extremes(
-            own_rotations,
-            best_is_high=True
-        )
         opponent_best, opponent_worst = _rotation_extremes(
             opponent_rotations,
             best_is_high=False
         )
-        lines.extend(
-            [
-                f"### {team_name}",
-                "",
-                _extreme_summary(
-                    "own service runs",
-                    own_best,
-                    own_worst,
-                    "more points per run is better"
-                ),
-                _extreme_summary(
-                    "opponent scoring runs",
-                    opponent_best,
-                    opponent_worst,
-                    "fewer points conceded per run is better"
-                ),
-                "",
-                "#### Own service-run length distribution",
-                "",
-                f"![Own service-run lengths for {team_name}]"
-                f"({team_slug}_service_runs.png)",
-                "",
-                "#### Opponent scoring-run length by rotation",
-                "",
-                f"![Opponent scoring-run lengths for {team_name}]"
-                f"({team_slug}_rotation_runs.png)",
-                "",
-                "#### Points by setter position",
-                "",
-                f"![Points by setter position for {team_name}]"
-                f"({team_slug}_points_by_setter_position.png)",
-                ""
-            ]
-        )
+        lines.extend([f"### {team_name}", ""])
+        if is_u14:
+            lines.extend(
+                [
+                    "Own service runs are shown as an overall distribution; "
+                    "rotation comparisons are omitted.",
+                    _extreme_summary(
+                        "opponent scoring runs by own rotation",
+                        opponent_best,
+                        opponent_worst,
+                        "fewer points conceded per run is better"
+                    ),
+                    "",
+                    "#### Own service-run length distribution",
+                    "",
+                    f"![Own service-run lengths for {team_name}]"
+                    f"({team_slug}_service_runs.png)",
+                    "",
+                    "#### Opponent scoring-run length by own rotation",
+                    "",
+                    f"![Opponent scoring-run lengths for {team_name}]"
+                    f"({team_slug}_rotation_runs.png)",
+                    ""
+                ]
+            )
+        else:
+            own_best, own_worst = _rotation_extremes(
+                service_runs,
+                best_is_high=True
+            )
+            lines.extend(
+                [
+                    _extreme_summary(
+                        "own service runs",
+                        own_best,
+                        own_worst,
+                        "more points per run is better"
+                    ),
+                    _extreme_summary(
+                        "opponent scoring runs",
+                        opponent_best,
+                        opponent_worst,
+                        "fewer points conceded per run is better"
+                    ),
+                    "",
+                    "#### Own service-run length distribution",
+                    "",
+                    f"![Own service-run lengths for {team_name}]"
+                    f"({team_slug}_service_runs.png)",
+                    "",
+                    "#### Opponent scoring-run length by rotation",
+                    "",
+                    f"![Opponent scoring-run lengths for {team_name}]"
+                    f"({team_slug}_rotation_runs.png)",
+                    "",
+                    "#### Points by setter position",
+                    "",
+                    f"![Points by setter position for {team_name}]"
+                    f"({team_slug}_points_by_setter_position.png)",
+                    ""
+                ]
+            )
     report_path = output_path / f"{report_stem}.md"
     report_path.write_text(
         "\n".join(lines),
@@ -689,7 +780,8 @@ def _write_markdown_report(
         performance_report,
         opponent_run_report,
         service_run_report,
-        match_date
+        match_date,
+        is_u14=is_u14
     )
 
 
@@ -716,14 +808,25 @@ def _write_pdf_report(
     performance_report: dict[str, Any],
     opponent_run_report: dict[str, Any],
     service_run_report: dict[str, Any],
-    match_date: str
+    match_date: str,
+    is_u14: bool = False
 ) -> None:
     styles = getSampleStyleSheet()
     body_style = styles["BodyText"]
+    team_names = [
+        team["team"]
+        for team in performance_report["teams"]
+    ]
+    if len(team_names) != 2:
+        raise ValueError("The match report requires exactly two team names")
     story = [
         Paragraph(
-            f"Match analysis - {escape(match_date)}",
+            f"{escape(team_names[0])} vs {escape(team_names[1])}",
             styles["Title"]
+        ),
+        Paragraph(
+            f"Match analysis - {escape(match_date)}",
+            styles["Heading2"]
         ),
         Paragraph("Contents", styles["Heading1"]),
         Paragraph(
@@ -748,9 +851,15 @@ def _write_pdf_report(
             styles["Heading1"]
         ),
         Paragraph(
-            "Lineups are grouped by the six jersey numbers on court. The ratio "
-            "is team points scored divided by opponent points scored; a lineup "
-            "that conceded no points is shown as infinity.",
+            (
+                "Lineups are grouped by the jersey numbers on court. The ratio "
+                "is team points scored divided by opponent points scored; a "
+                "lineup that conceded no points is shown as infinity."
+                if is_u14
+                else "Lineups are grouped by the six jersey numbers on court. "
+                "The ratio is team points scored divided by opponent points "
+                "scored; a lineup that conceded no points is shown as infinity."
+            ),
             body_style
         ),
         Spacer(1, 4 * mm)
@@ -889,8 +998,8 @@ def _write_pdf_report(
     for team_name in (
         team["team"] for team in performance_report["teams"]
     ):
-        own_rotations = next(
-            team["setter_positions"]
+        service_runs = next(
+            team["rotations" if is_u14 else "setter_positions"]
             for team in service_run_report["teams"]
             if team["team"] == team_name
         )
@@ -899,47 +1008,84 @@ def _write_pdf_report(
             for team in opponent_run_report["teams"]
             if team["team"] == team_name
         )
-        own_best, own_worst = _rotation_extremes(
-            own_rotations,
-            best_is_high=True
-        )
         opponent_best, opponent_worst = _rotation_extremes(
             opponent_rotations,
             best_is_high=False
         )
-        story.extend(
-            [
-                Paragraph(escape(team_name), styles["Heading2"]),
-                Paragraph(
-                    escape(
-                        _extreme_summary(
-                            "own service runs",
-                            own_best,
-                            own_worst,
-                            "more points per run is better"
-                        )
+        story.append(Paragraph(escape(team_name), styles["Heading2"]))
+        if is_u14:
+            story.extend(
+                [
+                    Paragraph(
+                        "Own service runs are shown as an overall "
+                        "distribution; rotation comparisons are omitted.",
+                        body_style
                     ),
-                    body_style
-                ),
-                Paragraph(
-                    escape(
-                        _extreme_summary(
-                            "opponent scoring runs",
-                            opponent_best,
-                            opponent_worst,
-                            "fewer points conceded per run is better"
-                        )
+                    Paragraph(
+                        escape(
+                            _extreme_summary(
+                                "opponent scoring runs by own rotation",
+                                opponent_best,
+                                opponent_worst,
+                                "fewer points conceded per run is better"
+                            )
+                        ),
+                        body_style
+                    )
+                ]
+            )
+        else:
+            own_best, own_worst = _rotation_extremes(
+                service_runs,
+                best_is_high=True
+            )
+            story.extend(
+                [
+                    Paragraph(
+                        escape(
+                            _extreme_summary(
+                                "own service runs",
+                                own_best,
+                                own_worst,
+                                "more points per run is better"
+                            )
+                        ),
+                        body_style
                     ),
-                    body_style
-                )
-            ]
-        )
+                    Paragraph(
+                        escape(
+                            _extreme_summary(
+                                "opponent scoring runs",
+                                opponent_best,
+                                opponent_worst,
+                                "fewer points conceded per run is better"
+                            )
+                        ),
+                        body_style
+                    )
+                ]
+            )
         team_slug = _filename_slug(team_name)
-        for heading, image_name in (
-            ("Own service-run length distribution", f"{team_slug}_service_runs.png"),
-            ("Opponent scoring-run length by rotation", f"{team_slug}_rotation_runs.png"),
-            ("Points by setter position", f"{team_slug}_points_by_setter_position.png")
-        ):
+        images = [
+            (
+                "Own service-run length distribution",
+                f"{team_slug}_service_runs.png"
+            ),
+            (
+                "Opponent scoring-run length by own rotation"
+                if is_u14
+                else "Opponent scoring-run length by rotation",
+                f"{team_slug}_rotation_runs.png"
+            )
+        ]
+        if not is_u14:
+            images.append(
+                (
+                    "Points by setter position",
+                    f"{team_slug}_points_by_setter_position.png"
+                )
+            )
+        for heading, image_name in images:
             image_path = markdown_file.parent / image_name
             if not image_path.is_file():
                 raise FileNotFoundError(
@@ -1026,15 +1172,20 @@ def _extreme_summary(
 def _plot_team_distribution(
     team_name: str,
     rotations: list[dict[str, Any]],
-    output_file: Path
+    output_file: Path,
+    u14: bool = False
 ) -> None:
     _plot_run_distribution_bars(
         team_name,
         rotations,
         output_file,
-        title=f"Opponent scoring runs while {team_name} held rotation",
+        title=(
+            f"Opponent scoring runs by rotation of {team_name}"
+            if u14
+            else f"Opponent scoring runs while {team_name} held rotation"
+        ),
         x_label="Consecutive points scored by opponent",
-        legend_title="Rotation",
+        legend_title="Position and player" if u14 else "Rotation",
         empty_length=1
     )
 
@@ -1042,7 +1193,8 @@ def _plot_team_distribution(
 def _plot_service_run_distribution(
     team_name: str,
     rotations: list[dict[str, Any]],
-    output_file: Path
+    output_file: Path,
+    u14: bool = False
 ) -> None:
     _plot_run_distribution_bars(
         team_name,
@@ -1050,7 +1202,7 @@ def _plot_service_run_distribution(
         output_file,
         title=f"{team_name} points scored during own service runs",
         x_label="Points won before losing serve",
-        legend_title="Setter position",
+        legend_title="Service runs" if u14 else "Setter position",
         empty_length=0
     )
 

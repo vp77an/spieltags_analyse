@@ -1,0 +1,412 @@
+{
+  "teams": [
+    {
+      "team": "TV Altdorf",
+      "rotations": [
+        {
+          "lineups": [],
+          "label": "All serving rotations",
+          "run_length_distribution": {
+            "0": 15,
+            "1": 6,
+            "2": 3,
+            "4": 1,
+            "5": 1
+          },
+          "mean_run_length": 0.8076923076923077,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 1,
+              "end_point": 2,
+              "length": 1,
+              "lost_serve_at_point": 2
+            },
+            {
+              "set_no": 1,
+              "start_point": 7,
+              "end_point": 7,
+              "length": 0,
+              "lost_serve_at_point": 7
+            },
+            {
+              "set_no": 1,
+              "start_point": 9,
+              "end_point": 11,
+              "length": 2,
+              "lost_serve_at_point": 11
+            },
+            {
+              "set_no": 1,
+              "start_point": 13,
+              "end_point": 13,
+              "length": 0,
+              "lost_serve_at_point": 13
+            },
+            {
+              "set_no": 1,
+              "start_point": 15,
+              "end_point": 15,
+              "length": 0,
+              "lost_serve_at_point": 15
+            },
+            {
+              "set_no": 1,
+              "start_point": 18,
+              "end_point": 18,
+              "length": 0,
+              "lost_serve_at_point": 18
+            },
+            {
+              "set_no": 1,
+              "start_point": 20,
+              "end_point": 21,
+              "length": 1,
+              "lost_serve_at_point": 21
+            },
+            {
+              "set_no": 1,
+              "start_point": 24,
+              "end_point": 24,
+              "length": 0,
+              "lost_serve_at_point": 24
+            },
+            {
+              "set_no": 1,
+              "start_point": 27,
+              "end_point": 28,
+              "length": 1,
+              "lost_serve_at_point": 28
+            },
+            {
+              "set_no": 1,
+              "start_point": 30,
+              "end_point": 30,
+              "length": 0,
+              "lost_serve_at_point": 30
+            },
+            {
+              "set_no": 1,
+              "start_point": 32,
+              "end_point": 32,
+              "length": 0,
+              "lost_serve_at_point": 32
+            },
+            {
+              "set_no": 1,
+              "start_point": 35,
+              "end_point": 39,
+              "length": 4,
+              "lost_serve_at_point": 39
+            },
+            {
+              "set_no": 1,
+              "start_point": 43,
+              "end_point": 44,
+              "length": 1,
+              "lost_serve_at_point": 44
+            },
+            {
+              "set_no": 1,
+              "start_point": 47,
+              "end_point": 47,
+              "length": 0,
+              "lost_serve_at_point": 47
+            },
+            {
+              "set_no": 1,
+              "start_point": 49,
+              "end_point": 49,
+              "length": 0,
+              "lost_serve_at_point": 49
+            },
+            {
+              "set_no": 2,
+              "start_point": 3,
+              "end_point": 4,
+              "length": 1,
+              "lost_serve_at_point": 4
+            },
+            {
+              "set_no": 2,
+              "start_point": 8,
+              "end_point": 8,
+              "length": 0,
+              "lost_serve_at_point": 8
+            },
+            {
+              "set_no": 2,
+              "start_point": 10,
+              "end_point": 10,
+              "length": 0,
+              "lost_serve_at_point": 10
+            },
+            {
+              "set_no": 2,
+              "start_point": 13,
+              "end_point": 18,
+              "length": 5,
+              "lost_serve_at_point": 18
+            },
+            {
+              "set_no": 2,
+              "start_point": 22,
+              "end_point": 22,
+              "length": 0,
+              "lost_serve_at_point": 22
+            },
+            {
+              "set_no": 2,
+              "start_point": 24,
+              "end_point": 24,
+              "length": 0,
+              "lost_serve_at_point": 24
+            },
+            {
+              "set_no": 2,
+              "start_point": 27,
+              "end_point": 28,
+              "length": 1,
+              "lost_serve_at_point": 28
+            },
+            {
+              "set_no": 2,
+              "start_point": 31,
+              "end_point": 31,
+              "length": 0,
+              "lost_serve_at_point": 31
+            },
+            {
+              "set_no": 2,
+              "start_point": 35,
+              "end_point": 37,
+              "length": 2,
+              "lost_serve_at_point": 37
+            },
+            {
+              "set_no": 2,
+              "start_point": 42,
+              "end_point": 44,
+              "length": 2,
+              "lost_serve_at_point": 44
+            },
+            {
+              "set_no": 2,
+              "start_point": 46,
+              "end_point": 46,
+              "length": 0,
+              "lost_serve_at_point": 46
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "team": "TSV Ansbach",
+      "rotations": [
+        {
+          "lineups": [],
+          "label": "All serving rotations",
+          "run_length_distribution": {
+            "0": 10,
+            "1": 11,
+            "2": 4,
+            "3": 2
+          },
+          "mean_run_length": 0.9259259259259259,
+          "runs": [
+            {
+              "set_no": 1,
+              "start_point": 3,
+              "end_point": 6,
+              "length": 3,
+              "lost_serve_at_point": 6
+            },
+            {
+              "set_no": 1,
+              "start_point": 8,
+              "end_point": 8,
+              "length": 0,
+              "lost_serve_at_point": 8
+            },
+            {
+              "set_no": 1,
+              "start_point": 12,
+              "end_point": 12,
+              "length": 0,
+              "lost_serve_at_point": 12
+            },
+            {
+              "set_no": 1,
+              "start_point": 14,
+              "end_point": 14,
+              "length": 0,
+              "lost_serve_at_point": 14
+            },
+            {
+              "set_no": 1,
+              "start_point": 16,
+              "end_point": 17,
+              "length": 1,
+              "lost_serve_at_point": 17
+            },
+            {
+              "set_no": 1,
+              "start_point": 19,
+              "end_point": 19,
+              "length": 0,
+              "lost_serve_at_point": 19
+            },
+            {
+              "set_no": 1,
+              "start_point": 22,
+              "end_point": 23,
+              "length": 1,
+              "lost_serve_at_point": 23
+            },
+            {
+              "set_no": 1,
+              "start_point": 25,
+              "end_point": 26,
+              "length": 1,
+              "lost_serve_at_point": 26
+            },
+            {
+              "set_no": 1,
+              "start_point": 29,
+              "end_point": 29,
+              "length": 0,
+              "lost_serve_at_point": 29
+            },
+            {
+              "set_no": 1,
+              "start_point": 31,
+              "end_point": 31,
+              "length": 0,
+              "lost_serve_at_point": 31
+            },
+            {
+              "set_no": 1,
+              "start_point": 33,
+              "end_point": 34,
+              "length": 1,
+              "lost_serve_at_point": 34
+            },
+            {
+              "set_no": 1,
+              "start_point": 40,
+              "end_point": 42,
+              "length": 2,
+              "lost_serve_at_point": 42
+            },
+            {
+              "set_no": 1,
+              "start_point": 45,
+              "end_point": 46,
+              "length": 1,
+              "lost_serve_at_point": 46
+            },
+            {
+              "set_no": 1,
+              "start_point": 48,
+              "end_point": 48,
+              "length": 0,
+              "lost_serve_at_point": 48
+            },
+            {
+              "set_no": 1,
+              "start_point": 50,
+              "end_point": 50,
+              "length": 1,
+              "lost_serve_at_point": null
+            },
+            {
+              "set_no": 2,
+              "start_point": 1,
+              "end_point": 2,
+              "length": 1,
+              "lost_serve_at_point": 2
+            },
+            {
+              "set_no": 2,
+              "start_point": 5,
+              "end_point": 7,
+              "length": 2,
+              "lost_serve_at_point": 7
+            },
+            {
+              "set_no": 2,
+              "start_point": 9,
+              "end_point": 9,
+              "length": 0,
+              "lost_serve_at_point": 9
+            },
+            {
+              "set_no": 2,
+              "start_point": 11,
+              "end_point": 12,
+              "length": 1,
+              "lost_serve_at_point": 12
+            },
+            {
+              "set_no": 2,
+              "start_point": 19,
+              "end_point": 21,
+              "length": 2,
+              "lost_serve_at_point": 21
+            },
+            {
+              "set_no": 2,
+              "start_point": 23,
+              "end_point": 23,
+              "length": 0,
+              "lost_serve_at_point": 23
+            },
+            {
+              "set_no": 2,
+              "start_point": 25,
+              "end_point": 26,
+              "length": 1,
+              "lost_serve_at_point": 26
+            },
+            {
+              "set_no": 2,
+              "start_point": 29,
+              "end_point": 30,
+              "length": 1,
+              "lost_serve_at_point": 30
+            },
+            {
+              "set_no": 2,
+              "start_point": 32,
+              "end_point": 34,
+              "length": 2,
+              "lost_serve_at_point": 34
+            },
+            {
+              "set_no": 2,
+              "start_point": 38,
+              "end_point": 41,
+              "length": 3,
+              "lost_serve_at_point": 41
+            },
+            {
+              "set_no": 2,
+              "start_point": 45,
+              "end_point": 45,
+              "length": 0,
+              "lost_serve_at_point": 45
+            },
+            {
+              "set_no": 2,
+              "start_point": 47,
+              "end_point": 47,
+              "length": 1,
+              "lost_serve_at_point": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

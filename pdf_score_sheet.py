@@ -69,6 +69,7 @@ class SetJson:
     serve_rounds: dict[str, dict[int, list[int]]]
     substitutions: dict[str, list[Substitution]]
     points: dict[str, int]
+    first_serving_team: str | None = None
 
 
 @dataclass
@@ -76,9 +77,16 @@ class MatchJson:
     sets: list[SetJson]
     player_names: dict[str, dict[str, str]] = field(default_factory=dict)
     match_date: str | None = None
+    match_type: str | None = None
 
     def to_dict(self) -> dict:
-        return asdict(self)
+        data = asdict(self)
+        if self.match_type is None:
+            data.pop("match_type")
+        for set_data, serialized_set in zip(self.sets, data["sets"]):
+            if set_data.first_serving_team is None:
+                serialized_set.pop("first_serving_team")
+        return data
 
     def to_json(self) -> str:
         return json.dumps(
@@ -225,9 +233,14 @@ class PdfScoreSheetParser:
         team_names = self._read_team_names(page.words)
         player_names = self._read_player_names(page.words, team_names)
         match_date = self._read_match_date(page.words)
+        match_type = self._read_match_type(page.words)
+        is_u14 = match_type == "U14"
         sets = []
         sets_won = {team: 0 for team in team_names.values()}
+        sets_to_win = 2 if is_u14 else 3
         for set_no, panel in enumerate(SET_PANELS, start=1):
+            if max(sets_won.values(), default=0) == sets_to_win:
+                break
             team_codes = self._panel_team_codes(
                 page.words,
                 panel,
@@ -235,11 +248,11 @@ class PdfScoreSheetParser:
                 scale_y
             )
             if team_codes == (None, None):
-                if max(sets_won.values(), default=0) == 3:
+                if max(sets_won.values(), default=0) == sets_to_win:
                     break
                 raise ValueError(
                     f"Set {set_no} is missing from the PDF before either "
-                    "team reached three set wins"
+                    f"team reached {sets_to_win} set wins"
                 )
             if None in team_codes:
                 raise ValueError(
@@ -251,14 +264,28 @@ class PdfScoreSheetParser:
                 team_names,
                 scale_x,
                 scale_y,
-                set_no
+                set_no,
+                is_u14=is_u14
             )
+            if is_u14:
+                set_data.first_serving_team = self._read_first_serving_team(
+                    page.words,
+                    panel,
+                    team_names,
+                    scale_x,
+                    scale_y,
+                    set_no
+                )
             sets.append(set_data)
-            self._record_set_win(sets_won, set_data)
-            if max(sets_won.values()) == 3:
-                break
+            self._record_set_win(sets_won, set_data, is_u14=is_u14)
 
-        if max(sets_won.values(), default=0) < 3:
+        if is_u14:
+            if max(sets_won.values(), default=0) != sets_to_win:
+                raise ValueError(
+                    "The parsed U14 match did not produce a team with "
+                    f"{sets_to_win} set wins"
+                )
+        elif max(sets_won.values(), default=0) < sets_to_win:
             fifth_set = self._parse_fifth_set(
                 page.words,
                 team_names,
@@ -272,7 +299,7 @@ class PdfScoreSheetParser:
                 )
             sets.append(fifth_set)
             self._record_set_win(sets_won, fifth_set)
-            if max(sets_won.values()) != 3:
+            if max(sets_won.values()) != sets_to_win:
                 raise ValueError(
                     "The parsed fifth set did not produce a team with three "
                     "set wins"
@@ -280,13 +307,15 @@ class PdfScoreSheetParser:
         return MatchJson(
             sets=sets,
             player_names=player_names,
-            match_date=match_date
+            match_date=match_date,
+            match_type=match_type
         )
 
     @staticmethod
     def _record_set_win(
         sets_won: dict[str, int],
-        set_data: SetJson
+        set_data: SetJson,
+        is_u14: bool = False
     ) -> None:
         highest_score = max(set_data.points.values())
         winners = [
@@ -298,6 +327,18 @@ class PdfScoreSheetParser:
             raise ValueError(
                 f"Set {set_data.set_no} does not have a unique winning team"
             )
+        if is_u14:
+            target_score = 15 if set_data.set_no == 3 else 25
+            winner_score = highest_score
+            loser_score = min(set_data.points.values())
+            if (
+                winner_score < target_score
+                or winner_score - loser_score < 2
+            ):
+                raise ValueError(
+                    f"U14 set {set_data.set_no} must end at {target_score} "
+                    "or more with a two-point lead"
+                )
         sets_won[winners[0]] += 1
 
     def extract_player_names(
@@ -319,6 +360,63 @@ class PdfScoreSheetParser:
         if match_date is None:
             raise ValueError("Could not find the match date in the PDF header")
         return match_date.group(0)
+
+    @staticmethod
+    def _read_match_type(words: list[PositionedWord]) -> str | None:
+        header = " ".join(
+            word.text for word in sorted(
+                (word for word in words if word.y0 < 60),
+                key=lambda word: word.x0
+            )
+        )
+        return (
+            "U14"
+            if re.search(r"\bU\s*-?\s*14\b", header, re.IGNORECASE)
+            else None
+        )
+
+    def _read_first_serving_team(
+        self,
+        words: list[PositionedWord],
+        panel: SetPanel,
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float,
+        set_no: int
+    ) -> str:
+        serving_teams = []
+        for marker_x in (
+            panel.left_team_marker_x,
+            panel.right_team_marker_x
+        ):
+            team_code = self._read_team_code(
+                words,
+                marker_x * scale_x,
+                panel.team_marker_y * scale_y,
+                scale_x,
+                scale_y,
+                set_no
+            )
+            role = self._nearest_word(
+                words,
+                x=(marker_x + 70) * scale_x,
+                y=panel.team_marker_y * scale_y,
+                x_tolerance=10 * scale_x,
+                y_tolerance=3 * scale_y,
+                pattern=r"[SR]"
+            )
+            if role is None:
+                raise ValueError(
+                    f"Could not identify the serving team for U14 set {set_no}"
+                )
+            if role.text == "S":
+                serving_teams.append(team_names[team_code])
+        if len(serving_teams) != 1:
+            raise ValueError(
+                f"U14 set {set_no} must have exactly one team marked as "
+                "serving at the start"
+            )
+        return serving_teams[0]
 
     def _parse_fifth_set(
         self,
@@ -583,7 +681,8 @@ class PdfScoreSheetParser:
         team_names: dict[str, str],
         scale_x: float,
         scale_y: float,
-        set_no: int
+        set_no: int,
+        is_u14: bool = False
     ) -> SetJson:
         left_team_code = self._read_team_code(
             words, panel.left_team_marker_x * scale_x,
@@ -599,11 +698,15 @@ class PdfScoreSheetParser:
         left_team = team_names[left_team_code]
         right_team = team_names[right_team_code]
         left_rotation = self._read_rotation(
-            words, panel.left_rotation_x, panel.rotation_y,
+            words,
+            panel.left_rotation_x[:4] if is_u14 else panel.left_rotation_x,
+            panel.rotation_y,
             scale_x, scale_y, set_no, left_team
         )
         right_rotation = self._read_rotation(
-            words, panel.right_rotation_x, panel.rotation_y,
+            words,
+            panel.right_rotation_x[:4] if is_u14 else panel.right_rotation_x,
+            panel.rotation_y,
             scale_x, scale_y, set_no, right_team
         )
 
@@ -617,19 +720,35 @@ class PdfScoreSheetParser:
         )
 
         left_serve_rounds = self._read_serve_rounds(
-            words, panel.serve_y, panel.left_serve_x,
-            left_rotation, scale_x, scale_y
+            words,
+            panel.serve_y,
+            panel.left_serve_x[:4] if is_u14 else panel.left_serve_x,
+            left_rotation,
+            scale_x,
+            scale_y,
+            u14=is_u14,
+            cell_end_x=panel.left_serve_x[4] if is_u14 else None
         )
         right_serve_rounds = self._read_serve_rounds(
-            words, panel.serve_y, panel.right_serve_x,
-            right_rotation, scale_x, scale_y
+            words,
+            panel.serve_y,
+            panel.right_serve_x[:4] if is_u14 else panel.right_serve_x,
+            right_rotation,
+            scale_x,
+            scale_y,
+            u14=is_u14,
+            cell_end_x=panel.right_serve_x[4] if is_u14 else None
         )
         left_substitutions = self._read_substitutions(
-            words, panel.left_rotation_x, panel.rotation_y,
+            words,
+            panel.left_rotation_x[:4] if is_u14 else panel.left_rotation_x,
+            panel.rotation_y,
             left_rotation, left_team, right_team, scale_x, scale_y
         )
         right_substitutions = self._read_substitutions(
-            words, panel.right_rotation_x, panel.rotation_y,
+            words,
+            panel.right_rotation_x[:4] if is_u14 else panel.right_rotation_x,
+            panel.rotation_y,
             right_rotation, right_team, left_team, scale_x, scale_y
         )
 
@@ -754,19 +873,57 @@ class PdfScoreSheetParser:
         serve_x: tuple[float, ...],
         rotation: list[int],
         scale_x: float,
-        scale_y: float
+        scale_y: float,
+        u14: bool = False,
+        cell_end_x: float | None = None
     ) -> dict[int, list[int]]:
         rounds = {player: [] for player in rotation}
 
-        for player, target_x in zip(rotation, serve_x):
-            column_words = [
-                word for word in words
-                if abs(word.x0 - target_x * scale_x) <= 8 * scale_x
-                and serve_y * scale_y <= word.y0
-                <= (serve_y + 34) * scale_y
-            ]
+        for slot, (player, target_x) in enumerate(zip(rotation, serve_x)):
+            if u14:
+                upper_x = (
+                    serve_x[slot + 1]
+                    if slot + 1 < len(serve_x)
+                    else cell_end_x
+                )
+                if upper_x is None:
+                    raise ValueError(
+                        "U14 serve-round parsing requires the next cell boundary"
+                    )
+                column_words = [
+                    word for word in words
+                    if (target_x - 2) * scale_x <= word.x0
+                    < (upper_x - 2) * scale_x
+                    and serve_y * scale_y <= word.y0
+                    <= (serve_y + 34) * scale_y
+                ]
+                primary_words = sorted(
+                    (
+                        word for word in column_words
+                        if word.x0 < (target_x + 8) * scale_x
+                    ),
+                    key=lambda item: item.y0
+                )
+                wrapped_words = sorted(
+                    (
+                        word for word in column_words
+                        if word.x0 >= (target_x + 8) * scale_x
+                    ),
+                    key=lambda item: (item.y0, item.x0)
+                )
+                column_words = [*primary_words, *wrapped_words]
+            else:
+                column_words = sorted(
+                    (
+                        word for word in words
+                        if abs(word.x0 - target_x * scale_x) <= 8 * scale_x
+                        and serve_y * scale_y <= word.y0
+                        <= (serve_y + 34) * scale_y
+                    ),
+                    key=lambda item: item.y0
+                )
             scores = []
-            for word in sorted(column_words, key=lambda item: item.y0):
+            for word in column_words:
                 if re.fullmatch(r"\d{1,2}", word.text):
                     scores.append(int(word.text))
                 elif (
