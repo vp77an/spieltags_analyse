@@ -211,6 +211,70 @@ def test_u14_deciding_set_uses_15_point_target() -> None:
     }
 
 
+def test_serving_player_stats_exclude_own_team_points(
+    tmp_path: Path
+) -> None:
+    team_a = "TSV A"
+    team_b = "TSV B"
+    rotation_a = [1, 2, 3, 4, 5, 6]
+    rotation_a_after_rotate = [2, 3, 4, 5, 6, 1]
+    rotation_b = [7, 8, 9, 10, 11, 12]
+
+    def point(
+        serving_team: str,
+        scoring_team: str,
+        team_a_rotation: list[int],
+        team_b_rotation: list[int]
+    ) -> dict[str, object]:
+        return {
+            "serving_team": serving_team,
+            "scoring_team": scoring_team,
+            "rotations": {
+                team_a: team_a_rotation,
+                team_b: team_b_rotation
+            }
+        }
+
+    point_data = {
+        "match_date": "01.01.2026",
+        "player_names": {
+            team_a: {"1": "Ada, A.", "2": "Bea, B."},
+            team_b: {"7": "Cia, C."}
+        },
+        "sets": [
+            {
+                "set_no": 1,
+                "points": [
+                    point(team_a, team_a, rotation_a, rotation_b),
+                    point(team_a, team_b, rotation_a, rotation_b),
+                    point(team_b, team_b, rotation_a, rotation_b),
+                    point(
+                        team_a,
+                        team_b,
+                        rotation_a_after_rotate,
+                        rotation_b
+                    )
+                ]
+            }
+        ]
+    }
+    rotation_analysis.analyze_rotation_runs(
+        point_data,
+        [{"name": team_a, "setters": []}, {"name": team_b, "setters": []}],
+        tmp_path
+    )
+
+    report_file = next(tmp_path.glob("report_*.md"))
+    report_text = report_file.read_text(encoding="utf-8")
+    assert "- [Stats per Serving Player](#stats-per-serving-player)" in report_text
+    assert "## Stats per Serving Player" in report_text
+    assert "| 1 (Ada, A.) | 2 | 1 | 0.50 |" in report_text
+    assert "| 2 (Bea, B.) | 1 | 1 | 1.00 |" in report_text
+    assert "| 7 (Cia, C.) | 1 | 0 | 0.00 |" in report_text
+    pdf_file = report_file.with_suffix(".pdf")
+    assert pdf_file.read_bytes().startswith(b"%PDF")
+
+
 def test_u14_analysis_json_matches_reference(
     tmp_path: Path,
     monkeypatch: pytest.MonkeyPatch
@@ -301,6 +365,10 @@ def test_u14_analysis_json_matches_reference(
     report_text = report_file.read_text(encoding="utf-8")
     assert report_text.startswith("# TV Altdorf vs TSV Ansbach\n")
     assert "## Contents" in report_text
+    serving_player_section = report_text.split(
+        "## Stats per Serving Player", 1
+    )[1].split("## Length of Service Runs", 1)[0]
+    assert "| 10 (Sophy, B.) | 12 | 7 | 0.58 |" in serving_player_section
     assert "Points by setter position" not in report_text
     assert "Own service runs are shown as an overall distribution" in report_text
     assert "opponent scoring runs by own rotation" in report_text.lower()

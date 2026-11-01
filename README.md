@@ -119,10 +119,15 @@ the exact lineup on court and sorts lineups by team-points-to-
 opponent-points ratio. Player first names and last-name initials are read from
 the score-sheet roster when available; otherwise the report shows jersey
 numbers alone. A zero opponent-point count is shown as an infinite ratio.
-The **Performance per Player** section lists, for each team, points played
+The **Stats per Player** section lists, for each team, points played
 (each rally while the player was on court), points won and lost in those
 rallies, and the won/lost ratio, sorted from highest to lowest ratio. A player
 with no lost points is shown with an infinite ratio.
+The **Stats per Serving Player** section lists, for each player who served,
+the number of rallies served, the number of opponent points scored during
+those rallies, and the opponent-points-per-serve rate. The serving team's own
+points are not included in the opponent-points count; players are sorted from
+the lowest rate to the highest.
 The **Length of Service Runs** section embeds the generated run and setter-
 position plots and summarizes, for each team, the best and worst rotations
 for own service runs and opponent scoring runs.

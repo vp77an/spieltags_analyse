@@ -70,6 +70,10 @@ def analyze_rotation_runs(
         team_name: {}
         for team_name in team_names
     }
+    serving_player_stats: dict[str, dict[int, Counter[str]]] = {
+        team_name: {}
+        for team_name in team_names
+    }
 
     for set_data in point_data["sets"]:
         set_no = set_data.get("set_no")
@@ -95,6 +99,16 @@ def analyze_rotation_runs(
                 rotation = _rotation_for(
                     point, team_name, set_no, player_count
                 )
+                if point.get("serving_team") == team_name:
+                    serving_player = rotation[0]
+                    serving_stats = serving_player_stats[team_name].setdefault(
+                        serving_player,
+                        Counter()
+                    )
+                    serving_stats["points_served"] += 1
+                    if point["scoring_team"] != team_name:
+                        serving_stats["opponent_points"] += 1
+
                 rotation_key = _rotation_key(
                     rotation, setters_by_team[team_name], is_u14=is_u14
                 )
@@ -332,6 +346,10 @@ def analyze_rotation_runs(
                 "players": _player_performance_results(
                     points_by_player[team_name],
                     player_names.get(team_name, {})
+                ),
+                "serving_players": _serving_player_results(
+                    serving_player_stats[team_name],
+                    player_names.get(team_name, {})
                 )
             }
         )
@@ -511,6 +529,37 @@ def _distribution_results(
     return results
 
 
+def _serving_player_results(
+    stats_by_player: dict[int, Counter[str]],
+    player_names: dict[str, str]
+) -> list[dict[str, Any]]:
+    results = []
+    for jersey, stats in stats_by_player.items():
+        points_served = stats["points_served"]
+        opponent_points = stats["opponent_points"]
+        results.append(
+            {
+                "jersey": jersey,
+                "name": player_names.get(str(jersey)),
+                "points_served": points_served,
+                "opponent_points": opponent_points,
+                "opponent_points_per_serve": (
+                    opponent_points / points_served
+                    if points_served
+                    else 0.0
+                )
+            }
+        )
+    results.sort(
+        key=lambda result: (
+            result["opponent_points_per_serve"],
+            -result["points_served"],
+            result["jersey"]
+        )
+    )
+    return results
+
+
 def _point_totals_results(
     totals: Counter[str]
 ) -> list[dict[str, Any]]:
@@ -617,7 +666,8 @@ def _write_markdown_report(
         "## Contents",
         "",
         "- [Performance per Set of Players](#performance-per-set-of-players)",
-        "- [Performance per Player](#performance-per-player)",
+        "- [Stats per Player](#performance-per-player)",
+        "- [Stats per Serving Player](#stats-per-serving-player)",
         "- [Length of Service Runs](#length-of-service-runs)",
         "",
         "## Performance per Set of Players",
@@ -655,10 +705,10 @@ def _write_markdown_report(
             )
         lines.append("")
 
-    lines.extend(["## Performance per Player", ""])
+    lines.extend(["## Stats per Player", ""])
     lines.append(
-        "Points played counts every rally while the player was on court. "
-        "Won/lost ratio is team points won divided by points lost while "
+        "'Points played' counts every rally while the player was on court. "
+        "'Won/lost ratio' is team 'points won' divided by 'points lost' while "
         "they were on court; a player with no lost points is shown as `∞`."
     )
     lines.append("")
@@ -687,6 +737,37 @@ def _write_markdown_report(
                 f"| {name} | {player['points_played']} | "
                 f"{player['won_points']} | {player['lost_points']} | "
                 f"{ratio} |"
+            )
+        lines.append("")
+
+    lines.extend(["## Stats per Serving Player", ""])
+    lines.append(
+        "'Rallies served' counts every rally served by the player. 'Opponent "
+        "points on serve' counts only rallies won by the opponent; points "
+        "scored by the serving team are not included. The rate is opponent "
+        "points divided by rallies served, sorted from lowest to highest."
+    )
+    lines.append("")
+    for team in performance_report["teams"]:
+        lines.extend(
+            [
+                f"### {team['team']}",
+                "",
+                "| Serving player | Rallies served | Opponent points on serve | "
+                "Opponent points per serve |",
+                "|---|---:|---:|---:|"
+            ]
+        )
+        for player in team["serving_players"]:
+            name = (
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+            )
+            lines.append(
+                f"| {name} | {player['points_served']} | "
+                f"{player['opponent_points']} | "
+                f"{player['opponent_points_per_serve']:.2f} |"
             )
         lines.append("")
 
@@ -847,7 +928,12 @@ def _write_pdf_report(
         ),
         Paragraph(
             '<link href="#performance-per-player" color="blue">'
-            "Performance per Player</link>",
+            "Stats per Player</link>",
+            body_style
+        ),
+        Paragraph(
+            '<link href="#stats-per-serving-player" color="blue">'
+            "Stats per Serving Player</link>",
             body_style
         ),
         Paragraph(
@@ -932,13 +1018,13 @@ def _write_pdf_report(
     story.extend(
         [
             Paragraph(
-                '<a name="performance-per-player"/>Performance per Player',
+                '<a name="performance-per-player"/>Stats per Player',
                 styles["Heading1"]
             ),
             Paragraph(
-                "Points played counts every rally while the player was on "
-                "court. Won/lost ratio is team points won divided by points "
-                "lost while they were on court; a player with no lost points "
+                "'Points played' counts every rally while the player was on "
+                "court. 'Won/lost ratio' is team 'points won' divided by 'points lost' while "
+                "they were on court; a player with no lost points "
                 "is shown as infinity.",
                 body_style
             ),
@@ -1000,6 +1086,72 @@ def _write_pdf_report(
         )
         story.extend([player_table, Spacer(1, 5 * mm)])
 
+    story.extend(
+        [
+            Paragraph(
+                '<a name="stats-per-serving-player"/>'
+                "Stats per Serving Player",
+                styles["Heading1"]
+            ),
+            Paragraph(
+                "'Rallies served' counts every rally served by the player. "
+                "'Opponent points on serve' counts only rallies won by the "
+                "opponent; points scored by the serving team are not "
+                "included. The rate is 'opponent points' divided by 'rallies "
+                "served', sorted from lowest to highest.",
+                body_style
+            ),
+            Spacer(1, 4 * mm)
+        ]
+    )
+    for team in performance_report["teams"]:
+        story.extend(
+            [
+                Paragraph(escape(team["team"]), styles["Heading2"]),
+                Spacer(1, 2 * mm)
+            ]
+        )
+        table_data = [[
+            "Serving player",
+            "Rallies served",
+            "Opponent points on serve",
+            "Opponent points per serve"
+        ]]
+        for player in team["serving_players"]:
+            name = (
+                f"{player['jersey']} ({player['name']})"
+                if player["name"]
+                else str(player["jersey"])
+            )
+            table_data.append(
+                [
+                    Paragraph(escape(name), body_style),
+                    str(player["points_served"]),
+                    str(player["opponent_points"]),
+                    f"{player['opponent_points_per_serve']:.2f}"
+                ]
+            )
+        serving_table = Table(
+            table_data,
+            colWidths=[100 * mm, 35 * mm, 45 * mm, 55 * mm],
+            repeatRows=1
+        )
+        serving_table.setStyle(
+            TableStyle(
+                [
+                    ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef5")),
+                    ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                    ("FONTSIZE", (0, 0), (-1, -1), 8),
+                    ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                    ("ALIGN", (1, 1), (-1, -1), "RIGHT"),
+                    ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                    ("TOPPADDING", (0, 0), (-1, -1), 5)
+                ]
+            )
+        )
+        story.extend([serving_table, Spacer(1, 5 * mm)])
+
     story.append(
         Paragraph(
             '<a name="length-of-service-runs"/>Length of Service Runs',
@@ -1028,7 +1180,7 @@ def _write_pdf_report(
             story.extend(
                 [
                     Paragraph(
-                        "Own service runs are shown as an overall "
+                        "'Own service runs' are shown as an overall "
                         "distribution; rotation comparisons are omitted.",
                         body_style
                     )
@@ -1036,7 +1188,7 @@ def _write_pdf_report(
             )
             story.extend(
                 _extreme_summary_paragraphs(
-                    "Opponent scoring runs by own rotation",
+                    "'Opponent scoring runs' by 'own rotation'",
                     opponent_best,
                     opponent_worst,
                     "fewer points conceded per run is better",
@@ -1051,14 +1203,14 @@ def _write_pdf_report(
             story.extend(
                 [
                     *_extreme_summary_paragraphs(
-                        "Own service runs",
+                        "'Own service runs'",
                         own_best,
                         own_worst,
                         "more points per run is better",
                         body_style
                     ),
                     *_extreme_summary_paragraphs(
-                        "Opponent scoring runs",
+                        "'Opponent scoring runs'",
                         opponent_best,
                         opponent_worst,
                         "fewer points conceded per run is better",
@@ -1073,16 +1225,16 @@ def _write_pdf_report(
                 f"{team_slug}_service_runs.png"
             ),
             (
-                "Opponent scoring-run length by own rotation"
+                "'Opponent scoring-run length' by 'own rotation'"
                 if is_u14
-                else "Opponent scoring-run length by rotation",
+                else "'Opponent scoring-run length' by 'rotation'",
                 f"{team_slug}_rotation_runs.png"
             )
         ]
         if not is_u14:
             images.append(
                 (
-                    "Points by setter position",
+                    "'Points by setter position'",
                     f"{team_slug}_points_by_setter_position.png"
                 )
             )
@@ -1217,9 +1369,9 @@ def _plot_team_distribution(
         rotations,
         output_file,
         title=(
-            f"Opponent scoring runs by rotation of {team_name}"
+            f"'Opponent scoring runs' by 'rotation' of {team_name}"
             if u14
-            else f"Opponent scoring runs while {team_name} held rotation"
+            else f"'Opponent scoring runs' while {team_name} held 'rotation'"
         ),
         x_label="Consecutive points scored by opponent",
         legend_title="Position and player" if u14 else "Rotation",
@@ -1237,7 +1389,7 @@ def _plot_service_run_distribution(
         team_name,
         rotations,
         output_file,
-        title=f"{team_name} points scored during own service runs",
+        title=f"'{team_name} points scored during own service runs'",
         x_label="Points won before losing serve",
         legend_title="Service runs" if u14 else "Setter position",
         empty_length=0
