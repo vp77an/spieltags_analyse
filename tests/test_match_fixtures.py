@@ -4,7 +4,12 @@ from pathlib import Path
 import pytest
 
 from match_reconstructor import reconstruct_match
-from pdf_score_sheet import PdfScoreSheetParser
+from pdf_score_sheet import (
+    PdfPage,
+    PdfScoreSheetParser,
+    PositionedWord,
+    SetJson
+)
 import rotation_analysis
 
 
@@ -170,6 +175,43 @@ def test_u14_pdf_match_and_reconstruction_match_reference() -> None:
     assert altdorf_at_20["rotations"]["TV Altdorf"][0] == 12
 
 
+def test_u14_tiebreak_pdf_match_and_reconstruction_match_reference() -> None:
+    fixture_dir = FIXTURE_ROOT / "u14-tiebreak"
+    parser = PdfScoreSheetParser()
+
+    parsed_match = parser.parse_match(
+        parser.extract_page(fixture_dir / "match.pdf")
+    )
+    actual_match = json.loads(parsed_match.to_json())
+    with (fixture_dir / "match.json").open(encoding="utf-8") as file:
+        expected_match = json.load(file)
+
+    assert actual_match["match_type"] == "U14"
+    assert len(actual_match["sets"]) == 3
+    assert actual_match["sets"][2]["points"] == {
+        "TSV Ansbach": 15,
+        "Post SV Nürnberg": 10
+    }
+    assert actual_match["sets"][2]["first_serving_team"] == (
+        "Post SV Nürnberg"
+    )
+    assert actual_match == expected_match
+
+    actual_reconstruction = reconstruct_match(actual_match)
+    with (fixture_dir / "point_by_point.json").open(
+        encoding="utf-8"
+    ) as file:
+        expected_reconstruction = json.load(file)
+
+    assert actual_reconstruction == expected_reconstruction
+    deciding_set = actual_reconstruction["sets"][2]
+    assert len(deciding_set["points"]) == 25
+    assert deciding_set["points"][-1]["score_after"] == {
+        "TSV Ansbach": 15,
+        "Post SV Nürnberg": 10
+    }
+
+
 def test_u14_deciding_set_uses_15_point_target() -> None:
     teams = ("TSV A", "TSV B")
     match = {
@@ -209,6 +251,145 @@ def test_u14_deciding_set_uses_15_point_target() -> None:
         teams[0]: 15,
         teams[1]: 0
     }
+
+
+@pytest.mark.parametrize(("header", "expected"), [
+    ("Mfr - U16 Bezirksliga", "U16"),
+    ("Mfr - U 18 Bezirksliga", "U18"),
+    ("Mfr - U-20 Bezirksliga", "U20"),
+    ("Mfr - U14 Bezirksliga", "U14"),
+    ("Mfr - Bezirksliga", None)
+])
+def test_header_detects_youth_match_type(
+    header: str,
+    expected: str | None
+) -> None:
+    words = [
+        PositionedWord(
+            x0=float(index),
+            y0=10,
+            x1=float(index + 1),
+            y1=15,
+            text=word
+        )
+        for index, word in enumerate(header.split())
+    ]
+
+    assert PdfScoreSheetParser._read_match_type(words) == expected
+
+
+def test_u16_parser_ends_after_two_sets_and_uses_15_point_tiebreak(
+    monkeypatch: pytest.MonkeyPatch
+) -> None:
+    parser = PdfScoreSheetParser()
+    team_names = {"A": "Team A", "B": "Team B"}
+    set_scores = [
+        {"Team A": 25, "Team B": 20},
+        {"Team A": 20, "Team B": 25},
+        {"Team A": 15, "Team B": 13}
+    ]
+    parsed_set_numbers = []
+
+    monkeypatch.setattr(
+        parser,
+        "_read_team_names",
+        lambda words: team_names
+    )
+    monkeypatch.setattr(
+        parser,
+        "_read_player_names",
+        lambda words, names: {}
+    )
+    monkeypatch.setattr(parser, "_read_match_date", lambda words: "01.01.2026")
+    monkeypatch.setattr(parser, "_read_match_type", lambda words: "U16")
+    monkeypatch.setattr(
+        parser,
+        "_panel_team_codes",
+        lambda *args: ("A", "B")
+    )
+
+    def parse_set(*args: object, **kwargs: object) -> SetJson:
+        set_no = args[5]
+        parsed_set_numbers.append(set_no)
+        return SetJson(
+            set_no=set_no,
+            start_rotation={},
+            serve_rounds={},
+            substitutions={},
+            points=set_scores[set_no - 1]
+        )
+
+    monkeypatch.setattr(parser, "_parse_set", parse_set)
+    parsed_match = parser.parse_match(PdfPage(841.92, 595.92, []))
+
+    assert parsed_match.match_type == "U16"
+    assert [set_data.set_no for set_data in parsed_match.sets] == [1, 2, 3]
+    assert parsed_set_numbers == [1, 2, 3]
+
+
+def test_u16_deciding_set_requires_15_points_and_two_point_lead() -> None:
+    teams = ("TSV A", "TSV B")
+    match = {
+        "match_type": "U16",
+        "sets": [
+            {
+                "set_no": 3,
+                "start_rotation": {
+                    teams[0]: [1, 2, 3, 4, 5, 6],
+                    teams[1]: [7, 8, 9, 10, 11, 12]
+                },
+                "serve_rounds": {teams[0]: {}, teams[1]: {}},
+                "substitutions": {teams[0]: [], teams[1]: []},
+                "points": {teams[0]: 15, teams[1]: 14}
+            }
+        ]
+    }
+
+    with pytest.raises(ValueError, match="15 or more with a two-point lead"):
+        reconstruct_match(match)
+
+
+def test_u16_deciding_set_uses_six_player_rotation_rules() -> None:
+    with (FIXTURE_ROOT / "5-set" / "match.json").open(
+        encoding="utf-8"
+    ) as file:
+        adult_match = json.load(file)
+    deciding_set = adult_match["sets"][-1]
+    deciding_set["set_no"] = 3
+
+    reconstructed = reconstruct_match(
+        {"match_type": "U16", "sets": [deciding_set]}
+    )
+    points = reconstructed["sets"][0]["points"]
+
+    assert len(points) == 36
+    assert points[-1]["score_after"] == {
+        "DJK Augsburg Hochzoll": 17,
+        "TSV Ansbach": 19
+    }
+    assert all(
+        len(rotation) == 6
+        for point in points
+        for rotation in point["rotations"].values()
+    )
+
+
+def test_u16_parser_rejects_short_deciding_set_score() -> None:
+    set_data = SetJson(
+        set_no=3,
+        start_rotation={},
+        serve_rounds={},
+        substitutions={},
+        points={"Team A": 15, "Team B": 14}
+    )
+    sets_won = {"Team A": 0, "Team B": 0}
+
+    with pytest.raises(ValueError, match="15 or more with a two-point lead"):
+        PdfScoreSheetParser._record_set_win(
+            sets_won,
+            set_data,
+            match_type="U16"
+        )
 
 
 def test_serving_player_stats_exclude_own_team_points(

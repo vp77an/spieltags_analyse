@@ -2,6 +2,8 @@ import json
 from pathlib import Path
 from typing import Any
 
+from match_rules import is_deciding_set, set_target_score
+
 
 def load_match_json(path: str | Path) -> dict[str, Any]:
     with Path(path).open(encoding="utf-8") as match_file:
@@ -12,11 +14,15 @@ def load_match_json(path: str | Path) -> dict[str, Any]:
 
 
 def reconstruct_match(match: dict[str, Any]) -> dict[str, Any]:
+    match_type = match.get("match_type")
     reconstructed_sets = [
         (
             _reconstruct_u14_set(set_data)
-            if match.get("match_type") == "U14"
-            else _reconstruct_set(set_data)
+            if match_type == "U14"
+            else _reconstruct_set(
+                set_data,
+                match_type=match_type
+            )
         )
         for set_data in match["sets"]
     ]
@@ -68,7 +74,7 @@ def _reconstruct_u14_set(set_data: dict[str, Any]) -> dict[str, Any]:
         team: _integer(final_score_data[team], "final score")
         for team in teams
     }
-    target_score = 15 if set_no == 3 else 25
+    target_score = set_target_score("U14", set_no)
     if (
         max(final_score.values()) < target_score
         or abs(final_score[teams[0]] - final_score[teams[1]]) < 2
@@ -188,23 +194,37 @@ def _reconstruct_u14_set(set_data: dict[str, Any]) -> dict[str, Any]:
             f"Set {set_no}: reconstructed score {scores} does not match "
             f"the recorded final score {final_score}"
         )
+    unused_marks = []
     for team in teams:
         for player, history in histories[team].items():
-            if history_indexes[team][player] != len(history):
-                raise ValueError(
-                    f"Set {set_no}: unused U14 serve-round entries remain for "
-                    f"{team} player {player}"
-                )
+            remaining = history[history_indexes[team][player]:]
+            if remaining:
+                unused_marks.append((team, player, remaining))
         if substitution_indexes[team] != len(substitutions[team]):
             raise ValueError(
                 f"Set {set_no}: substitution for {team} at "
                 f"{substitutions[team][substitution_indexes[team]]['score']} "
                 "was not reached"
             )
+    if unused_marks:
+        if not _is_terminal_sideout_mark(
+            unused_marks,
+            slot_keys,
+            final_score,
+            points[-1]
+        ):
+            team, player, _ = unused_marks[0]
+            raise ValueError(
+                f"Set {set_no}: unused U14 serve-round entries remain for "
+                f"{team} player {player}"
+            )
     return {"set_no": set_no, "points": points}
 
 
-def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:
+def _reconstruct_set(
+    set_data: dict[str, Any],
+    match_type: str | None = None
+) -> dict[str, Any]:
     set_no = set_data["set_no"]
     rotations_data = set_data["start_rotation"]
     serve_rounds = set_data["serve_rounds"]
@@ -218,6 +238,22 @@ def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:
         raise ValueError(f"Set {set_no} has inconsistent team data")
     if any(team not in final_score for team in teams):
         raise ValueError(f"Set {set_no} is missing a final team score")
+    final_score = {
+        team: _integer(final_score[team], "final score")
+        for team in teams
+    }
+    if is_deciding_set(match_type, set_no):
+        winner_score = max(final_score.values())
+        loser_score = min(final_score.values())
+        target_score = set_target_score(match_type, set_no)
+        if (
+            winner_score < target_score
+            or winner_score - loser_score < 2
+        ):
+            raise ValueError(
+                f"Set {set_no} must end at {target_score} or more with a "
+                "two-point lead"
+            )
 
     rotations = {
         team: _six_player_rotation(rotations_data[team], set_no, team)
@@ -240,7 +276,6 @@ def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:
     serving_team = min(teams, key=opening_marks.__getitem__)
     receiving_team = next(team for team in teams if team != serving_team)
     scores = {team: 0 for team in teams}
-    final_score = {team: _integer(final_score[team], "final score") for team in teams}
     history_indexes = {
         team: {player: 0 for player in rotations[team]}
         for team in teams
@@ -355,17 +390,12 @@ def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:
             )
 
     if unused_marks:
-        last_point = points[-1]
-        # A final sideout may leave its marker under the next server's slot.
-        is_terminal_sideout_mark = (
-            len(unused_marks) == 1
-            and len(unused_marks[0][2]) == 1
-            and unused_marks[0][2][0] == final_score[unused_marks[0][0]]
-            and slot_keys[unused_marks[0][0]][1] == unused_marks[0][1]
-            and last_point["scoring_team"] == unused_marks[0][0]
-            and last_point["serving_team"] != unused_marks[0][0]
-        )
-        if not is_terminal_sideout_mark:
+        if not _is_terminal_sideout_mark(
+            unused_marks,
+            slot_keys,
+            final_score,
+            points[-1]
+        ):
             team, player, _ = unused_marks[0]
             raise ValueError(
                 f"Set {set_no}: unused serve-round entries remain for "
@@ -373,6 +403,25 @@ def _reconstruct_set(set_data: dict[str, Any]) -> dict[str, Any]:
             )
 
     return {"set_no": set_no, "points": points}
+
+
+def _is_terminal_sideout_mark(
+    unused_marks: list[tuple[str, int, list[int]]],
+    slot_keys: dict[str, list[int]],
+    final_score: dict[str, int],
+    last_point: dict[str, Any]
+) -> bool:
+    if len(unused_marks) != 1:
+        return False
+    team, player, remaining = unused_marks[0]
+    return (
+        len(remaining) == 1
+        and remaining[0] == final_score[team]
+        and len(slot_keys[team]) > 1
+        and slot_keys[team][1] == player
+        and last_point["scoring_team"] == team
+        and last_point["serving_team"] != team
+    )
 
 
 def _six_player_rotation(value: Any, set_no: int, team: str) -> list[int]:

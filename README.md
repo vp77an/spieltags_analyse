@@ -5,8 +5,8 @@ The parser reads the PDF's embedded text and its positions; it does not use OCR.
 Regular matches are parsed through the set that gives a team its third win;
 unplayed set panels are ignored. For a 2-2 match, the parser identifies all
 three fifth-set panels from their headers and merges the two side-switch panels
-for the same team. U14 matches are detected from a `U14` age-grade marker in
-the PDF header and end when a team wins two sets.
+for the same team. U14 and U16/U18/U20 matches are detected from their
+age-grade markers in the PDF header and end when a team wins two sets.
 
 ## Requirements
 
@@ -27,8 +27,9 @@ python -m pytest
 ```
 
 The PDF regression fixtures are in [tests/](./tests/). The `3-set`, `4-set`,
-and `5-set` folders contain regular-match PDFs; `u14` contains a four-player
-U14 match. Each fixture includes reference `match.json` and
+and `5-set` folders contain regular-match PDFs; `u14` and `u14-tiebreak`
+contain four-player U14 matches, including a third-set tiebreak. Each fixture
+includes reference `match.json` and
 `point_by_point.json` outputs, plus references for the generated
 `rotation_run_distributions.json`, `service_run_distributions.json`, and
 `points_by_setter_position.json` analysis results.
@@ -41,6 +42,11 @@ team gains service, it rotates before serving. During a service turn it rotates
 after scoring two points; zero or one point ends the turn without that
 additional rotation. Position III is treated as the setter position for U14
 analysis.
+
+U16, U18, and U20 matches use the regular six-player rotation and rally rules,
+but are best of three sets: the first team to win two sets wins the match.
+The first two sets use a 25-point target; the third, deciding set uses a
+15-point target, with a two-point lead required in every set.
 
 Parse the included report:
 

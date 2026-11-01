@@ -1,0 +1,262 @@
+{
+  "sets": [
+    {
+      "set_no": 1,
+      "start_rotation": {
+        "TSV Ansbach": [
+          14,
+          1,
+          5,
+          8
+        ],
+        "Post SV Nürnberg": [
+          10,
+          21,
+          3,
+          22
+        ]
+      },
+      "serve_rounds": {
+        "TSV Ansbach": {
+          "14": [
+            1,
+            7,
+            13,
+            21
+          ],
+          "1": [
+            4,
+            9,
+            16,
+            21
+          ],
+          "5": [
+            4,
+            12,
+            16,
+            22
+          ],
+          "8": [
+            6,
+            12,
+            18,
+            25
+          ]
+        },
+        "Post SV Nürnberg": {
+          "10": [
+            5,
+            11,
+            18
+          ],
+          "21": [
+            1,
+            8,
+            14,
+            19
+          ],
+          "3": [
+            3,
+            9,
+            16,
+            20
+          ],
+          "22": [
+            4,
+            10,
+            16
+          ]
+        }
+      },
+      "substitutions": {
+        "TSV Ansbach": [],
+        "Post SV Nürnberg": [
+          {
+            "player_in": 7,
+            "player_out": 21,
+            "score": {
+              "Post SV Nürnberg": 20,
+              "TSV Ansbach": 23
+            }
+          }
+        ]
+      },
+      "points": {
+        "TSV Ansbach": 25,
+        "Post SV Nürnberg": 20
+      },
+      "first_serving_team": "TSV Ansbach"
+    },
+    {
+      "set_no": 2,
+      "start_rotation": {
+        "Post SV Nürnberg": [
+          21,
+          10,
+          22,
+          7
+        ],
+        "TSV Ansbach": [
+          1,
+          14,
+          5,
+          8
+        ]
+      },
+      "serve_rounds": {
+        "Post SV Nürnberg": {
+          "21": [
+            2,
+            6,
+            11,
+            18
+          ],
+          "10": [
+            2,
+            7,
+            14,
+            20
+          ],
+          "22": [
+            3,
+            8,
+            16,
+            23
+          ],
+          "7": [
+            4,
+            11,
+            17,
+            25
+          ]
+        },
+        "TSV Ansbach": {
+          "1": [
+            7,
+            14,
+            19
+          ],
+          "14": [
+            2,
+            9,
+            17,
+            21
+          ],
+          "5": [
+            4,
+            10,
+            17
+          ],
+          "8": [
+            7,
+            13,
+            18
+          ]
+        }
+      },
+      "substitutions": {
+        "Post SV Nürnberg": [
+          {
+            "player_in": 3,
+            "player_out": 7,
+            "score": {
+              "Post SV Nürnberg": 9,
+              "TSV Ansbach": 14
+            }
+          }
+        ],
+        "TSV Ansbach": []
+      },
+      "points": {
+        "Post SV Nürnberg": 25,
+        "TSV Ansbach": 21
+      },
+      "first_serving_team": "Post SV Nürnberg"
+    },
+    {
+      "set_no": 3,
+      "start_rotation": {
+        "TSV Ansbach": [
+          1,
+          5,
+          8,
+          2
+        ],
+        "Post SV Nürnberg": [
+          21,
+          10,
+          22,
+          3
+        ]
+      },
+      "serve_rounds": {
+        "TSV Ansbach": {
+          "1": [
+            7,
+            13
+          ],
+          "5": [
+            2,
+            9,
+            14
+          ],
+          "8": [
+            3,
+            9,
+            15
+          ],
+          "2": [
+            4,
+            10
+          ]
+        },
+        "Post SV Nürnberg": {
+          "21": [
+            2,
+            5
+          ],
+          "10": [
+            2,
+            7
+          ],
+          "22": [
+            3,
+            9
+          ],
+          "3": [
+            4,
+            10
+          ]
+        }
+      },
+      "substitutions": {
+        "TSV Ansbach": [],
+        "Post SV Nürnberg": []
+      },
+      "points": {
+        "TSV Ansbach": 15,
+        "Post SV Nürnberg": 10
+      },
+      "first_serving_team": "Post SV Nürnberg"
+    }
+  ],
+  "player_names": {
+    "TSV Ansbach": {
+      "1": "Kristin, R.",
+      "2": "Eva, L.",
+      "4": "Laura, S.",
+      "5": "Lea, G.",
+      "8": "Frida, H.",
+      "14": "Malena, W."
+    },
+    "Post SV Nürnberg": {
+      "3": "Mara, L.",
+      "7": "Malve, B.",
+      "10": "Kaitlyn, M.",
+      "21": "Ana, M.",
+      "22": "Lena, M."
+    }
+  },
+  "match_date": "25.10.2026",
+  "match_type": "U14"
+}

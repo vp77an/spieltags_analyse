@@ -5,6 +5,8 @@ import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
+from match_rules import is_deciding_set, set_target_score, sets_to_win
+
 
 @dataclass(frozen=True)
 class PositionedWord:
@@ -235,11 +237,11 @@ class PdfScoreSheetParser:
         match_date = self._read_match_date(page.words)
         match_type = self._read_match_type(page.words)
         is_u14 = match_type == "U14"
+        match_sets_to_win = sets_to_win(match_type)
         sets = []
         sets_won = {team: 0 for team in team_names.values()}
-        sets_to_win = 2 if is_u14 else 3
         for set_no, panel in enumerate(SET_PANELS, start=1):
-            if max(sets_won.values(), default=0) == sets_to_win:
+            if max(sets_won.values(), default=0) == match_sets_to_win:
                 break
             team_codes = self._panel_team_codes(
                 page.words,
@@ -248,25 +250,33 @@ class PdfScoreSheetParser:
                 scale_y
             )
             if team_codes == (None, None):
-                if max(sets_won.values(), default=0) == sets_to_win:
+                if max(sets_won.values(), default=0) == match_sets_to_win:
                     break
                 raise ValueError(
                     f"Set {set_no} is missing from the PDF before either "
-                    f"team reached {sets_to_win} set wins"
+                    f"team reached {match_sets_to_win} set wins"
                 )
             if None in team_codes:
                 raise ValueError(
                     f"Could not identify both team sides for set {set_no}"
                 )
-            set_data = self._parse_set(
-                page.words,
-                panel,
-                team_names,
-                scale_x,
-                scale_y,
-                set_no,
-                is_u14=is_u14
-            )
+            if is_u14 and set_no == 3:
+                set_data = self._parse_u14_deciding_set(
+                    page.words,
+                    team_names,
+                    scale_x,
+                    scale_y
+                )
+            else:
+                set_data = self._parse_set(
+                    page.words,
+                    panel,
+                    team_names,
+                    scale_x,
+                    scale_y,
+                    set_no,
+                    is_u14=is_u14
+                )
             if is_u14:
                 set_data.first_serving_team = self._read_first_serving_team(
                     page.words,
@@ -277,15 +287,19 @@ class PdfScoreSheetParser:
                     set_no
                 )
             sets.append(set_data)
-            self._record_set_win(sets_won, set_data, is_u14=is_u14)
+            self._record_set_win(
+                sets_won,
+                set_data,
+                match_type=match_type
+            )
 
-        if is_u14:
-            if max(sets_won.values(), default=0) != sets_to_win:
+        if match_sets_to_win == 2:
+            if max(sets_won.values(), default=0) != match_sets_to_win:
                 raise ValueError(
-                    "The parsed U14 match did not produce a team with "
-                    f"{sets_to_win} set wins"
+                    "The parsed best-of-three match did not produce a team "
+                    f"with {match_sets_to_win} set wins"
                 )
-        elif max(sets_won.values(), default=0) < sets_to_win:
+        elif max(sets_won.values(), default=0) < match_sets_to_win:
             fifth_set = self._parse_fifth_set(
                 page.words,
                 team_names,
@@ -298,8 +312,12 @@ class PdfScoreSheetParser:
                     "fifth set was found in the PDF"
                 )
             sets.append(fifth_set)
-            self._record_set_win(sets_won, fifth_set)
-            if max(sets_won.values()) != sets_to_win:
+            self._record_set_win(
+                sets_won,
+                fifth_set,
+                match_type=match_type
+            )
+            if max(sets_won.values()) != match_sets_to_win:
                 raise ValueError(
                     "The parsed fifth set did not produce a team with three "
                     "set wins"
@@ -315,7 +333,7 @@ class PdfScoreSheetParser:
     def _record_set_win(
         sets_won: dict[str, int],
         set_data: SetJson,
-        is_u14: bool = False
+        match_type: str | None = None
     ) -> None:
         highest_score = max(set_data.points.values())
         winners = [
@@ -327,17 +345,19 @@ class PdfScoreSheetParser:
             raise ValueError(
                 f"Set {set_data.set_no} does not have a unique winning team"
             )
-        if is_u14:
-            target_score = 15 if set_data.set_no == 3 else 25
+        is_u14 = match_type == "U14"
+        if is_u14 or is_deciding_set(match_type, set_data.set_no):
+            target_score = set_target_score(match_type, set_data.set_no)
             winner_score = highest_score
             loser_score = min(set_data.points.values())
             if (
                 winner_score < target_score
                 or winner_score - loser_score < 2
             ):
+                match_label = "U14 " if is_u14 else ""
                 raise ValueError(
-                    f"U14 set {set_data.set_no} must end at {target_score} "
-                    "or more with a two-point lead"
+                    f"{match_label}set {set_data.set_no} must end at "
+                    f"{target_score} or more with a two-point lead"
                 )
         sets_won[winners[0]] += 1
 
@@ -369,11 +389,12 @@ class PdfScoreSheetParser:
                 key=lambda word: word.x0
             )
         )
-        return (
-            "U14"
-            if re.search(r"\bU\s*-?\s*14\b", header, re.IGNORECASE)
-            else None
+        match_type = re.search(
+            r"\bU\s*-?\s*(14|16|18|20)\b",
+            header,
+            re.IGNORECASE
         )
+        return f"U{match_type.group(1)}" if match_type else None
 
     def _read_first_serving_team(
         self,
@@ -425,11 +446,59 @@ class PdfScoreSheetParser:
         scale_x: float,
         scale_y: float
     ) -> SetJson | None:
+        return self._parse_side_switch_set(
+            words,
+            team_names,
+            scale_x,
+            scale_y,
+            set_no=5,
+            team_marker_y=299.3,
+            rotation_y=323.4,
+            score_y=328.6,
+            serve_y=367.6
+        )
+
+    def _parse_u14_deciding_set(
+        self,
+        words: list[PositionedWord],
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float
+    ) -> SetJson:
+        set_data = self._parse_side_switch_set(
+            words,
+            team_names,
+            scale_x,
+            scale_y,
+            set_no=3,
+            team_marker_y=184.5,
+            rotation_y=208.0,
+            score_y=214.6,
+            serve_y=253.6,
+            u14=True
+        )
+        if set_data is None:
+            raise ValueError("Could not identify all three panels in U14 set 3")
+        return set_data
+
+    def _parse_side_switch_set(
+        self,
+        words: list[PositionedWord],
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float,
+        set_no: int,
+        team_marker_y: float,
+        rotation_y: float,
+        score_y: float,
+        serve_y: float,
+        u14: bool = False
+    ) -> SetJson | None:
         team_codes = [
             self._nearest_word(
                 words,
                 x=region.team_marker_x * scale_x,
-                y=299.3 * scale_y,
+                y=team_marker_y * scale_y,
                 x_tolerance=6 * scale_x,
                 y_tolerance=3 * scale_y,
                 pattern=r"[AB]"
@@ -439,14 +508,16 @@ class PdfScoreSheetParser:
         if all(code is None for code in team_codes):
             return None
         if any(code is None for code in team_codes):
-            raise ValueError("Could not identify all three team headers in set 5")
+            raise ValueError(
+                f"Could not identify all three team headers in set {set_no}"
+            )
 
         left_code, middle_code, right_code = [
             code.text for code in team_codes if code is not None
         ]
         if left_code != right_code or left_code == middle_code:
             raise ValueError(
-                "Set 5 must show the same team in the left and right panels "
+                f"Set {set_no} must show the same team in the left and right panels "
                 "and the other team in the middle panel"
             )
 
@@ -458,7 +529,11 @@ class PdfScoreSheetParser:
                 team_names["B" if team_code == "A" else "A"],
                 scale_x,
                 scale_y,
-                5
+                set_no,
+                rotation_y=rotation_y,
+                score_y=score_y,
+                serve_y=serve_y,
+                u14=u14
             )
             for region, team_code in zip(
                 FIFTH_SET_REGIONS,
@@ -469,7 +544,7 @@ class PdfScoreSheetParser:
         split_team = left.team
         if left.rotation != right.rotation:
             raise ValueError(
-                f"Set 5: {split_team} has inconsistent rotations across "
+                f"Set {set_no}: {split_team} has inconsistent rotations across "
                 "the side-switch panels"
             )
 
@@ -488,7 +563,7 @@ class PdfScoreSheetParser:
             middle.team: middle.substitutions
         }
         return SetJson(
-            set_no=5,
+            set_no=set_no,
             start_rotation={
                 split_team: left.rotation,
                 middle.team: middle.rotation
@@ -512,21 +587,34 @@ class PdfScoreSheetParser:
         opponent: str,
         scale_x: float,
         scale_y: float,
-        set_no: int
+        set_no: int,
+        rotation_y: float,
+        score_y: float,
+        serve_y: float,
+        u14: bool = False
     ) -> ParsedPanelRegion:
+        rotation_positions = region.rotation_x[:4] if u14 else region.rotation_x
         rotation = self._read_rotation(
-            words, region.rotation_x, 323.4,
+            words, rotation_positions, rotation_y,
             scale_x, scale_y, set_no, team
         )
         points = self._read_score(
-            words, region.score_x * scale_x, 328.6 * scale_y,
+            words, region.score_x * scale_x, score_y * scale_y,
             scale_x, scale_y, set_no, team
         )
+        serve_positions = region.serve_x[:4] if u14 else region.serve_x
         serve_rounds = self._read_serve_rounds(
-            words, 367.6, region.serve_x, rotation, scale_x, scale_y
+            words,
+            serve_y,
+            serve_positions,
+            rotation,
+            scale_x,
+            scale_y,
+            u14=u14,
+            cell_end_x=region.serve_x[4] if u14 else None
         )
         substitutions = self._read_substitutions(
-            words, region.rotation_x, 323.4,
+            words, rotation_positions, rotation_y,
             rotation, team, opponent, scale_x, scale_y
         )
         return ParsedPanelRegion(
