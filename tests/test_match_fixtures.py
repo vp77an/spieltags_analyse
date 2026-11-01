@@ -219,6 +219,7 @@ def test_serving_player_stats_exclude_own_team_points(
     rotation_a = [1, 2, 3, 4, 5, 6]
     rotation_a_after_rotate = [2, 3, 4, 5, 6, 1]
     rotation_b = [7, 8, 9, 10, 11, 12]
+    score = {team_a: 0, team_b: 0}
 
     def point(
         serving_team: str,
@@ -226,13 +227,15 @@ def test_serving_player_stats_exclude_own_team_points(
         team_a_rotation: list[int],
         team_b_rotation: list[int]
     ) -> dict[str, object]:
+        score[scoring_team] += 1
         return {
             "serving_team": serving_team,
             "scoring_team": scoring_team,
             "rotations": {
                 team_a: team_a_rotation,
                 team_b: team_b_rotation
-            }
+            },
+            "score_after": score.copy()
         }
 
     point_data = {
@@ -271,6 +274,19 @@ def test_serving_player_stats_exclude_own_team_points(
     assert "| 1 (Ada, A.) | 2 | 1 | 0.50 |" in report_text
     assert "| 2 (Bea, B.) | 1 | 1 | 1.00 |" in report_text
     assert "| 7 (Cia, C.) | 1 | 0 | 0.00 |" in report_text
+    assert (
+        f"<th>{team_a}</th><th>{team_b}</th>" in report_text
+    )
+    assert "<td>Sets: 0</td><td>Sets: 1</td>" in report_text
+    assert (
+        '<tr><td colspan="2">Set results: Set 1: 1–3</td></tr>'
+        in report_text
+    )
+    assert "grain of salt" in report_text
+    assert "not necessarily aces scored by that player" in report_text
+    assert "#### Points by setter position" in report_text
+    assert "#### Opponent scoring-run length by rotation" in report_text
+    assert "Own service runs are shown as an overall distribution" not in report_text
     pdf_file = report_file.with_suffix(".pdf")
     assert pdf_file.read_bytes().startswith(b"%PDF")
 
@@ -365,6 +381,16 @@ def test_u14_analysis_json_matches_reference(
     report_text = report_file.read_text(encoding="utf-8")
     assert report_text.startswith("# TV Altdorf vs TSV Ansbach\n")
     assert "## Contents" in report_text
+    result_table = report_text.split("## Match Result", 1)[1].split(
+        "</table>", 1
+    )[0]
+    assert "<th>TV Altdorf</th><th>TSV Ansbach</th>" in result_table
+    assert "<td>Sets: 0</td><td>Sets: 2</td>" in result_table
+    assert (
+        '<tr><td colspan="2">Set results: '
+        "Set 1: 24–26; Set 2: 22–25</td></tr>"
+    ) in result_table
+    assert "grain of salt" in report_text
     serving_player_section = report_text.split(
         "## Stats per Serving Player", 1
     )[1].split("## Length of Service Runs", 1)[0]
@@ -372,6 +398,8 @@ def test_u14_analysis_json_matches_reference(
     assert "Points by setter position" not in report_text
     assert "Own service runs are shown as an overall distribution" in report_text
     assert "opponent scoring runs by own rotation" in report_text.lower()
+    assert "#### Points by setter position" not in report_text
+    assert "#### Opponent scoring-run length by own rotation" in report_text
     assert "Laeufer III" not in report_text
     assert "\n- Opponent scoring runs by own rotation (" in report_text
     assert "\n  - Best rotations:\n    - " in report_text

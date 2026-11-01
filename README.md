@@ -113,7 +113,11 @@ generated for U14 matches.
 Each analysis run also creates Markdown and PDF reports in the analysis output
 directory. Both filenames include the two team names and match date, for
 example `report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.md` and the matching
-`.pdf`.
+`.pdf`. At the beginning, both reports show the match result in a table:
+team names on the first row, sets won on the second, and all set scores in a
+joint third row. They also caution that the
+simplified analyses are not a substitute for full scouting; for example,
+points scored during a player's serve are not necessarily aces by that player.
 Its **Performance per Set of Players** section groups both teams' points by
 the exact lineup on court and sorts lineups by team-points-to-
 opponent-points ratio. Player first names and last-name initials are read from
