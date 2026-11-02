@@ -386,7 +386,12 @@ def analyze_rotation_runs(
     front_matter = _report_front_matter(
         list(team_names),
         point_data["match_date"],
-        match_result
+        match_result,
+        _setter_start_positions(
+            point_data["sets"],
+            teams,
+            player_count
+        )
     )
     _write_markdown_report(
         output_path,
@@ -444,6 +449,65 @@ def _match_result(
             }
         )
     return {"sets_won": sets_won, "set_scores": set_results}
+
+
+def _setter_start_positions(
+    set_data_list: list[dict[str, Any]],
+    teams: list[dict[str, Any]],
+    player_count: int
+) -> list[dict[str, Any]]:
+    if not any(team["setters"] for team in teams):
+        return []
+
+    positions = []
+    for set_data in set_data_list:
+        points = set_data.get("points")
+        if not isinstance(points, list):
+            raise ValueError(
+                f"Set {set_data.get('set_no')}: point list is missing"
+            )
+        if not points:
+            continue
+
+        serving_team = points[0].get("serving_team")
+        team_rotations = []
+        for team in teams:
+            team_name = team["name"]
+            rotation = _rotation_for(
+                points[0],
+                team_name,
+                set_data.get("set_no"),
+                player_count
+            )
+            setters = set(team["setters"])
+            starting_setters = [
+                f"#{jersey}: Position {ROMAN_NUMERALS[position]}"
+                for position, jersey in enumerate(rotation)
+                if jersey in setters
+            ]
+            team_rotations.append(
+                {
+                    "team": team_name,
+                    "setters": (
+                        "; ".join(starting_setters)
+                        if starting_setters
+                        else "No configured setter in starting lineup"
+                    ),
+                    "start_type": (
+                        "Own serve"
+                        if serving_team == team_name
+                        else "Reception"
+                    )
+                }
+            )
+        positions.extend(
+            {
+                "set_no": set_data.get("set_no"),
+                **team_rotation
+            }
+            for team_rotation in team_rotations
+        )
+    return positions
 
 
 def _rotation_for(
@@ -802,11 +866,12 @@ def _service_run_report_sections(
 def _report_front_matter(
     team_names: list[str],
     match_date: str,
-    match_result: dict[str, Any]
+    match_result: dict[str, Any],
+    setter_start_positions: list[dict[str, Any]]
 ) -> dict[str, Any]:
     if len(team_names) != 2:
         raise ValueError("The match report requires exactly two team names")
-    return {
+    front_matter = {
         "team_names": team_names,
         "match_date": match_date,
         "title": f"{team_names[0]} vs {team_names[1]} - ({match_date})",
@@ -837,6 +902,13 @@ def _report_front_matter(
             ("Length of Service Runs", "length-of-service-runs")
         ]
     }
+    if setter_start_positions:
+        front_matter["contents"].insert(
+            1,
+            ("Setter Starting Positions", "setter-starting-positions")
+        )
+        front_matter["setter_start_positions"] = setter_start_positions
+    return front_matter
 
 
 def _write_markdown_report(
@@ -911,6 +983,31 @@ def _write_markdown_report(
                 f"{lineup['opponent_points']} | {ratio} |"
             )
         lines.append("")
+
+    setter_start_positions = front_matter.get("setter_start_positions", [])
+    if setter_start_positions:
+        lines.extend(["## Setter Starting Positions", ""])
+        for team_name in team_names:
+            team_positions = [
+                entry for entry in setter_start_positions
+                if entry["team"] == team_name
+            ]
+            if not team_positions:
+                continue
+            lines.extend(
+                [
+                    f"### {team_name}",
+                    "",
+                    "| Set | Setter(s) starting | At set start |",
+                    "|---:|---|---|"
+                ]
+            )
+            lines.extend(
+                f"| {entry['set_no']} | {entry['setters']} | "
+                f"{entry['start_type']} |"
+                for entry in team_positions
+            )
+            lines.append("")
 
     lines.extend(["## Stats per Player", ""])
     lines.append(
@@ -1176,6 +1273,64 @@ def _write_pdf_report(
             )
         )
         story.extend([lineup_table, Spacer(1, 5 * mm)])
+
+    setter_start_positions = front_matter.get("setter_start_positions", [])
+    if setter_start_positions:
+        story.extend(
+            [
+                Paragraph(
+                    '<a name="setter-starting-positions"/>'
+                    "Setter Starting Positions",
+                    styles["Heading1"]
+                ),
+                Spacer(1, 2 * mm)
+            ]
+        )
+        for team_name in front_matter["team_names"]:
+            team_positions = [
+                entry for entry in setter_start_positions
+                if entry["team"] == team_name
+            ]
+            if not team_positions:
+                continue
+            story.extend(
+                [
+                    Paragraph(escape(team_name), styles["Heading2"]),
+                    Spacer(1, 2 * mm)
+                ]
+            )
+            setter_table_data: list[list[Any]] = [[
+                "Set",
+                "Setter(s) starting",
+                "At set start"
+            ]]
+            setter_table_data.extend(
+                [
+                    str(entry["set_no"]),
+                    Paragraph(escape(entry["setters"]), body_style),
+                    entry["start_type"]
+                ]
+                for entry in team_positions
+            )
+            setter_table = Table(
+                setter_table_data,
+                colWidths=[15 * mm, 100 * mm, 45 * mm],
+                repeatRows=1
+            )
+            setter_table.setStyle(
+                TableStyle(
+                    [
+                        ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef5")),
+                        ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"),
+                        ("FONTSIZE", (0, 0), (-1, -1), 8),
+                        ("VALIGN", (0, 0), (-1, -1), "TOP"),
+                        ("GRID", (0, 0), (-1, -1), 0.35, colors.grey),
+                        ("BOTTOMPADDING", (0, 0), (-1, -1), 5),
+                        ("TOPPADDING", (0, 0), (-1, -1), 5)
+                    ]
+                )
+            )
+            story.extend([setter_table, Spacer(1, 3 * mm)])
 
     story.extend(
         [

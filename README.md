@@ -80,7 +80,9 @@ The first listed setter is the primary setter, and an empty list means the
 setter is unknown. If multiple listed setters are on court at once, the first
 listed is treated as the setter. When no setter is configured, rotation
 analysis uses the jersey numbers on court instead of assigning Laeufer
-positions.
+positions. When setters are configured, both reports also list their starting
+rotation positions set by set and whether each team starts on its own serve or
+reception.
 
 Point-by-point reconstruction is also saved as `point_by_point.json` by
 default. It is generated from the saved `match.json` data. To rerun only the

@@ -623,8 +623,82 @@ def test_u16_parser_rejects_short_deciding_set_score() -> None:
         )
 
 
-def test_serving_player_stats_exclude_own_team_points(
+def test_report_lists_setter_start_positions_and_service_side(
     tmp_path: Path
+) -> None:
+    teams = [
+        {"name": "TSV A", "setters": [1, 2]},
+        {"name": "TSV B", "setters": [7, 8]}
+    ]
+    point_data = {
+        "match_date": "01.01.2026",
+        "sets": [
+            {
+                "set_no": 1,
+                "points": [
+                    {
+                        "point_no": 1,
+                        "serving_team": "TSV A",
+                        "scoring_team": "TSV A",
+                        "rotations": {
+                            "TSV A": [1, 2, 3, 4, 5, 6],
+                            "TSV B": [7, 8, 9, 10, 11, 12]
+                        },
+                        "score_after": {"TSV A": 1, "TSV B": 0}
+                    }
+                ]
+            },
+            {
+                "set_no": 2,
+                "points": [
+                    {
+                        "point_no": 1,
+                        "serving_team": "TSV B",
+                        "scoring_team": "TSV B",
+                        "rotations": {
+                            "TSV A": [3, 4, 5, 6, 1, 2],
+                            "TSV B": [9, 10, 11, 12, 7, 8]
+                        },
+                        "score_after": {"TSV A": 0, "TSV B": 1}
+                    }
+                ]
+            }
+        ]
+    }
+
+    rotation_analysis.analyze_rotation_runs(point_data, teams, tmp_path)
+
+    report_file = next(tmp_path.glob("report_*.md"))
+    report_text = report_file.read_text(encoding="utf-8")
+    assert report_file.with_suffix(".pdf").read_bytes().startswith(b"%PDF")
+    assert (
+        "- [Setter Starting Positions](#setter-starting-positions)"
+        in report_text
+    )
+    assert (
+        "### TSV A\n\n"
+        "| Set | Setter(s) starting | At set start |\n"
+        "|---:|---|---|\n"
+        "| 1 | #1: Position I; #2: Position II | Own serve |\n"
+        "| 2 | #1: Position V; #2: Position VI | Reception |"
+        in report_text
+    )
+    assert (
+        "### TSV B\n\n"
+        "| Set | Setter(s) starting | At set start |\n"
+        "|---:|---|---|\n"
+        "| 1 | #7: Position I; #8: Position II | Reception |\n"
+        "| 2 | #7: Position V; #8: Position VI | Own serve |"
+        in report_text
+    )
+    setter_report = report_text.split(
+        "## Setter Starting Positions", 1
+    )[1].split("## Stats per Player", 1)[0]
+    assert setter_report.count("| Set | Setter(s) starting | At set start |") == 2
+
+
+def test_serving_player_stats_exclude_own_team_points(
+        tmp_path: Path
 ) -> None:
     team_a = "TSV A"
     team_b = "TSV B"
@@ -681,6 +755,7 @@ def test_serving_player_stats_exclude_own_team_points(
 
     report_file = next(tmp_path.glob("report_*.md"))
     report_text = report_file.read_text(encoding="utf-8")
+    assert "Setter Starting Positions" not in report_text
     assert "- [Stats per Serving Player](#stats-per-serving-player)" in report_text
     assert "## Stats per Serving Player" in report_text
     assert "| 1 (Ada, A.) | 2 | 1 | 0.50 |" in report_text
