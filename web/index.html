@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Volleyball-Spieltaganalyse</title>
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: system-ui, sans-serif;
+      color: #202124;
+      background: #f3f6fa;
+    }
+
+    body {
+      margin: 0;
+      padding: 2rem 1rem;
+    }
+
+    main {
+      max-width: 42rem;
+      margin: 0 auto;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      background: white;
+      box-shadow: 0 0.25rem 1.5rem #15345b1a;
+    }
+
+    h1 {
+      margin-top: 0;
+      color: #15345b;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.25rem;
+      font-weight: 650;
+    }
+
+    input[type="file"],
+    input[type="text"] {
+      box-sizing: border-box;
+      width: 100%;
+      margin-top: 0.4rem;
+      padding: 0.7rem;
+      border: 1px solid #8794a5;
+      border-radius: 0.35rem;
+      font: inherit;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.2rem;
+      border: 0;
+      border-radius: 0.35rem;
+      background: #15345b;
+      color: white;
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    button:focus-visible,
+    input:focus-visible {
+      outline: 3px solid #f1bf42;
+      outline-offset: 2px;
+    }
+
+    .hint {
+      margin: 0.35rem 0 0;
+      color: #4b5563;
+      font-size: 0.92rem;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Volleyball-Spieltaganalyse</h1>
+    <p>
+      Laden Sie den Spielbericht als PDF hoch. Die Setter-Felder beziehen sich
+      auf das zuerst bzw. danach im PDF-Kopf genannte Team.
+    </p>
+    <form action="/process" method="post" enctype="multipart/form-data">
+      <label for="pdf_file">Spielbericht (PDF)</label>
+      <input id="pdf_file" name="pdf_file" type="file" accept=".pdf,application/pdf" required>
+      <p class="hint">Maximale Dateigröße: 15 MB.</p>
+
+      <label for="team_a_setters">Setter des zuerst genannten Teams</label>
+      <input id="team_a_setters" name="team_a_setters" type="text"
+             inputmode="numeric" placeholder="z. B. 4, 12">
+
+      <label for="team_b_setters">Setter des danach genannten Teams</label>
+      <input id="team_b_setters" name="team_b_setters" type="text"
+             inputmode="numeric" placeholder="z. B. 8">
+      <p class="hint">
+        Mehrere Trikotnummern bitte mit Kommas trennen. Beide Felder können
+        leer bleiben, wenn die Setter unbekannt sind oder es sich um U14 handelt.
+      </p>
+
+      <button type="submit">Analyse starten und PDF herunterladen</button>
+    </form>
+  </main>
+</body>
+</html>

@@ -27,9 +27,10 @@ python -m pytest
 ```
 
 The PDF regression fixtures are in [tests/](./tests/). The `3-set`, `4-set`,
-and `5-set` folders contain regular-match PDFs; `u14` and `u14-tiebreak`
-contain four-player U14 matches, including a third-set tiebreak. Each fixture
-includes reference `match.json` and
+and `5-set` folders contain adult regular-match PDFs; `u14` and `u14-tiebreak`
+contain four-player U14 matches, and `u18` and `u18-tiebreak` contain U18
+matches, including a third-set tiebreak. The `3-set`, `4-set`, `5-set`, `u14`,
+and `u14-tiebreak` directories include reference `match.json` and
 `point_by_point.json` outputs, plus references for the generated
 `rotation_run_distributions.json`, `service_run_distributions.json`, and
 `points_by_setter_position.json` analysis results.
@@ -143,3 +144,77 @@ the lowest rate to the highest.
 The **Length of Service Runs** section embeds the generated run and setter-
 position plots and summarizes, for each team, the best and worst rotations
 for own service runs and opponent scoring runs.
+
+## Web upload service (Google Cloud Run)
+
+The optional web service accepts a score-sheet PDF and setter jersey numbers,
+then returns the generated report PDF. Each upload is processed in its own
+temporary directory; uploaded files and generated intermediates are not
+persisted. The upload limit defaults to 15 MiB.
+
+Before deployment, create two Google Secret Manager secrets named
+`spieltaganalyse-username` and `spieltaganalyse-password` and set their values
+in the Cloud Console. Do not put credentials in the repository or deployment
+command. Create a dedicated runtime service account and grant it access to
+both secrets:
+
+```bash
+gcloud iam service-accounts create spieltaganalyse-runtime
+
+gcloud secrets add-iam-policy-binding spieltaganalyse-username \
+  --member="serviceAccount:spieltaganalyse-runtime@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/secretmanager.secretAccessor"
+
+gcloud secrets add-iam-policy-binding spieltaganalyse-password \
+  --member="serviceAccount:spieltaganalyse-runtime@PROJECT_ID.iam.gserviceaccount.com" \
+  --role="roles/secretmanager.secretAccessor"
+```
+
+Replace `PROJECT_ID` with the Google Cloud project ID. Build and deploy the
+container from the repository root (requires an enabled Google Cloud project,
+billing, and the `gcloud` CLI):
+
+```bash
+gcloud run deploy spieltaganalyse \
+  --source . \
+  --region europe-west3 \
+  --service-account spieltaganalyse-runtime@PROJECT_ID.iam.gserviceaccount.com \
+  --set-secrets AUTH_USERNAME=spieltaganalyse-username:latest,AUTH_PASSWORD=spieltaganalyse-password:latest \
+  --allow-unauthenticated \
+  --memory 1Gi \
+  --cpu 1 \
+  --concurrency 1 \
+  --max 2 \
+  --timeout 300
+```
+
+The service URL printed after deployment is used as the form action. In
+WordPress, create or edit the page at
+`https://www.tsv1860ansbach.de/volleyball/spieltagsanalyse`, add a **Custom
+HTML** block, and paste in
+[wordpress/spieltagsanalyse-form.html](./wordpress/spieltagsanalyse-form.html).
+Replace `https://REPLACE-WITH-CLOUD-RUN-URL/process` with the deployed service
+URL followed by `/process`. This native multipart form posts directly to
+Cloud Run and downloads either the analysis report or a PDF containing the
+error explanation; it does not depend on an iframe, JavaScript, or a WordPress
+plugin. The service uses HTTP Basic authentication over HTTPS; the browser
+prompts for the shared username and password when the form is submitted. The
+service also hosts the same form at its `/` URL for direct access.
+
+Setter fields correspond to the first and second teams named in the PDF header.
+Enter jersey numbers separated by commas (for example `4, 12`), or leave a
+field empty if the setter is unknown or for U14. The service responds with an
+error PDF when the input is invalid, the match cannot be reconstructed, or an
+unexpected processing error occurs.
+
+Cloud Run allows unauthenticated invocation so the browser can reach the
+application-level login challenge; the form and processing endpoint both
+require valid credentials, and the service returns `503` if the secrets are
+not configured. The health endpoint exposes only service readiness. The
+shared credentials should be distributed only to intended users and rotated
+by adding new Secret Manager versions and deploying a new Cloud Run revision.
+Use a strong, unique password. Basic authentication is a simple
+shared gate, not per-user access control or rate limiting: anyone with the
+credentials can use the tool, so keep the upload size, single-request
+concurrency, and maximum instance count bounded and monitor Cloud Run usage
+and costs.

@@ -188,7 +188,8 @@ class PdfScoreSheetParser:
             ["pdftotext", "-f", "1", "-l", "1", "-bbox-layout", str(pdf_file), "-"],
             check=True,
             capture_output=True,
-            text=True
+            text=True,
+            timeout=60
         )
 
         root = ET.fromstring(result.stdout)

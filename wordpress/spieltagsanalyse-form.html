@@ -1,0 +1,55 @@
+<!--
+  Paste this markup into a WordPress Custom HTML block on the page
+  /volleyball/spieltagsanalyse. Replace the action URL with the deployed
+  Cloud Run service URL, including /process. The browser will request the
+  shared HTTP Basic username and password when the form is submitted.
+-->
+<form action="https://REPLACE-WITH-CLOUD-RUN-URL/process"
+      method="post"
+      enctype="multipart/form-data">
+  <p>
+    Laden Sie den Spielbericht als PDF hoch. Die Setter-Felder beziehen sich
+    auf das zuerst bzw. danach im PDF-Kopf genannte Team.
+  </p>
+
+  <p>
+    <label for="spieltaganalyse-pdf">Spielbericht (PDF)</label><br>
+    <input id="spieltaganalyse-pdf"
+           name="pdf_file"
+           type="file"
+           accept=".pdf,application/pdf"
+           required>
+  </p>
+
+  <p>
+    <label for="spieltaganalyse-team-a">
+      Setter des zuerst genannten Teams
+    </label><br>
+    <input id="spieltaganalyse-team-a"
+           name="team_a_setters"
+           type="text"
+           inputmode="numeric"
+           placeholder="z. B. 4, 12">
+  </p>
+
+  <p>
+    <label for="spieltaganalyse-team-b">
+      Setter des danach genannten Teams
+    </label><br>
+    <input id="spieltaganalyse-team-b"
+           name="team_b_setters"
+           type="text"
+           inputmode="numeric"
+           placeholder="z. B. 8">
+  </p>
+
+  <p>
+    Mehrere Trikotnummern bitte mit Kommas trennen. Die Felder können leer
+    bleiben, wenn die Setter unbekannt sind oder es sich um U14 handelt.
+    Maximale Dateigröße: 15 MB.
+  </p>
+
+  <p>
+    <button type="submit">Analyse starten und PDF herunterladen</button>
+  </p>
+</form>
