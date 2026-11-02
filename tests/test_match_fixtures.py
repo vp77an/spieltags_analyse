@@ -8,6 +8,7 @@ from pdf_score_sheet import (
     PdfPage,
     PdfScoreSheetParser,
     PositionedWord,
+    SetPanel,
     SetJson
 )
 import rotation_analysis
@@ -71,6 +72,74 @@ def test_pdf_match_and_reconstruction_match_reference(
         expected_reconstruction = json.load(file)
 
     assert actual_reconstruction == expected_reconstruction
+
+
+@pytest.mark.parametrize(
+    ("fixture_name", "expected_set_scores"),
+    [
+        pytest.param(
+            "u18-tiebreak",
+            [
+                {
+                    "TV Altdorf": 26,
+                    "VSG TV Bad Windsheim / SB Uffenheim": 28
+                },
+                {
+                    "VSG TV Bad Windsheim / SB Uffenheim": 12,
+                    "TV Altdorf": 25
+                },
+                {
+                    "VSG TV Bad Windsheim / SB Uffenheim": 13,
+                    "TV Altdorf": 15
+                }
+            ],
+            id="u18-tiebreak"
+        ),
+        pytest.param(
+            "u18",
+            [
+                {"TV Altdorf": 17, "TSV Ansbach": 25},
+                {"TSV Ansbach": 25, "TV Altdorf": 23}
+            ],
+            id="u18"
+        )
+    ]
+)
+def test_u18_pdf_match_and_reconstruction(
+    fixture_name: str,
+    expected_set_scores: list[dict[str, int]]
+) -> None:
+    parser = PdfScoreSheetParser()
+    parsed_match = parser.parse_match(
+        parser.extract_page(FIXTURE_ROOT / fixture_name / "match.pdf")
+    )
+    actual_match = json.loads(parsed_match.to_json())
+
+    assert actual_match["match_type"] == "U18"
+    assert [set_data["points"] for set_data in actual_match["sets"]] == (
+        expected_set_scores
+    )
+
+    reconstruction = reconstruct_match(actual_match)
+    assert [
+        set_data["points"][-1]["score_after"]
+        for set_data in reconstruction["sets"]
+    ] == expected_set_scores
+
+    if fixture_name == "u18-tiebreak":
+        deciding_set = actual_match["sets"][-1]
+        bad_windsheim = "VSG TV Bad Windsheim / SB Uffenheim"
+        assert deciding_set["start_rotation"][bad_windsheim] == [
+            12, 8, 5, 2, 4, 16
+        ]
+        assert deciding_set["serve_rounds"][bad_windsheim] == {
+            "12": [0, 13],
+            "8": [1],
+            "5": [5],
+            "2": [8],
+            "4": [10],
+            "16": [12]
+        }
 
 
 @pytest.mark.parametrize(("set_count", "teams"), FIXTURES)
@@ -253,6 +322,49 @@ def test_u14_deciding_set_uses_15_point_target() -> None:
     }
 
 
+def test_players_without_serve_rounds_do_not_prevent_reconstruction() -> None:
+    teams = ("TSV A", "TSV B")
+    match = {
+        "sets": [
+            {
+                "set_no": 1,
+                "start_rotation": {
+                    teams[0]: [1, 2, 3, 4, 5, 6],
+                    teams[1]: [7, 8, 9, 10, 11, 12]
+                },
+                "serve_rounds": {
+                    teams[0]: {
+                        "1": [25],
+                        "2": [],
+                        "3": [],
+                        "4": [],
+                        "5": [],
+                        "6": []
+                    },
+                    teams[1]: {
+                        "7": [],
+                        "8": [],
+                        "9": [],
+                        "10": [],
+                        "11": [],
+                        "12": []
+                    }
+                },
+                "substitutions": {teams[0]: [], teams[1]: []},
+                "points": {teams[0]: 25, teams[1]: 0}
+            }
+        ]
+    }
+
+    reconstructed = reconstruct_match(match)
+
+    assert len(reconstructed["sets"][0]["points"]) == 25
+    assert reconstructed["sets"][0]["points"][-1]["score_after"] == {
+        teams[0]: 25,
+        teams[1]: 0
+    }
+
+
 @pytest.mark.parametrize(("header", "expected"), [
     ("Mfr - U16 Bezirksliga", "U16"),
     ("Mfr - U 18 Bezirksliga", "U18"),
@@ -278,7 +390,9 @@ def test_header_detects_youth_match_type(
     assert PdfScoreSheetParser._read_match_type(words) == expected
 
 
-def test_u16_parser_ends_after_two_sets_and_uses_15_point_tiebreak(
+@pytest.mark.parametrize("match_type", ["U16", "U18", "U20"])
+def test_youth_parser_uses_side_switch_parser_for_deciding_set(
+    match_type: str,
     monkeypatch: pytest.MonkeyPatch
 ) -> None:
     parser = PdfScoreSheetParser()
@@ -301,15 +415,14 @@ def test_u16_parser_ends_after_two_sets_and_uses_15_point_tiebreak(
         lambda words, names: {}
     )
     monkeypatch.setattr(parser, "_read_match_date", lambda words: "01.01.2026")
-    monkeypatch.setattr(parser, "_read_match_type", lambda words: "U16")
+    monkeypatch.setattr(parser, "_read_match_type", lambda words: match_type)
     monkeypatch.setattr(
         parser,
         "_panel_team_codes",
         lambda *args: ("A", "B")
     )
 
-    def parse_set(*args: object, **kwargs: object) -> SetJson:
-        set_no = args[5]
+    def parsed_set(set_no: int) -> SetJson:
         parsed_set_numbers.append(set_no)
         return SetJson(
             set_no=set_no,
@@ -319,10 +432,31 @@ def test_u16_parser_ends_after_two_sets_and_uses_15_point_tiebreak(
             points=set_scores[set_no - 1]
         )
 
+    def parse_set(
+        words: list[PositionedWord],
+        panel: SetPanel,
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float,
+        set_no: int,
+        is_u14: bool = False
+    ) -> SetJson:
+        return parsed_set(set_no)
+
+    def parse_deciding_set(
+        words: list[PositionedWord],
+        team_names: dict[str, str],
+        scale_x: float,
+        scale_y: float,
+        set_no: int
+    ) -> SetJson:
+        return parsed_set(set_no)
+
     monkeypatch.setattr(parser, "_parse_set", parse_set)
+    monkeypatch.setattr(parser, "_parse_deciding_set", parse_deciding_set)
     parsed_match = parser.parse_match(PdfPage(841.92, 595.92, []))
 
-    assert parsed_match.match_type == "U16"
+    assert parsed_match.match_type == match_type
     assert [set_data.set_no for set_data in parsed_match.sets] == [1, 2, 3]
     assert parsed_set_numbers == [1, 2, 3]
 

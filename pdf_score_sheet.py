@@ -267,6 +267,14 @@ class PdfScoreSheetParser:
                     scale_x,
                     scale_y
                 )
+            elif is_deciding_set(match_type, set_no):
+                set_data = self._parse_deciding_set(
+                    page.words,
+                    team_names,
+                    scale_x,
+                    scale_y,
+                    set_no
+                )
             else:
                 set_data = self._parse_set(
                     page.words,
@@ -300,21 +308,17 @@ class PdfScoreSheetParser:
                     f"with {match_sets_to_win} set wins"
                 )
         elif max(sets_won.values(), default=0) < match_sets_to_win:
-            fifth_set = self._parse_fifth_set(
+            deciding_set = self._parse_deciding_set(
                 page.words,
                 team_names,
                 scale_x,
-                scale_y
+                scale_y,
+                set_no=5
             )
-            if fifth_set is None:
-                raise ValueError(
-                    "The first four sets did not produce a winner and no "
-                    "fifth set was found in the PDF"
-                )
-            sets.append(fifth_set)
+            sets.append(deciding_set)
             self._record_set_win(
                 sets_won,
-                fifth_set,
+                deciding_set,
                 match_type=match_type
             )
             if max(sets_won.values()) != match_sets_to_win:
@@ -439,24 +443,46 @@ class PdfScoreSheetParser:
             )
         return serving_teams[0]
 
-    def _parse_fifth_set(
+    def _parse_deciding_set(
         self,
         words: list[PositionedWord],
         team_names: dict[str, str],
         scale_x: float,
-        scale_y: float
-    ) -> SetJson | None:
-        return self._parse_side_switch_set(
+        scale_y: float,
+        set_no: int
+    ) -> SetJson:
+        if set_no == 5:
+            team_marker_y = 299.3
+            rotation_y = 323.4
+            score_y = 328.6
+            serve_y = 367.6
+        elif set_no == 3:
+            panel = SET_PANELS[2]
+            team_marker_y = panel.team_marker_y
+            rotation_y = panel.rotation_y
+            score_y = panel.score_y
+            serve_y = panel.serve_y
+        else:
+            raise ValueError(
+                f"Unsupported deciding set number {set_no}"
+            )
+
+        set_data = self._parse_side_switch_set(
             words,
             team_names,
             scale_x,
             scale_y,
-            set_no=5,
-            team_marker_y=299.3,
-            rotation_y=323.4,
-            score_y=328.6,
-            serve_y=367.6
+            set_no=set_no,
+            team_marker_y=team_marker_y,
+            rotation_y=rotation_y,
+            score_y=score_y,
+            serve_y=serve_y
         )
+        if set_data is None:
+            raise ValueError(
+                f"Could not identify all three panels in deciding set {set_no}"
+            )
+        return set_data
 
     def _parse_u14_deciding_set(
         self,

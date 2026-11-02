@@ -269,11 +269,17 @@ def _reconstruct_set(
     opening_marks = {
         team: min(histories[team][rotations[team][0]])
         for team in teams
+        if histories[team][rotations[team][0]]
     }
-    if opening_marks[teams[0]] == opening_marks[teams[1]]:
+    if not opening_marks:
+        raise ValueError(f"Set {set_no} has no opening serving mark")
+    if (
+        len(opening_marks) == len(teams)
+        and opening_marks[teams[0]] == opening_marks[teams[1]]
+    ):
         raise ValueError(f"Set {set_no} has no unique opening serving team")
 
-    serving_team = min(teams, key=opening_marks.__getitem__)
+    serving_team = min(opening_marks, key=opening_marks.__getitem__)
     receiving_team = next(team for team in teams if team != serving_team)
     scores = {team: 0 for team in teams}
     history_indexes = {
@@ -476,7 +482,7 @@ def _normalize_serve_rounds(
     histories = {}
     for player in rotation:
         values = value.get(str(player), value.get(player))
-        if not isinstance(values, list) or not values:
+        if not isinstance(values, list):
             raise ValueError(
                 f"Set {set_no}: missing serve-round entries for "
                 f"{team} player {player}"
