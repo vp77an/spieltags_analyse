@@ -1110,6 +1110,9 @@ def _write_markdown_report(
         service_run_sections,
         front_matter
     )
+    for image_path in output_path.glob("*.png"):
+        image_path.unlink()
+    report_path.unlink()
 
 
 def _report_stem(team_names: list[str], match_date: str) -> str:

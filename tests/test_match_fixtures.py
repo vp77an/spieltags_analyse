@@ -51,6 +51,23 @@ U14_ANALYSIS_JSON_FILES = (
 )
 
 
+def _capture_markdown_report(
+    monkeypatch: pytest.MonkeyPatch,
+    generate_pdf: bool = True
+) -> dict[str, str]:
+    report = {}
+    write_pdf_report = rotation_analysis._write_pdf_report
+
+    def capture(*args, **kwargs) -> None:
+        markdown_file = args[1]
+        report["text"] = Path(markdown_file).read_text(encoding="utf-8")
+        if generate_pdf:
+            write_pdf_report(*args, **kwargs)
+
+    monkeypatch.setattr(rotation_analysis, "_write_pdf_report", capture)
+    return report
+
+
 @pytest.mark.parametrize(("set_count", "teams"), FIXTURES)
 def test_pdf_match_and_reconstruction_match_reference(
     set_count: int,
@@ -80,6 +97,7 @@ def test_stacked_serve_marks_are_split_using_their_vertical_rows() -> None:
     parser = PdfScoreSheetParser()
     pdf_file = (
         FIXTURE_ROOT.parent
+        / "input"
         / "Spielbericht_Kleinaitingen_Bad_Groenenbach.pdf"
     )
     parsed_match = parser.parse_match(parser.extract_page(pdf_file))
@@ -111,7 +129,9 @@ def test_config_processes_stacked_serve_marks(
     monkeypatch: pytest.MonkeyPatch
 ) -> None:
     config_file = (
-        FIXTURE_ROOT.parent / "config_Kleinaitingen_Bad_Groenenbach.yaml"
+        FIXTURE_ROOT.parent
+        / "input"
+        / "config_Kleinaitingen_Bad_Groenenbach.yaml"
     )
     load_config = main._load_config
 
@@ -209,7 +229,7 @@ def test_file_argument_extracts_teams_and_saves_reusable_config(
         setters=[[4, 22], []]
     )
 
-    config_path = tmp_path / "config_match.yaml"
+    config_path = tmp_path / "input" / "config_match.yaml"
     with config_path.open(encoding="utf-8") as file:
         generated_config = yaml.safe_load(file)
     assert generated_config["pdf_file"] == str(pdf_file)
@@ -695,8 +715,10 @@ def test_u16_parser_rejects_short_deciding_set_score() -> None:
 
 
 def test_report_lists_setter_start_positions_and_service_side(
-    tmp_path: Path
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    report = _capture_markdown_report(monkeypatch)
     teams = [
         {"name": "TSV A", "setters": [1, 2]},
         {"name": "TSV B", "setters": [7, 8]}
@@ -739,9 +761,11 @@ def test_report_lists_setter_start_positions_and_service_side(
 
     rotation_analysis.analyze_rotation_runs(point_data, teams, tmp_path)
 
-    report_file = next(tmp_path.glob("report_*.md"))
-    report_text = report_file.read_text(encoding="utf-8")
-    assert report_file.with_suffix(".pdf").read_bytes().startswith(b"%PDF")
+    report_file = next(tmp_path.glob("report_*.pdf"))
+    report_text = report["text"]
+    assert report_file.read_bytes().startswith(b"%PDF")
+    assert not list(tmp_path.glob("*.md"))
+    assert not list(tmp_path.glob("*.png"))
     assert (
         "- [Setter Starting Positions](#setter-starting-positions)"
         in report_text
@@ -769,8 +793,10 @@ def test_report_lists_setter_start_positions_and_service_side(
 
 
 def test_serving_player_stats_exclude_own_team_points(
-        tmp_path: Path
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch
 ) -> None:
+    report = _capture_markdown_report(monkeypatch)
     team_a = "TSV A"
     team_b = "TSV B"
     rotation_a = [1, 2, 3, 4, 5, 6]
@@ -824,8 +850,7 @@ def test_serving_player_stats_exclude_own_team_points(
         tmp_path
     )
 
-    report_file = next(tmp_path.glob("report_*.md"))
-    report_text = report_file.read_text(encoding="utf-8")
+    report_text = report["text"]
     assert "Setter Starting Positions" not in report_text
     assert "- [Stats per Serving Player](#stats-per-serving-player)" in report_text
     assert "## Stats per Serving Player" in report_text
@@ -845,8 +870,10 @@ def test_serving_player_stats_exclude_own_team_points(
     assert "#### Points by setter position" in report_text
     assert "#### Opponent scoring-run length by rotation" in report_text
     assert "Own service runs are shown as an overall distribution" not in report_text
-    pdf_file = report_file.with_suffix(".pdf")
+    pdf_file = next(tmp_path.glob("report_*.pdf"))
     assert pdf_file.read_bytes().startswith(b"%PDF")
+    assert not list(tmp_path.glob("*.md"))
+    assert not list(tmp_path.glob("*.png"))
 
 
 def test_u14_analysis_json_matches_reference(
@@ -876,11 +903,7 @@ def test_u14_analysis_json_matches_reference(
         "_plot_points_by_setter_position",
         lambda *args, **kwargs: None
     )
-    monkeypatch.setattr(
-        rotation_analysis,
-        "_write_pdf_report",
-        lambda *args, **kwargs: None
-    )
+    report = _capture_markdown_report(monkeypatch, generate_pdf=False)
 
     (tmp_path / "points_by_setter_position.json").write_text(
         "stale", encoding="utf-8"
@@ -935,8 +958,7 @@ def test_u14_analysis_json_matches_reference(
              "_points_by_setter_position.png").exists()
         for name in point_data["player_names"]
     )
-    report_file = next(tmp_path.glob("report_*.md"))
-    report_text = report_file.read_text(encoding="utf-8")
+    report_text = report["text"]
     assert report_text.startswith("# TV Altdorf vs TSV Ansbach\n")
     assert "## Contents" in report_text
     result_table = report_text.split("## Match Result", 1)[1].split(

@@ -49,7 +49,7 @@ but are best of three sets: the first team to win two sets wins the match.
 The first two sets use a 25-point target; the third, deciding set uses a
 15-point target, with a two-point lead required in every set.
 
-Parse the included report:
+Parse the default input config:
 
 ```bash
 python main.py
@@ -58,26 +58,31 @@ python main.py
 To analyze a different score sheet without preparing a YAML config, pass the
 PDF directly. Team names are extracted from its header; setter lists must be in
 that same order. Use an empty list for a team whose setters are unknown or not
-of interest:
+of interest. Keep source score sheets and reusable configs in `input/`, and
+include that directory in the command-line path:
 
 ```bash
-python3 main.py --file Spielbericht_ANS_HAHNBACH.pdf \
+python3 main.py --file input/Spielbericht_ANS_HAHNBACH.pdf \
   --setters '[[8, 11], [2]]'
 ```
 
-The script saves a reusable `config_<PDF-name>.yaml` file in the current
-directory along with the analysis. It will not overwrite an existing config;
-to repeat an analysis, pass the generated file with `--config`.
+The script saves a reusable `input/config_<PDF-name>.yaml` file. It will not
+overwrite an existing config; to repeat an analysis, pass the generated file
+with `--config`:
 
-Alternatively, the default [config.yaml](./config.yaml) or another config can
-name the PDF and teams. Use `--config` to load a different YAML config. The
-program identifies each team from the PDF header and matches it to the
-configured team by name, so team entries may be listed in any order. Each
-team's `setters` is an ordered list of jersey numbers:
+```bash
+python3 main.py --config input/config_<PDF-name>.yaml
+```
+
+Alternatively, [`input/config.yaml`](./input/config.yaml) or another config in
+`input/` can name the PDF and teams. Use `--config input/<config-name>.yaml` to
+load a different YAML config. The program identifies each team from the PDF
+header and matches it to the configured team by name, so team entries may be
+listed in any order. Each team's `setters` is an ordered list of jersey numbers:
 
 ```yaml
 # yaml-language-server: $schema=./config.schema.json
-pdf_file: match.pdf
+pdf_file: input/match.pdf
 teams:
   - name: TSV Ansbach
     setters: [8, 11]
@@ -85,7 +90,8 @@ teams:
     setters: [16, 13]
 ```
 
-Config files are validated against [config.schema.json](./config.schema.json).
+Config files are validated against
+[input/config.schema.json](./input/config.schema.json).
 The YAML language-server schema directive at the top of each example config
 also enables editor validation.
 `pdf_file` and `teams` are required; the teams list must contain exactly two
@@ -134,10 +140,12 @@ runs are shown as an aggregate distribution rather than compared by rotation.
 The setter-position chart and `points_by_setter_position.json` are not
 generated for U14 matches.
 
-Each analysis run also creates Markdown and PDF reports in the analysis output
-directory. Both filenames include the two team names and match date, for
-example `report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.md` and the matching
-`.pdf`. At the beginning, both reports show the match result in a table:
+Each analysis run creates a PDF report in the analysis output directory; its
+filename includes the two team names and match date, for example
+`report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.pdf`. During generation, a
+Markdown report and PNG charts are created as intermediates and removed after
+the PDF is successfully generated. At the beginning, the report shows the
+match result in a table:
 team names on the first row, sets won on the second, and all set scores in a
 joint third row. They also caution that the
 simplified analyses are not a substitute for full scouting; for example,

@@ -1,5 +1,5 @@
 # yaml-language-server: $schema=./config.schema.json
-pdf_file: Spielbericht_ANS_HAHNBACH.pdf
+pdf_file: input/Spielbericht_ANS_HAHNBACH.pdf
 
 teams:
   # Team entries can be in any order.

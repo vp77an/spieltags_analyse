@@ -45,7 +45,7 @@ def main(
         config_file = _write_generated_config(config, pdf_file)
         print(f"Saved configuration to {config_file}")
     else:
-        config = _load_config(config_file or "config.yaml")
+        config = _load_config(config_file or "input/config.yaml")
         pdf_team_order = parser.extract_team_header_order(config["pdf_file"])
 
     points_output_file = config["point_by_point_json"]
@@ -116,19 +116,18 @@ def main(
         point_data["match_date"]
     )
     print(
-        "Saved Markdown report to "
-        f"{config['analysis_output_dir']}/{report_stem}.md"
-    )
-    print(
         "Saved PDF report to "
         f"{config['analysis_output_dir']}/{report_stem}.pdf"
     )
 
 
 def _load_config(config_file):
-    with Path(config_file).open(encoding="utf-8") as file:
+    config_path = Path(config_file)
+    with config_path.open(encoding="utf-8") as file:
         config = yaml.safe_load(file)
-    schema_path = Path(__file__).with_name("config.schema.json")
+    schema_path = config_path.with_name("config.schema.json")
+    if not schema_path.is_file():
+        schema_path = Path(__file__).parent / "input" / "config.schema.json"
     with schema_path.open(encoding="utf-8") as schema_file:
         schema = json.load(schema_file)
 
@@ -141,7 +140,7 @@ def _load_config(config_file):
         error = errors[0]
         location = ".".join(str(part) for part in error.absolute_path) or "<root>"
         raise ValueError(
-            f"Invalid config {config_file!r} at {location}: {error.message}"
+            f"Invalid config {str(config_path)!r} at {location}: {error.message}"
         )
 
     teams = config["teams"]
@@ -211,7 +210,9 @@ def _parse_setters_argument(values: list[str]) -> list[list[int]]:
 
 
 def _write_generated_config(config: dict[str, Any], pdf_file: str | Path) -> Path:
-    config_path = Path.cwd() / f"config_{Path(pdf_file).stem}.yaml"
+    input_dir = Path.cwd() / "input"
+    input_dir.mkdir(parents=True, exist_ok=True)
+    config_path = input_dir / f"config_{Path(pdf_file).stem}.yaml"
     try:
         with config_path.open("x", encoding="utf-8") as file:
             yaml.safe_dump(
@@ -233,6 +234,7 @@ if __name__ == "__main__":
     input_group = parser.add_mutually_exclusive_group()
     input_group.add_argument(
         "--config",
+        default="input/config.yaml",
         help="YAML config file containing input, output, and team settings"
     )
     input_group.add_argument(
