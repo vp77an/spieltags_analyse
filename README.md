@@ -55,10 +55,25 @@ Parse the included report:
 python main.py
 ```
 
-The default [config.yaml](./config.yaml) names the PDF and teams. Use `--config`
-to load another YAML config. The program identifies each team from the PDF
-header and matches it to the configured team by name, so team entries may be
-listed in any order. Each team's `setters` is an ordered list of jersey numbers:
+To analyze a different score sheet without preparing a YAML config, pass the
+PDF directly. Team names are extracted from its header; setter lists must be in
+that same order. Use an empty list for a team whose setters are unknown or not
+of interest:
+
+```bash
+python3 main.py --file Spielbericht_ANS_HAHNBACH.pdf \
+  --setters '[[8, 11], [2]]'
+```
+
+The script saves a reusable `config_<PDF-name>.yaml` file in the current
+directory along with the analysis. It will not overwrite an existing config;
+to repeat an analysis, pass the generated file with `--config`.
+
+Alternatively, the default [config.yaml](./config.yaml) or another config can
+name the PDF and teams. Use `--config` to load a different YAML config. The
+program identifies each team from the PDF header and matches it to the
+configured team by name, so team entries may be listed in any order. Each
+team's `setters` is an ordered list of jersey numbers:
 
 ```yaml
 # yaml-language-server: $schema=./config.schema.json

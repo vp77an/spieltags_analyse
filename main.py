@@ -3,6 +3,7 @@
 import argparse
 import json
 from pathlib import Path
+from typing import Any
 
 from jsonschema import Draft202012Validator
 import yaml
@@ -20,11 +21,34 @@ from rotation_analysis import (
 )
 
 
-def main(config_file="config.yaml", load_match=False, analyze_only=False):
-    config = _load_config(config_file)
-    points_output_file = config["point_by_point_json"]
+def main(
+    config_file=None,
+    load_match=False,
+    analyze_only=False,
+    pdf_file=None,
+    setters=None
+):
     parser = PdfScoreSheetParser()
-    pdf_team_order = parser.extract_team_header_order(config["pdf_file"])
+    if pdf_file is not None:
+        pdf_team_order = parser.extract_team_header_order(pdf_file)
+        setter_lists = _validate_setter_lists(setters, len(pdf_team_order))
+        config = {
+            "pdf_file": str(pdf_file),
+            "match_json": "match.json",
+            "point_by_point_json": "point_by_point.json",
+            "analysis_output_dir": "analysis",
+            "teams": [
+                {"name": name, "setters": team_setters}
+                for name, team_setters in zip(pdf_team_order, setter_lists)
+            ]
+        }
+        config_file = _write_generated_config(config, pdf_file)
+        print(f"Saved configuration to {config_file}")
+    else:
+        config = _load_config(config_file or "config.yaml")
+        pdf_team_order = parser.extract_team_header_order(config["pdf_file"])
+
+    points_output_file = config["point_by_point_json"]
     teams_by_name = {
         team["name"]: team
         for team in config["teams"]
@@ -144,12 +168,85 @@ def _load_config(config_file):
     return normalized_config
 
 
+def _validate_setter_lists(setters: Any, team_count: int) -> list[list[int]]:
+    if setters is None:
+        return [[] for _ in range(team_count)]
+    if (
+        not isinstance(setters, list)
+        or len(setters) != team_count
+        or any(not isinstance(team_setters, list) for team_setters in setters)
+    ):
+        raise ValueError(
+            f"Setters must be a list of {team_count} jersey-number lists, "
+            "in the order teams appear in the PDF header"
+        )
+    for team_setters in setters:
+        if (
+            any(
+                not isinstance(jersey, int)
+                or isinstance(jersey, bool)
+                or jersey < 1
+                for jersey in team_setters
+            )
+            or len(set(team_setters)) != len(team_setters)
+        ):
+            raise ValueError(
+                "Setter jersey numbers must be unique positive integers"
+            )
+    return setters
+
+
+def _parse_setters_argument(values: list[str]) -> list[list[int]]:
+    try:
+        setters = json.loads(" ".join(values))
+    except json.JSONDecodeError as error:
+        raise argparse.ArgumentTypeError(
+            "setters must be JSON arrays, for example "
+            "'[[16,13], [8,11]]' or '[[], [8,11]]'"
+        ) from error
+    try:
+        return _validate_setter_lists(setters, 2)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(str(error)) from error
+
+
+def _write_generated_config(config: dict[str, Any], pdf_file: str | Path) -> Path:
+    config_path = Path.cwd() / f"config_{Path(pdf_file).stem}.yaml"
+    try:
+        with config_path.open("x", encoding="utf-8") as file:
+            yaml.safe_dump(
+                config,
+                file,
+                allow_unicode=True,
+                sort_keys=False
+            )
+    except FileExistsError as error:
+        raise FileExistsError(
+            f"Refusing to overwrite existing config {config_path}; "
+            "use that config with --config to repeat its analysis"
+        ) from error
+    return config_path
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument(
+    input_group = parser.add_mutually_exclusive_group()
+    input_group.add_argument(
         "--config",
-        default="config.yaml",
         help="YAML config file containing input, output, and team settings"
+    )
+    input_group.add_argument(
+        "--file",
+        help="Score-sheet PDF; team names are read from its header"
+    )
+    parser.add_argument(
+        "--setters",
+        nargs="+",
+        metavar="JSON",
+        help=(
+            "Two setter jersey-number lists in PDF team-header order; use [] "
+            "for a team with unknown setters"
+        )
     )
     parser.add_argument(
         "--load-match",
@@ -163,8 +260,17 @@ if __name__ == "__main__":
     )
     args = parser.parse_args()
 
+    if args.setters and not args.file:
+        parser.error("--setters requires --file")
+
     main(
         config_file=args.config,
         load_match=args.load_match,
-        analyze_only=args.analyze_only
+        analyze_only=args.analyze_only,
+        pdf_file=args.file,
+        setters=(
+            _parse_setters_argument(args.setters)
+            if args.setters
+            else None
+        )
     )

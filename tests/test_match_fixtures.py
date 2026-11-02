@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 import main
 from match_reconstructor import reconstruct_match
@@ -169,6 +170,76 @@ def test_config_processes_stacked_serve_marks(
         {"FC Kleinaitingen": 26, "TV Bad Grönenbach": 24},
         {"FC Kleinaitingen": 25, "TV Bad Grönenbach": 16}
     ]
+
+
+def test_file_argument_extracts_teams_and_saves_reusable_config(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch
+) -> None:
+    pdf_file = FIXTURE_ROOT / "3-set" / "match.pdf"
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_team_distribution",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_service_run_distribution",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_points_by_setter_position",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_write_markdown_report",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_write_pdf_report",
+        lambda *args, **kwargs: None
+    )
+
+    main.main(
+        pdf_file=pdf_file,
+        setters=[[4, 22], []]
+    )
+
+    config_path = tmp_path / "config_match.yaml"
+    with config_path.open(encoding="utf-8") as file:
+        generated_config = yaml.safe_load(file)
+    assert generated_config["pdf_file"] == str(pdf_file)
+    assert generated_config["teams"] == [
+        {"name": "TV Planegg Krailling II", "setters": [4, 22]},
+        {"name": "TV/DJK Hammelburg", "setters": []}
+    ]
+    assert main._load_config(config_path)["teams"] == generated_config["teams"]
+
+
+def test_cli_setter_parser_accepts_shell_split_json_values() -> None:
+    assert main._parse_setters_argument(
+        ["[[16,13],", "[8,", "11]]"]
+    ) == [[16, 13], [8, 11]]
+    assert main._parse_setters_argument(["[[],", "[8,11]]"]) == [[], [8, 11]]
+
+
+@pytest.mark.parametrize(
+    "setters",
+    [
+        [[1], [1, 1]],
+        [[0], []],
+        [[True], []],
+        [[1], None],
+        [[1]]
+    ]
+)
+def test_setter_lists_reject_invalid_values(setters: object) -> None:
+    with pytest.raises(ValueError):
+        main._validate_setter_lists(setters, 2)
 
 
 @pytest.mark.parametrize(
