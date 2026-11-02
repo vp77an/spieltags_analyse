@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+import main
 from match_reconstructor import reconstruct_match
 from pdf_score_sheet import (
     PdfPage,
@@ -72,6 +73,102 @@ def test_pdf_match_and_reconstruction_match_reference(
         expected_reconstruction = json.load(file)
 
     assert actual_reconstruction == expected_reconstruction
+
+
+def test_stacked_serve_marks_are_split_using_their_vertical_rows() -> None:
+    parser = PdfScoreSheetParser()
+    pdf_file = (
+        FIXTURE_ROOT.parent
+        / "Spielbericht_Kleinaitingen_Bad_Groenenbach.pdf"
+    )
+    parsed_match = parser.parse_match(parser.extract_page(pdf_file))
+    match = json.loads(parsed_match.to_json())
+
+    assert match["sets"][0]["serve_rounds"]["TV Bad Grönenbach"]["11"] == [
+        0, 13
+    ]
+    assert match["sets"][1]["serve_rounds"]["FC Kleinaitingen"]["11"] == [
+        0, 12, 26
+    ]
+    assert match["sets"][2]["serve_rounds"]["TV Bad Grönenbach"]["11"] == [
+        1, 9
+    ]
+
+    reconstruction = reconstruct_match(match)
+    assert [
+        set_data["points"][-1]["score_after"]
+        for set_data in reconstruction["sets"]
+    ] == [
+        {"TV Bad Grönenbach": 20, "FC Kleinaitingen": 25},
+        {"FC Kleinaitingen": 26, "TV Bad Grönenbach": 24},
+        {"TV Bad Grönenbach": 16, "FC Kleinaitingen": 25}
+    ]
+
+
+def test_config_processes_stacked_serve_marks(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch
+) -> None:
+    config_file = (
+        FIXTURE_ROOT.parent / "config_Kleinaitingen_Bad_Groenenbach.yaml"
+    )
+    load_config = main._load_config
+
+    def load_config_with_temp_outputs(path: str | Path) -> dict[str, object]:
+        config = load_config(path)
+        config.update({
+            "pdf_file": str(
+                FIXTURE_ROOT.parent / str(config["pdf_file"])
+            ),
+            "match_json": str(tmp_path / "match.json"),
+            "point_by_point_json": str(tmp_path / "point_by_point.json"),
+            "analysis_output_dir": str(tmp_path / "analysis")
+        })
+        return config
+
+    monkeypatch.setattr(main, "_load_config", load_config_with_temp_outputs)
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_team_distribution",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_service_run_distribution",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_plot_points_by_setter_position",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_write_markdown_report",
+        lambda *args, **kwargs: None
+    )
+    monkeypatch.setattr(
+        rotation_analysis,
+        "_write_pdf_report",
+        lambda *args, **kwargs: None
+    )
+
+    main.main(config_file=str(config_file))
+
+    with (tmp_path / "match.json").open(encoding="utf-8") as file:
+        match = json.load(file)
+    with (tmp_path / "point_by_point.json").open(encoding="utf-8") as file:
+        reconstruction = json.load(file)
+
+    assert len(match["sets"]) == 3
+    assert [
+        set_data["points"][-1]["score_after"]
+        for set_data in reconstruction["sets"]
+    ] == [
+        {"FC Kleinaitingen": 25, "TV Bad Grönenbach": 20},
+        {"FC Kleinaitingen": 26, "TV Bad Grönenbach": 24},
+        {"FC Kleinaitingen": 25, "TV Bad Grönenbach": 16}
+    ]
 
 
 @pytest.mark.parametrize(

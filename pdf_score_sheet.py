@@ -1,5 +1,6 @@
 import json
 import re
+from statistics import median
 import subprocess
 import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass, field
@@ -992,6 +993,7 @@ class PdfScoreSheetParser:
         cell_end_x: float | None = None
     ) -> dict[int, list[int]]:
         rounds = {player: [] for player in rotation}
+        columns = []
 
         for slot, (player, target_x) in enumerate(zip(rotation, serve_x)):
             if u14:
@@ -1036,26 +1038,66 @@ class PdfScoreSheetParser:
                     ),
                     key=lambda item: item.y0
                 )
+
+            columns.append(column_words)
+
+        single_line_heights = [
+            word.y1 - word.y0
+            for column_words in columns
+            for word in column_words
+            if re.fullmatch(r"\d{1,2}", word.text)
+            and word.y1 - word.y0 < 18 * scale_y
+        ]
+        line_height = (
+            median(single_line_heights)
+            if single_line_heights
+            else 9.8 * scale_y
+        )
+
+        for player, column_words in zip(rotation, columns):
             scores = []
             for word in column_words:
-                if re.fullmatch(r"\d{1,2}", word.text):
-                    scores.append(int(word.text))
-                elif (
-                    re.fullmatch(r"\d{3,}", word.text)
+                if (
+                    re.fullmatch(r"\d{2,}", word.text)
                     and word.y1 - word.y0 >= 18 * scale_y
                 ):
-                    scores.extend(
-                        self._split_stacked_scores(word.text)
+                    stacked_mark_count = max(
+                        2,
+                        round((word.y1 - word.y0) / line_height)
                     )
+                    scores.extend(
+                        self._split_stacked_scores(
+                            word.text,
+                            expected_count=stacked_mark_count
+                        )
+                    )
+                elif re.fullmatch(r"\d{1,2}", word.text):
+                    scores.append(int(word.text))
             rounds[player] = scores
 
         return rounds
 
     @staticmethod
-    def _split_stacked_scores(text: str) -> list[int]:
-        def find_sequence(start: int, previous: int) -> list[int] | None:
+    def _split_stacked_scores(
+        text: str,
+        expected_count: int | None = None
+    ) -> list[int]:
+        def find_sequence(
+            start: int,
+            previous: int,
+            marks_left: int | None = None
+        ) -> list[int] | None:
             if start == len(text):
-                return []
+                if marks_left in (None, 0):
+                    return []
+                return None
+            if marks_left == 0:
+                return None
+
+            if marks_left is not None:
+                remaining_chars = len(text) - start
+                if not marks_left <= remaining_chars <= marks_left * 2:
+                    return None
 
             for width in (1, 2):
                 end = start + width
@@ -1063,10 +1105,22 @@ class PdfScoreSheetParser:
                     continue
                 score = int(text[start:end])
                 if previous < score <= 32:
-                    remainder = find_sequence(end, score)
+                    remainder = find_sequence(
+                        end,
+                        score,
+                        marks_left - 1 if marks_left is not None else None
+                    )
                     if remainder is not None:
                         return [score, *remainder]
             return None
+
+        sequence = (
+            find_sequence(0, -1, expected_count)
+            if expected_count is not None
+            else None
+        )
+        if sequence is not None:
+            return sequence
 
         sequence = find_sequence(0, -1)
         if sequence is None or len(sequence) < 2:
