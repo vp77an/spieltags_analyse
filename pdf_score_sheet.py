@@ -1,12 +1,30 @@
 import json
+import os
 import re
+import shutil
 from statistics import median
 import subprocess
+import sys
 import xml.etree.ElementTree as ET
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from match_rules import is_deciding_set, set_target_score, sets_to_win
+
+
+# Vertically stacked marks overlap by about 40% of a single-row glyph height.
+STACKED_SCORE_ROW_ADVANCE_RATIO = 0.6
+
+
+def _pdftotext_executable() -> str:
+    bundle_root = getattr(sys, "_MEIPASS", None)
+    if bundle_root:
+        bundled_executable = (
+            Path(bundle_root) / "poppler" / "pdftotext.exe"
+        )
+        if bundled_executable.is_file():
+            return str(bundled_executable)
+    return shutil.which("pdftotext") or "pdftotext"
 
 
 @dataclass(frozen=True)
@@ -184,12 +202,38 @@ class PdfScoreSheetParser:
     """Extract set score panels from a SAMS PDF's embedded text layer."""
 
     def extract_page(self, pdf_file: str | Path) -> PdfPage:
+        pdftotext = _pdftotext_executable()
+        command = [
+            pdftotext,
+            "-f", "1",
+            "-l", "1",
+            "-bbox-layout",
+            str(pdf_file),
+            "-"
+        ]
+        environment = None
+        bundle_root = getattr(sys, "_MEIPASS", None)
+        if bundle_root:
+            poppler_data = Path(bundle_root) / "poppler" / "share" / "poppler"
+            if poppler_data.is_dir():
+                environment = {
+                    **os.environ,
+                    "POPPLER_DATADIR": str(poppler_data)
+                }
+
         result = subprocess.run(
-            ["pdftotext", "-f", "1", "-l", "1", "-bbox-layout", str(pdf_file), "-"],
+            command,
             check=True,
             capture_output=True,
             text=True,
-            timeout=60
+            encoding="utf-8",
+            timeout=60,
+            env=environment,
+            **(
+                {"creationflags": subprocess.CREATE_NO_WINDOW}
+                if sys.platform == "win32"
+                else {}
+            )
         )
 
         root = ET.fromstring(result.stdout)
@@ -1062,9 +1106,17 @@ class PdfScoreSheetParser:
                     re.fullmatch(r"\d{2,}", word.text)
                     and word.y1 - word.y0 >= 18 * scale_y
                 ):
+                    word_height = word.y1 - word.y0
                     stacked_mark_count = max(
                         2,
-                        round((word.y1 - word.y0) / line_height)
+                        round(
+                            1
+                            + (word_height - line_height)
+                            / (
+                                line_height
+                                * STACKED_SCORE_ROW_ADVANCE_RATIO
+                            )
+                        )
                     )
                     scores.extend(
                         self._split_stacked_scores(

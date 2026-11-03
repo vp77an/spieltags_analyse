@@ -1,5 +1,4 @@
 import io
-import json
 import logging
 import os
 import secrets
@@ -18,9 +17,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.pdfgen import canvas
 
-from match_reconstructor import reconstruct_match
-from pdf_score_sheet import PdfScoreSheetParser
-from rotation_analysis import analyze_rotation_runs
+from match_processor import parse_setter_numbers, process_match_pdf
 
 
 LOGGER = logging.getLogger(__name__)
@@ -144,34 +141,12 @@ def process_pdf(
                     status_code=422
                 )
 
-            parser = PdfScoreSheetParser()
-            page = parser.extract_page(pdf_path)
-            team_order = parser.extract_team_header_order(pdf_path)
-            if len(team_order) != 2:
-                return _error_response(
-                    "Im PDF konnten nicht genau zwei Teams erkannt werden.",
-                    status_code=422
-                )
-
-            parsed_match = parser.parse_match(page)
-            match_data = json.loads(parsed_match.to_json())
-            point_data = reconstruct_match(match_data)
-            teams = [
-                {"name": team_name, "setters": setters}
-                for team_name, setters in zip(
-                    team_order,
-                    setters_by_header_order,
-                    strict=True
-                )
-            ]
-            analyze_rotation_runs(point_data, teams, work_dir)
-
-            reports = list(work_dir.glob("report_*.pdf"))
-            if len(reports) != 1:
-                raise RuntimeError(
-                    "Expected the analysis to create exactly one PDF report"
-                )
-            report_bytes = reports[0].read_bytes()
+            report_path = process_match_pdf(
+                pdf_path,
+                setters_by_header_order,
+                work_dir
+            )
+            report_bytes = report_path.read_bytes()
 
         return _pdf_response(
             report_bytes,
@@ -197,8 +172,8 @@ def process_pdf(
     except FileNotFoundError:
         LOGGER.exception("A required file or PDF utility is missing")
         return _error_response(
-            "Der Analysedienst ist momentan nicht vollständig eingerichtet. "
-            "Bitte versuchen Sie es später erneut.",
+            "Das Programm pdftotext wurde nicht gefunden. Bitte installieren "
+            "Sie Poppler und stellen Sie sicher, dass pdftotext im PATH liegt.",
             status_code=500
         )
     except Exception:
@@ -214,43 +189,7 @@ def process_pdf(
 
 
 def _parse_setters(value: str) -> list[int]:
-    if not value.strip():
-        return []
-    if len(value) > 120:
-        raise ValueError(
-            "Bitte geben Sie nur die Setter-Trikotnummern an, durch Kommas "
-            "getrennt, zum Beispiel 4, 12."
-        )
-
-    setters = []
-    for item in value.split(","):
-        jersey_text = item.strip()
-        if not jersey_text.isdecimal():
-            raise ValueError(
-                "Bitte geben Sie die Trikotnummern als durch Kommas "
-                "getrennte positive Zahlen ein, zum Beispiel 4, 12. Das Feld "
-                "kann leer bleiben, wenn die Setter unbekannt sind."
-            )
-        try:
-            jersey = int(jersey_text)
-        except ValueError as error:
-            raise ValueError(
-                "Bitte geben Sie die Trikotnummern als durch Kommas "
-                "getrennte positive Zahlen ein, zum Beispiel 4, 12. Das Feld "
-                "kann leer bleiben, wenn die Setter unbekannt sind."
-            ) from error
-        if jersey < 1:
-            raise ValueError(
-                "Trikotnummern müssen positive Zahlen sein. Trennen Sie "
-                "mehrere Nummern mit Kommas, zum Beispiel 4, 12."
-            )
-        if jersey in setters:
-            raise ValueError(
-                f"Die Trikotnummer {jersey} ist mehrfach eingetragen. Bitte "
-                "geben Sie jede Setter-Nummer nur einmal an."
-            )
-        setters.append(jersey)
-    return setters
+    return parse_setter_numbers(value)
 
 
 def _pdf_response(

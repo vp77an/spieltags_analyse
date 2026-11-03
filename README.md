@@ -8,23 +8,49 @@ three fifth-set panels from their headers and merges the two side-switch panels
 for the same team. U14 and U16/U18/U20 matches are detected from their
 age-grade markers in the PDF header and end when a team wins two sets.
 
-## Requirements
+The analysis also saves a service-run distribution plot per team, grouped by
+that team's setter position, plus `service_run_distributions.json`. A service
+run is the number of points won by a team during one uninterrupted turn
+serving; a turn that ends on its first rally is recorded as a zero-point run.
+Finally, each team gets a grouped bar plot comparing its own points and the
+opponent's points by the team's setter position. The underlying totals are
+saved in `points_by_setter_position.json`. Points for which no configured
+setter is on court are included under `Unknown`.
 
-- Python 3.10 or newer
-- Poppler's `pdftotext` command (`poppler-utils` on Linux)
+For U14 matches, opponent scoring runs are grouped by the exact own rotation,
+with each player's current position shown in the legend. Player names and last
+name initials are included when roster information is available. Own service
+runs are shown as an aggregate distribution rather than compared by rotation.
+The setter-position chart and `points_by_setter_position.json` are not
+generated for U14 matches.
 
-Install the Python dependencies with:
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-Install test dependencies and run the test suite with:
-
-```bash
-python -m pip install -r requirements-dev.txt
-python -m pytest
-```
+Each analysis run creates a PDF report in the analysis output directory; its
+filename includes the two team names and match date, for example
+`report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.pdf`. During generation, a
+Markdown report and PNG charts are created as intermediates and removed after
+the PDF is successfully generated. At the beginning, the report shows the
+match result in a table:
+team names on the first row, sets won on the second, and all set scores in a
+joint third row. They also caution that the
+simplified analyses are not a substitute for full scouting; for example,
+points scored during a player's serve are not necessarily aces by that player.
+Its **Performance per Set of Players** section groups both teams' points by
+the exact lineup on court and sorts lineups by team-points-to-
+opponent-points ratio. Player first names and last-name initials are read from
+the score-sheet roster when available; otherwise the report shows jersey
+numbers alone. A zero opponent-point count is shown as an infinite ratio.
+The **Stats per Player** section lists, for each team, points played
+(each rally while the player was on court), points won and lost in those
+rallies, and the won/lost ratio, sorted from highest to lowest ratio. A player
+with no lost points is shown with an infinite ratio.
+The **Stats per Serving Player** section lists, for each player who served,
+the number of rallies served, the number of opponent points scored during
+those rallies, and the opponent-points-per-serve rate. The serving team's own
+points are not included in the opponent-points count; players are sorted from
+the lowest rate to the highest.
+The **Length of Service Runs** section embeds the generated run and setter-
+position plots and summarizes, for each team, the best and worst rotations
+for own service runs and opponent scoring runs.
 
 The PDF regression fixtures are in [tests/](./tests/). The `3-set`, `4-set`,
 and `5-set` folders contain adult regular-match PDFs; `u14` and `u14-tiebreak`
@@ -124,49 +150,97 @@ setter is configured, the legend identifies the active setter's position as
 To rerun only the analysis from the existing point-by-point JSON, use
 `python main.py --analyze-only`.
 
-The analysis also saves a service-run distribution plot per team, grouped by
-that team's setter position, plus `service_run_distributions.json`. A service
-run is the number of points won by a team during one uninterrupted turn
-serving; a turn that ends on its first rally is recorded as a zero-point run.
-Finally, each team gets a grouped bar plot comparing its own points and the
-opponent's points by the team's setter position. The underlying totals are
-saved in `points_by_setter_position.json`. Points for which no configured
-setter is on court are included under `Unknown`.
 
-For U14 matches, opponent scoring runs are grouped by the exact own rotation,
-with each player's current position shown in the legend. Player names and last
-name initials are included when roster information is available. Own service
-runs are shown as an aggregate distribution rather than compared by rotation.
-The setter-position chart and `points_by_setter_position.json` are not
-generated for U14 matches.
+## Requirements
 
-Each analysis run creates a PDF report in the analysis output directory; its
-filename includes the two team names and match date, for example
-`report_tsv_ansbach_vs_sv_hahnbach_2026-10-17.pdf`. During generation, a
-Markdown report and PNG charts are created as intermediates and removed after
-the PDF is successfully generated. At the beginning, the report shows the
-match result in a table:
-team names on the first row, sets won on the second, and all set scores in a
-joint third row. They also caution that the
-simplified analyses are not a substitute for full scouting; for example,
-points scored during a player's serve are not necessarily aces by that player.
-Its **Performance per Set of Players** section groups both teams' points by
-the exact lineup on court and sorts lineups by team-points-to-
-opponent-points ratio. Player first names and last-name initials are read from
-the score-sheet roster when available; otherwise the report shows jersey
-numbers alone. A zero opponent-point count is shown as an infinite ratio.
-The **Stats per Player** section lists, for each team, points played
-(each rally while the player was on court), points won and lost in those
-rallies, and the won/lost ratio, sorted from highest to lowest ratio. A player
-with no lost points is shown with an infinite ratio.
-The **Stats per Serving Player** section lists, for each player who served,
-the number of rallies served, the number of opponent points scored during
-those rallies, and the opponent-points-per-serve rate. The serving team's own
-points are not included in the opponent-points count; players are sorted from
-the lowest rate to the highest.
-The **Length of Service Runs** section embeds the generated run and setter-
-position plots and summarizes, for each team, the best and worst rotations
-for own service runs and opponent scoring runs.
+- Python 3.10 or newer
+- Poppler's `pdftotext` command (`poppler-utils` on Linux)
+
+Install the Python dependencies with:
+
+```bash
+python -m pip install -r requirements.txt
+```
+
+Install test dependencies and run the test suite with:
+
+```bash
+python -m pip install -r requirements-dev.txt
+python -m pytest
+```
+
+## Desktop application
+
+Start the native desktop interface with:
+
+```bash
+python desktop_app.py
+```
+
+Choose a score-sheet PDF, optionally enter each team's setter jersey numbers
+in the order the teams appear in the PDF header, and start the analysis. The
+application asks where to save the generated report. Leave setter fields empty
+when the setters are unknown or for U14 matches. PDF processing requires
+Poppler's `pdftotext` command to be installed and available on `PATH`.
+
+### Build the Windows executable
+
+Build on Windows itself (not in a Linux/WSL terminal), from the repository root.
+You need:
+
+- 64-bit Python 3.12 installed for Windows, including Tcl/Tk and the `py`
+  launcher.
+- Poppler for Windows, which provides `pdftotext.exe`. MiKTeX also includes
+  Poppler. The `pdftotext.exe` folder must be on `PATH`, or you can set
+  `POPPLER_BIN` as shown below.
+- An internet connection for the first build, so pip can install the build
+  dependencies.
+
+Open **PowerShell** and switch to the repository folder (adjust the path if
+yours is elsewhere):
+
+```powershell
+cd C:\Users\volke\code\spieltags_analyse
+py -3.12 --version
+py -3.12 -c "import tkinter; print('Tkinter is available')"
+Get-Command pdftotext.exe
+```
+
+If `Get-Command` cannot find Poppler but you know its `bin` folder, set it for
+the current PowerShell window (replace the example path):
+
+```powershell
+$env:POPPLER_BIN = "C:\path\to\poppler\Library\bin"
+```
+
+Then build:
+
+```powershell
+.\build_windows.ps1
+```
+
+If PowerShell blocks the script, allow it just for the current PowerShell
+window and run it again:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.\build_windows.ps1
+```
+
+The script creates a local `.build-venv` the first time, installs the
+application and packaging dependencies, and builds the single-file GUI
+executable. It bundles `pdftotext.exe` and its required DLLs. After making
+changes to the application, run the same `.\build_windows.ps1` command again;
+the build environment is reused and required dependencies are checked and
+installed. The finished file is `dist\Spieltaganalyse.exe`. Copy that
+executable to distribute it; recipients do not need Python, Tkinter, or
+Poppler installed.
+Close any running copy of Spieltaganalyse before rebuilding so Windows can
+replace the existing executable.
+
+The build is not code-signed, so Windows SmartScreen may show a warning when
+someone runs a newly built copy.
+
 
 ## Web upload service (Google Cloud Run)
 
