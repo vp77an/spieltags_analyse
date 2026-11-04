@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+import subprocess
 
 import pytest
 import yaml
@@ -790,6 +791,98 @@ def test_report_lists_setter_start_positions_and_service_side(
         "## Setter Starting Positions", 1
     )[1].split("## Stats per Player", 1)[0]
     assert setter_report.count("| Set | Setter(s) starting | At set start |") == 2
+
+
+def test_report_shows_rally_by_rally_score_progression(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch
+) -> None:
+    report = _capture_markdown_report(monkeypatch)
+    team_a = "TSV Ansbach"
+    team_b = "SV Hahnbach Volleyball Verein West"
+
+    def make_set(set_no: int, scoring_sequence: list[str]) -> dict[str, object]:
+        score = {team_a: 0, team_b: 0}
+        points = []
+        for rally_index, scoring_team in enumerate(scoring_sequence):
+            score[scoring_team] += 1
+            points.append(
+                {
+                    "point_no": rally_index + 1,
+                    "serving_team": team_a,
+                    "scoring_team": scoring_team,
+                    "rotations": {
+                        team_a: [1, 2, 3, 4, 5, 6],
+                        team_b: [7, 8, 9, 10, 11, 12]
+                    },
+                    "score_after": score.copy()
+                }
+            )
+        return {"set_no": set_no, "points": points}
+
+    regular_set_sequence = [
+        team_a if rally_index % 2 == 0 else team_b
+        for rally_index in range(48)
+    ] + [team_a] * 2
+    extended_set_sequence = regular_set_sequence + [team_a]
+    deciding_set_sequence = [
+        team_a if rally_index % 2 == 0 else team_b
+        for rally_index in range(20)
+    ] + [team_a] * 5
+
+    rotation_analysis.analyze_rotation_runs(
+        {
+            "match_date": "01.01.2026",
+            "sets": [
+                make_set(1, regular_set_sequence),
+                make_set(2, extended_set_sequence),
+                make_set(3, deciding_set_sequence)
+            ]
+        },
+        [
+            {"name": team_a, "setters": []},
+            {"name": team_b, "setters": []}
+        ],
+        tmp_path
+    )
+
+    report_text = report["text"]
+    assert "- [Set Score Progression](#set-score-progression)" in report_text
+    progression_section = report_text.split(
+        "## Set Score Progression", 1
+    )[1].split("> Please take all analyses", 1)[0]
+    assert "### Set 1" in progression_section
+    assert "### Set 2" in progression_section
+    assert "### Set 3" in progression_section
+    assert (
+        f"<tr><th>{team_a}</th><td>1</td><td>&nbsp;</td><td>2</td>"
+        in progression_section
+    )
+    assert (
+        f"<tr><th>{team_b}</th><td>&nbsp;</td><td>1</td><td>&nbsp;</td>"
+        in progression_section
+    )
+    assert "<td>26</td>" in progression_section
+    set_one_progression = progression_section.split(
+        "### Set 1", 1
+    )[1].split("### Set 2", 1)[0]
+    assert set_one_progression.count("<td>") == 100
+
+    report_file = next(tmp_path.glob("report_*.pdf"))
+    extracted_pdf = subprocess.run(
+        ["pdftotext", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    normalized_pdf_text = " ".join(extracted_pdf.split())
+    assert "Set Score Progression" in extracted_pdf
+    assert team_b in normalized_pdf_text
+    assert "Set 1" in extracted_pdf
+    assert "Set 2" in extracted_pdf
+    assert "Set 3" in extracted_pdf
+    assert "continued: rallies 51" in extracted_pdf
 
 
 def test_serving_player_stats_exclude_own_team_points(

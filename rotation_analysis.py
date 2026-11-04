@@ -12,6 +12,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
+from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import (
     Image,
     Paragraph,
@@ -27,6 +28,7 @@ import matplotlib.pyplot as plt
 
 
 ROMAN_NUMERALS = ("I", "II", "III", "IV", "V", "VI")
+SCORE_PROGRESSION_RALLIES_PER_TABLE = 50
 
 
 def load_point_by_point(path: str | Path) -> dict[str, Any]:
@@ -377,6 +379,10 @@ def analyze_rotation_runs(
             encoding="utf-8"
         )
     match_result = _match_result(point_data["sets"], list(team_names))
+    score_progressions = _set_score_progressions(
+        point_data["sets"],
+        list(team_names)
+    )
     service_run_sections = _service_run_report_sections(
         performance_report,
         report,
@@ -391,7 +397,8 @@ def analyze_rotation_runs(
             point_data["sets"],
             teams,
             player_count
-        )
+        ),
+        score_progressions
     )
     _write_markdown_report(
         output_path,
@@ -449,6 +456,61 @@ def _match_result(
             }
         )
     return {"sets_won": sets_won, "set_scores": set_results}
+
+
+def _set_score_progressions(
+    set_data_list: list[dict[str, Any]],
+    team_names: list[str]
+) -> list[dict[str, Any]]:
+    if len(team_names) != 2:
+        raise ValueError("The score progression requires exactly two teams")
+
+    progressions = []
+    for set_data in set_data_list:
+        set_no = set_data.get("set_no")
+        points = set_data.get("points")
+        if not isinstance(points, list):
+            raise ValueError(f"Set {set_no}: point list is missing")
+        if not points:
+            continue
+
+        team_scores = {team_name: [] for team_name in team_names}
+        for point in points:
+            scoring_team = point.get("scoring_team")
+            score_after = point.get("score_after")
+            if scoring_team not in team_scores:
+                raise ValueError(
+                    f"Set {set_no}: invalid scoring team {scoring_team!r}"
+                )
+            if (
+                not isinstance(score_after, dict)
+                or any(team_name not in score_after for team_name in team_names)
+                or any(
+                    not isinstance(score_after[team_name], int)
+                    or isinstance(score_after[team_name], bool)
+                    or score_after[team_name] < 0
+                    for team_name in team_names
+                )
+            ):
+                raise ValueError(
+                    f"Set {set_no}: invalid score after rally"
+                )
+
+            for team_name in team_names:
+                team_scores[team_name].append(
+                    str(score_after[team_name])
+                    if team_name == scoring_team
+                    else ""
+                )
+
+        progressions.append(
+            {
+                "set_no": set_no,
+                "team_scores": team_scores,
+                "rally_count": len(points)
+            }
+        )
+    return progressions
 
 
 def _setter_start_positions(
@@ -867,7 +929,8 @@ def _report_front_matter(
     team_names: list[str],
     match_date: str,
     match_result: dict[str, Any],
-    setter_start_positions: list[dict[str, Any]]
+    setter_start_positions: list[dict[str, Any]],
+    score_progressions: list[dict[str, Any]]
 ) -> dict[str, Any]:
     if len(team_names) != 2:
         raise ValueError("The match report requires exactly two team names")
@@ -902,6 +965,12 @@ def _report_front_matter(
             ("Length of Service Runs", "length-of-service-runs")
         ]
     }
+    if score_progressions:
+        front_matter["contents"].insert(
+            0,
+            ("Set Score Progression", "set-score-progression")
+        )
+        front_matter["score_progressions"] = score_progressions
     if setter_start_positions:
         front_matter["contents"].insert(
             1,
@@ -939,23 +1008,56 @@ def _write_markdown_report(
         f'<tr><td colspan="2">Set results: '
         f'{escape(front_matter["match_result"]["set_scores"])}</td></tr>',
         "</table>",
-        "",
-        f"> {front_matter['disclaimer']}",
-        "",
-        f"## {front_matter['contents_heading']}",
-        "",
-        *(
-            f"- [{label}](#{anchor})"
-            for label, anchor in front_matter["contents"]
-        ),
-        "",
-        "## Performance per Set of Players",
-        "",
-        "Lineups are grouped by the jersey numbers on court. The ratio is "
-        "team points scored divided by opponent points scored; a lineup that "
-        "conceded no points is shown as `∞`.",
-        ""
     ]
+    score_progressions = front_matter.get("score_progressions", [])
+    if score_progressions:
+        lines.extend(
+            [
+                "",
+                "## Set Score Progression",
+                "",
+                "Each column is one rally from left to right. The score is "
+                "shown on the row of the team that won that rally.",
+                ""
+            ]
+        )
+        for progression in score_progressions:
+            lines.extend(
+                [
+                    f"### Set {progression['set_no']}",
+                    "",
+                    "<table>"
+                ]
+            )
+            for team_name in team_names:
+                cells = "".join(
+                    f"<td>{score}</td>" if score else "<td>&nbsp;</td>"
+                    for score in progression["team_scores"][team_name]
+                )
+                lines.append(
+                    f"<tr><th>{escape(team_name)}</th>{cells}</tr>"
+                )
+            lines.extend(["</table>", ""])
+
+    lines.extend(
+        [
+            f"> {front_matter['disclaimer']}",
+            "",
+            f"## {front_matter['contents_heading']}",
+            "",
+            *(
+                f"- [{label}](#{anchor})"
+                for label, anchor in front_matter["contents"]
+            ),
+            "",
+            "## Performance per Set of Players",
+            "",
+            "Lineups are grouped by the jersey numbers on court. The ratio is "
+            "team points scored divided by opponent points scored; a lineup "
+            "that conceded no points is shown as `∞`.",
+            ""
+        ]
+    )
     for team in performance_report["teams"]:
         lines.extend(
             [
@@ -1183,6 +1285,128 @@ def _write_pdf_report(
             ]
         )
     )
+    score_progressions = front_matter.get("score_progressions", [])
+    score_progression_story: list[Any] = []
+    if score_progressions:
+        team_label_style = ParagraphStyle(
+            "ScoreProgressionTeam",
+            parent=body_style,
+            fontName="Helvetica-Bold",
+            fontSize=6.5,
+            leading=7.5,
+            textColor=colors.HexColor("#15345b")
+        )
+        score_progression_story.extend(
+            [
+                Paragraph(
+                    '<a name="set-score-progression"/>'
+                    "Set Score Progression",
+                    styles["Heading1"]
+                ),
+                Paragraph(
+                    "Each column is one rally from left to right. The score "
+                    "is shown on the row of the team that won that rally.",
+                    body_style
+                ),
+                Spacer(1, 2 * mm)
+            ]
+        )
+        available_width = landscape(A4)[0] - 30 * mm
+        for progression in score_progressions:
+            rally_count = progression["rally_count"]
+            score_rows = progression["team_scores"]
+            for chunk_start in range(
+                0,
+                rally_count,
+                SCORE_PROGRESSION_RALLIES_PER_TABLE
+            ):
+                chunk_end = min(
+                    chunk_start + SCORE_PROGRESSION_RALLIES_PER_TABLE,
+                    rally_count
+                )
+                if chunk_start == 0:
+                    heading = f"Set {progression['set_no']}"
+                else:
+                    heading = (
+                        f"Set {progression['set_no']} "
+                        f"(continued: rallies {chunk_start + 1}–{chunk_end})"
+                    )
+                score_progression_story.extend(
+                    [
+                        Paragraph(escape(heading), styles["Heading2"]),
+                        Spacer(1, 1 * mm)
+                    ]
+                )
+                table_data = []
+                for team_name in front_matter["team_names"]:
+                    table_data.append(
+                        [
+                            Paragraph(escape(team_name), team_label_style),
+                            *score_rows[team_name][chunk_start:chunk_end]
+                        ]
+                    )
+                label_width = min(
+                    65 * mm,
+                    *(
+                        pdfmetrics.stringWidth(
+                            team_name,
+                            "Helvetica-Bold",
+                            6.5
+                        ) + 3 * mm
+                        for team_name in front_matter["team_names"]
+                    )
+                )
+                label_width = max(36 * mm, label_width)
+                rally_column_width = (
+                    available_width - label_width
+                ) / (chunk_end - chunk_start)
+                score_table = Table(
+                    table_data,
+                    colWidths=[
+                        label_width,
+                        *([rally_column_width] * (chunk_end - chunk_start))
+                    ],
+                    hAlign="LEFT"
+                )
+                score_table_style = [
+                    ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#e8eef5")),
+                    ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
+                    ("FONTSIZE", (0, 0), (-1, -1), 6.5),
+                    ("TEXTCOLOR", (0, 0), (0, -1), colors.HexColor("#15345b")),
+                    ("ALIGN", (1, 0), (-1, -1), "CENTER"),
+                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                    ("LINEBELOW", (0, 0), (-1, 0), 0.45, colors.grey),
+                    ("LINEBELOW", (0, 1), (-1, 1), 0.45, colors.grey),
+                    ("LEFTPADDING", (0, 0), (-1, -1), 0.35 * mm),
+                    ("RIGHTPADDING", (0, 0), (-1, -1), 0.35 * mm),
+                    ("TOPPADDING", (0, 0), (-1, -1), 1.2 * mm),
+                    ("BOTTOMPADDING", (0, 0), (-1, -1), 1.2 * mm)
+                ]
+                for row_index, team_name in enumerate(
+                    front_matter["team_names"]
+                ):
+                    row_color = (
+                        colors.HexColor("#dce8f5")
+                        if row_index == 0
+                        else colors.HexColor("#f5ead6")
+                    )
+                    for rally_index, score in enumerate(
+                        score_rows[team_name][chunk_start:chunk_end],
+                        start=1
+                    ):
+                        if score:
+                            score_table_style.append(
+                                (
+                                    "BACKGROUND",
+                                    (rally_index, row_index),
+                                    (rally_index, row_index),
+                                    row_color
+                                )
+                            )
+                score_table.setStyle(TableStyle(score_table_style))
+                score_progression_story.extend(
+                    [score_table, Spacer(1, 2 * mm)]
+                )
     story = [
         Paragraph(
             front_matter["report_heading"],
@@ -1197,6 +1421,7 @@ def _write_pdf_report(
             styles["Heading1"]
         ),
         match_result_table,
+        *score_progression_story,
         Paragraph(
             escape(front_matter["disclaimer"]),
             body_style
