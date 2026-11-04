@@ -90,7 +90,19 @@
         "TV Altdorf": 24,
         "TSV Ansbach": 26
       },
-      "first_serving_team": "TV Altdorf"
+      "first_serving_team": "TV Altdorf",
+      "timeouts": [
+        {
+          "team": "TV Altdorf",
+          "team_score": 22,
+          "opponent_score": 23
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 18,
+          "opponent_score": 20
+        }
+      ]
     },
     {
       "set_no": 2,
@@ -187,7 +199,19 @@
         "TSV Ansbach": 25,
         "TV Altdorf": 22
       },
-      "first_serving_team": "TSV Ansbach"
+      "first_serving_team": "TSV Ansbach",
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 22,
+          "opponent_score": 21
+        },
+        {
+          "team": "TV Altdorf",
+          "team_score": 15,
+          "opponent_score": 18
+        }
+      ]
     }
   ],
   "player_names": {

@@ -218,7 +218,10 @@ def _reconstruct_u14_set(set_data: dict[str, Any]) -> dict[str, Any]:
                 f"Set {set_no}: unused U14 serve-round entries remain for "
                 f"{team} player {player}"
             )
-    return {"set_no": set_no, "points": points}
+    reconstructed_set = {"set_no": set_no, "points": points}
+    if set_data.get("timeouts"):
+        reconstructed_set["timeouts"] = set_data["timeouts"]
+    return reconstructed_set
 
 
 def _reconstruct_set(
@@ -408,7 +411,10 @@ def _reconstruct_set(
                 f"{team} player {player}"
             )
 
-    return {"set_no": set_no, "points": points}
+    reconstructed_set = {"set_no": set_no, "points": points}
+    if set_data.get("timeouts"):
+        reconstructed_set["timeouts"] = set_data["timeouts"]
+    return reconstructed_set
 
 
 def _is_terminal_sideout_mark(

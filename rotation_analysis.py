@@ -15,6 +15,7 @@ from reportlab.lib.units import mm
 from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import (
     Image,
+    PageBreak,
     Paragraph,
     SimpleDocTemplate,
     Spacer,
@@ -475,6 +476,10 @@ def _set_score_progressions(
             continue
 
         team_scores = {team_name: [] for team_name in team_names}
+        timeout_markers = {
+            team_name: [False] * len(points)
+            for team_name in team_names
+        }
         for point in points:
             scoring_team = point.get("scoring_team")
             score_after = point.get("score_after")
@@ -503,10 +508,44 @@ def _set_score_progressions(
                     else ""
                 )
 
+        for timeout in set_data.get("timeouts", []):
+            timeout_team = timeout.get("team")
+            team_score = timeout.get("team_score")
+            opponent_score = timeout.get("opponent_score")
+            if (
+                timeout_team not in team_scores
+                or any(
+                    not isinstance(score, int)
+                    or isinstance(score, bool)
+                    or score < 0
+                    for score in (team_score, opponent_score)
+                )
+            ):
+                raise ValueError(f"Set {set_no}: invalid timeout score")
+            opponent = next(
+                team_name
+                for team_name in team_names
+                if team_name != timeout_team
+            )
+            matching_points = [
+                index
+                for index, point in enumerate(points)
+                if point["score_after"].get(timeout_team) == team_score
+                and point["score_after"].get(opponent) == opponent_score
+            ]
+            if len(matching_points) != 1:
+                raise ValueError(
+                    f"Set {set_no}: timeout score "
+                    f"{team_score}:{opponent_score} for {timeout_team} "
+                    "does not match exactly one rally"
+                )
+            timeout_markers[timeout_team][matching_points[0]] = True
+
         progressions.append(
             {
                 "set_no": set_no,
                 "team_scores": team_scores,
+                "timeout_markers": timeout_markers,
                 "rally_count": len(points)
             }
         )
@@ -1010,6 +1049,20 @@ def _write_markdown_report(
         "</table>",
     ]
     score_progressions = front_matter.get("score_progressions", [])
+    lines.extend(
+        [
+            "",
+            f"> {front_matter['disclaimer']}",
+            "",
+            f"## {front_matter['contents_heading']}",
+            "",
+            *(
+                f"- [{label}](#{anchor})"
+                for label, anchor in front_matter["contents"]
+            ),
+            ""
+        ]
+    )
     if score_progressions:
         lines.extend(
             [
@@ -1017,7 +1070,8 @@ def _write_markdown_report(
                 "## Set Score Progression",
                 "",
                 "Each column is one rally from left to right. The score is "
-                "shown on the row of the team that won that rally.",
+                "shown on the row of the team that won that rally. T marks "
+                "a timeout at the score shown from that team's perspective.",
                 ""
             ]
         )
@@ -1030,26 +1084,28 @@ def _write_markdown_report(
                 ]
             )
             for team_name in team_names:
-                cells = "".join(
-                    f"<td>{score}</td>" if score else "<td>&nbsp;</td>"
-                    for score in progression["team_scores"][team_name]
-                )
+                cells = []
+                for score, has_timeout in zip(
+                    progression["team_scores"][team_name],
+                    progression["timeout_markers"][team_name],
+                    strict=True
+                ):
+                    if has_timeout:
+                        value = (
+                            f"{escape(score)}<br>"
+                            if score
+                            else ""
+                        ) + "<strong>T</strong>"
+                    else:
+                        value = escape(score) if score else "&nbsp;"
+                    cells.append(f"<td>{value}</td>")
                 lines.append(
-                    f"<tr><th>{escape(team_name)}</th>{cells}</tr>"
+                    f"<tr><th>{escape(team_name)}</th>{''.join(cells)}</tr>"
                 )
             lines.extend(["</table>", ""])
 
     lines.extend(
         [
-            f"> {front_matter['disclaimer']}",
-            "",
-            f"## {front_matter['contents_heading']}",
-            "",
-            *(
-                f"- [{label}](#{anchor})"
-                for label, anchor in front_matter["contents"]
-            ),
-            "",
             "## Performance per Set of Players",
             "",
             "Lineups are grouped by the jersey numbers on court. The ratio is "
@@ -1296,8 +1352,17 @@ def _write_pdf_report(
             leading=7.5,
             textColor=colors.HexColor("#15345b")
         )
+        timeout_marker_style = ParagraphStyle(
+            "ScoreProgressionTimeout",
+            parent=body_style,
+            alignment=1,
+            fontSize=6.5,
+            leading=7.5,
+            textColor=colors.HexColor("#9c0006")
+        )
         score_progression_story.extend(
             [
+                PageBreak(),
                 Paragraph(
                     '<a name="set-score-progression"/>'
                     "Set Score Progression",
@@ -1305,7 +1370,9 @@ def _write_pdf_report(
                 ),
                 Paragraph(
                     "Each column is one rally from left to right. The score "
-                    "is shown on the row of the team that won that rally.",
+                    "is shown on the row of the team that won that rally. "
+                    "T marks a timeout at the score shown from that team's "
+                    "perspective.",
                     body_style
                 ),
                 Spacer(1, 2 * mm)
@@ -1339,10 +1406,28 @@ def _write_pdf_report(
                 )
                 table_data = []
                 for team_name in front_matter["team_names"]:
+                    cells = []
+                    for score, has_timeout in zip(
+                        score_rows[team_name],
+                        progression["timeout_markers"][team_name],
+                        strict=True
+                    ):
+                        if has_timeout:
+                            content = (
+                                f"{escape(score)}<br/>"
+                                "<b>T</b>"
+                                if score
+                                else "<b>T</b>"
+                            )
+                            cells.append(
+                                Paragraph(content, timeout_marker_style)
+                            )
+                        else:
+                            cells.append(score)
                     table_data.append(
                         [
                             Paragraph(escape(team_name), team_label_style),
-                            *score_rows[team_name][chunk_start:chunk_end]
+                            *cells[chunk_start:chunk_end]
                         ]
                     )
                 label_width = min(
@@ -1403,6 +1488,21 @@ def _write_pdf_report(
                                     row_color
                                 )
                             )
+                    for rally_index, has_timeout in enumerate(
+                        progression["timeout_markers"][team_name][
+                            chunk_start:chunk_end
+                        ],
+                        start=1
+                    ):
+                        if has_timeout:
+                            score_table_style.append(
+                                (
+                                    "BACKGROUND",
+                                    (rally_index, row_index),
+                                    (rally_index, row_index),
+                                    colors.HexColor("#f4cccc")
+                                )
+                            )
                 score_table.setStyle(TableStyle(score_table_style))
                 score_progression_story.extend(
                     [score_table, Spacer(1, 2 * mm)]
@@ -1421,7 +1521,6 @@ def _write_pdf_report(
             styles["Heading1"]
         ),
         match_result_table,
-        *score_progression_story,
         Paragraph(
             escape(front_matter["disclaimer"]),
             body_style
@@ -1434,6 +1533,7 @@ def _write_pdf_report(
             )
             for label, anchor in front_matter["contents"]
         ],
+        *score_progression_story,
         Spacer(1, 4 * mm),
         Paragraph(
             '<a name="performance-per-set-of-players"/>'

@@ -31,11 +31,14 @@ Markdown report and PNG charts are created as intermediates and removed after
 the PDF is successfully generated. At the beginning, the report shows the
 match result in a table:
 team names on the first row, sets won on the second, and all set scores in a
-joint third row. A **Set Score Progression** overview follows, showing each
-rally in order and the updated score on the row of the team that won it. Long
-sets continue in labeled table segments. The report also cautions that the
-simplified analyses are not a substitute for full scouting; for example,
-points scored during a player's serve are not necessarily aces by that player.
+joint third row. The report then shows a caution and table of contents, followed
+by a **Set Score Progression** overview. It shows each rally in order, the
+updated score on the row of the team that won it, and a `T` at each timeout's
+recorded score on the row of the team that called it. Timeout scores are
+interpreted from that team's perspective. Long sets continue in labeled table
+segments. The report cautions that the simplified analyses are not a substitute
+for full scouting; for example, points scored during a player's serve are not
+necessarily aces by that player.
 Its **Performance per Set of Players** section groups both teams' points by
 the exact lineup on court and sorts lineups by team-points-to-
 opponent-points ratio. Player first names and last-name initials are read from

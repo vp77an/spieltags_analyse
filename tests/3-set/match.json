@@ -133,7 +133,29 @@
       "points": {
         "TV Planegg Krailling II": 26,
         "TV/DJK Hammelburg": 24
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TV Planegg Krailling II",
+          "team_score": 7,
+          "opponent_score": 12
+        },
+        {
+          "team": "TV Planegg Krailling II",
+          "team_score": 22,
+          "opponent_score": 24
+        },
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 17,
+          "opponent_score": 15
+        },
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 20,
+          "opponent_score": 22
+        }
+      ]
     },
     {
       "set_no": 2,
@@ -236,7 +258,24 @@
       "points": {
         "TV/DJK Hammelburg": 23,
         "TV Planegg Krailling II": 25
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 14,
+          "opponent_score": 16
+        },
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 20,
+          "opponent_score": 20
+        },
+        {
+          "team": "TV Planegg Krailling II",
+          "team_score": 14,
+          "opponent_score": 13
+        }
+      ]
     },
     {
       "set_no": 3,
@@ -343,7 +382,19 @@
       "points": {
         "TV Planegg Krailling II": 25,
         "TV/DJK Hammelburg": 14
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 13,
+          "opponent_score": 18
+        },
+        {
+          "team": "TV/DJK Hammelburg",
+          "team_score": 13,
+          "opponent_score": 20
+        }
+      ]
     }
   ],
   "player_names": {

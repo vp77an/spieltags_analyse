@@ -1153,6 +1153,18 @@
             "TSV Ansbach": 26
           }
         }
+      ],
+      "timeouts": [
+        {
+          "team": "TV Altdorf",
+          "team_score": 22,
+          "opponent_score": 23
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 18,
+          "opponent_score": 20
+        }
       ]
     },
     {
@@ -2238,6 +2250,18 @@
             "TSV Ansbach": 25,
             "TV Altdorf": 22
           }
+        }
+      ],
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 22,
+          "opponent_score": 21
+        },
+        {
+          "team": "TV Altdorf",
+          "team_score": 15,
+          "opponent_score": 18
         }
       ]
     }

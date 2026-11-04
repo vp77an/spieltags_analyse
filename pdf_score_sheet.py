@@ -64,6 +64,7 @@ class SetPanelRegion:
     team_marker_x: float
     rotation_x: tuple[float, ...]
     score_x: float
+    timeout_x: float
     serve_x: tuple[float, ...]
 
 
@@ -81,6 +82,7 @@ class ParsedPanelRegion:
     points: int
     serve_rounds: dict[int, list[int]]
     substitutions: list[Substitution]
+    timeouts: list[dict[str, int]]
 
 
 @dataclass
@@ -91,6 +93,7 @@ class SetJson:
     substitutions: dict[str, list[Substitution]]
     points: dict[str, int]
     first_serving_team: str | None = None
+    timeouts: list[dict[str, str | int]] = field(default_factory=list)
 
 
 @dataclass
@@ -107,6 +110,8 @@ class MatchJson:
         for set_data, serialized_set in zip(self.sets, data["sets"]):
             if set_data.first_serving_team is None:
                 serialized_set.pop("first_serving_team")
+            if not set_data.timeouts:
+                serialized_set.pop("timeouts")
         return data
 
     def to_json(self) -> str:
@@ -181,18 +186,21 @@ FIFTH_SET_REGIONS = (
         team_marker_x=190.5,
         rotation_x=(130.4, 151.8, 170.9, 192.3, 216.2, 237.6),
         score_x=255.4,
+        timeout_x=253.5,
         serve_x=(122.4, 143.9, 165.3, 186.8, 208.2, 229.7)
     ),
     SetPanelRegion(
         team_marker_x=345.6,
         rotation_x=(286.4, 307.8, 326.9, 348.3, 372.2, 393.6),
         score_x=411.4,
+        timeout_x=409.5,
         serve_x=(278.4, 299.9, 321.3, 342.8, 364.2, 385.7)
     ),
     SetPanelRegion(
         team_marker_x=505.3,
         rotation_x=(442.4, 463.8, 482.9, 504.3, 525.8, 549.6),
         score_x=563.1,
+        timeout_x=565.5,
         serve_x=(434.4, 455.9, 477.3, 498.8, 520.2, 541.7)
     )
 )
@@ -634,6 +642,11 @@ class PdfScoreSheetParser:
             ],
             middle.team: middle.substitutions
         }
+        timeouts = [
+            *left.timeouts,
+            *middle.timeouts,
+            *right.timeouts
+        ]
         return SetJson(
             set_no=set_no,
             start_rotation={
@@ -648,7 +661,8 @@ class PdfScoreSheetParser:
             points={
                 split_team: right.points,
                 middle.team: middle.points
-            }
+            },
+            timeouts=timeouts
         )
 
     def _parse_panel_region(
@@ -689,12 +703,21 @@ class PdfScoreSheetParser:
             words, rotation_positions, rotation_y,
             rotation, team, opponent, scale_x, scale_y
         )
+        timeouts = self._read_timeouts(
+            words,
+            region.timeout_x,
+            serve_y,
+            team,
+            scale_x,
+            scale_y
+        )
         return ParsedPanelRegion(
             team=team,
             rotation=rotation,
             points=points,
             serve_rounds=serve_rounds,
-            substitutions=substitutions
+            substitutions=substitutions,
+            timeouts=timeouts
         )
 
     def _read_player_names(
@@ -911,6 +934,24 @@ class PdfScoreSheetParser:
             panel.rotation_y,
             right_rotation, right_team, left_team, scale_x, scale_y
         )
+        timeouts = [
+            *self._read_timeouts(
+                words,
+                panel.left_score_x - 2,
+                panel.serve_y,
+                left_team,
+                scale_x,
+                scale_y
+            ),
+            *self._read_timeouts(
+                words,
+                panel.right_score_x - 2,
+                panel.serve_y,
+                right_team,
+                scale_x,
+                scale_y
+            )
+        ]
 
         return SetJson(
             set_no=set_no,
@@ -929,8 +970,53 @@ class PdfScoreSheetParser:
             points={
                 left_team: left_points,
                 right_team: right_points
-            }
+            },
+            timeouts=timeouts
         )
+
+    def _read_timeouts(
+        self,
+        words: list[PositionedWord],
+        timeout_x: float,
+        serve_y: float,
+        team: str,
+        scale_x: float,
+        scale_y: float
+    ) -> list[dict[str, str | int]]:
+        label = self._nearest_word(
+            words,
+            x=timeout_x * scale_x,
+            y=(serve_y + 5) * scale_y,
+            x_tolerance=8 * scale_x,
+            y_tolerance=6 * scale_y,
+            pattern=r"Auszeit"
+        )
+        if label is None:
+            return []
+
+        score_words = sorted(
+            (
+                word for word in words
+                if abs(word.x0 - timeout_x * scale_x) <= 8 * scale_x
+                and label.y0 + 5 * scale_y < word.y0
+                <= label.y0 + 30 * scale_y
+                and re.fullmatch(r"\d{1,2}:\d{1,2}", word.text)
+            ),
+            key=lambda word: word.y0
+        )
+        timeouts = []
+        for word in score_words:
+            team_score, opponent_score = (
+                int(score) for score in word.text.split(":")
+            )
+            timeouts.append(
+                {
+                    "team": team,
+                    "team_score": team_score,
+                    "opponent_score": opponent_score
+                }
+            )
+        return timeouts
 
     def _read_team_code(
         self,

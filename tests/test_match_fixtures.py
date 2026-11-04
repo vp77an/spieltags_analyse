@@ -825,6 +825,11 @@ def test_report_shows_rally_by_rally_score_progression(
         for rally_index in range(48)
     ] + [team_a] * 2
     extended_set_sequence = regular_set_sequence + [team_a]
+    regular_set = make_set(1, regular_set_sequence)
+    regular_set["timeouts"] = [
+        {"team": team_a, "team_score": 2, "opponent_score": 1},
+        {"team": team_b, "team_score": 1, "opponent_score": 2}
+    ]
     deciding_set_sequence = [
         team_a if rally_index % 2 == 0 else team_b
         for rally_index in range(20)
@@ -834,7 +839,7 @@ def test_report_shows_rally_by_rally_score_progression(
         {
             "match_date": "01.01.2026",
             "sets": [
-                make_set(1, regular_set_sequence),
+                regular_set,
                 make_set(2, extended_set_sequence),
                 make_set(3, deciding_set_sequence)
             ]
@@ -848,9 +853,15 @@ def test_report_shows_rally_by_rally_score_progression(
 
     report_text = report["text"]
     assert "- [Set Score Progression](#set-score-progression)" in report_text
+    assert report_text.index("> Please take all analyses") < report_text.index(
+        "## Contents"
+    )
+    assert report_text.index("## Contents") < report_text.index(
+        "## Set Score Progression"
+    )
     progression_section = report_text.split(
         "## Set Score Progression", 1
-    )[1].split("> Please take all analyses", 1)[0]
+    )[1].split("## Performance per Set of Players", 1)[0]
     assert "### Set 1" in progression_section
     assert "### Set 2" in progression_section
     assert "### Set 3" in progression_section
@@ -867,6 +878,16 @@ def test_report_shows_rally_by_rally_score_progression(
         "### Set 1", 1
     )[1].split("### Set 2", 1)[0]
     assert set_one_progression.count("<td>") == 100
+    team_a_row = next(
+        line for line in set_one_progression.splitlines()
+        if line.startswith(f"<tr><th>{team_a}</th>")
+    )
+    team_b_row = next(
+        line for line in set_one_progression.splitlines()
+        if line.startswith(f"<tr><th>{team_b}</th>")
+    )
+    assert "<td>2<br><strong>T</strong></td>" in team_a_row
+    assert "<td><strong>T</strong></td>" in team_b_row
 
     report_file = next(tmp_path.glob("report_*.pdf"))
     extracted_pdf = subprocess.run(
@@ -879,10 +900,56 @@ def test_report_shows_rally_by_rally_score_progression(
     normalized_pdf_text = " ".join(extracted_pdf.split())
     assert "Set Score Progression" in extracted_pdf
     assert team_b in normalized_pdf_text
+    assert extracted_pdf.index("Please take all analyses") < extracted_pdf.index(
+        "Contents"
+    )
+    assert extracted_pdf.index("Contents") < extracted_pdf.index(
+        "Set Score Progression"
+    )
+    first_page = subprocess.run(
+        ["pdftotext", "-f", "1", "-l", "1", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    second_page = subprocess.run(
+        ["pdftotext", "-f", "2", "-l", "2", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    assert "Each column is one rally" not in first_page
+    assert "Each column is one rally" in second_page
     assert "Set 1" in extracted_pdf
     assert "Set 2" in extracted_pdf
     assert "Set 3" in extracted_pdf
     assert "continued: rallies 51" in extracted_pdf
+
+
+def test_timeout_scores_are_extracted_and_reconstructed_from_team_perspective() -> None:
+    fixture_dir = FIXTURE_ROOT / "5-set"
+    parsed_match = PdfScoreSheetParser().parse_match(
+        PdfScoreSheetParser().extract_page(fixture_dir / "match.pdf")
+    )
+    match_data = json.loads(parsed_match.to_json())
+    reconstructed = reconstruct_match(match_data)
+
+    assert {
+        (timeout["team"], timeout["team_score"], timeout["opponent_score"])
+        for timeout in match_data["sets"][0]["timeouts"]
+    } >= {("TSV Ansbach", 19, 20)}
+    assert {
+        (timeout["team"], timeout["team_score"], timeout["opponent_score"])
+        for timeout in match_data["sets"][4]["timeouts"]
+    } >= {
+        ("TSV Ansbach", 8, 8),
+        ("DJK Augsburg Hochzoll", 9, 10)
+    }
+    assert reconstructed["sets"][4]["timeouts"] == match_data["sets"][4][
+        "timeouts"
+    ]
 
 
 def test_serving_player_stats_exclude_own_team_points(

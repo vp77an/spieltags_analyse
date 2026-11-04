@@ -1038,6 +1038,23 @@
             "Post SV Nürnberg": 20
           }
         }
+      ],
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 16,
+          "opponent_score": 15
+        },
+        {
+          "team": "Post SV Nürnberg",
+          "team_score": 4,
+          "opponent_score": 7
+        },
+        {
+          "team": "Post SV Nürnberg",
+          "team_score": 12,
+          "opponent_score": 16
+        }
       ]
     },
     {
@@ -2101,6 +2118,18 @@
             "TSV Ansbach": 21
           }
         }
+      ],
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 17,
+          "opponent_score": 15
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 19,
+          "opponent_score": 20
+        }
       ]
     },
     {
@@ -2680,6 +2709,18 @@
             "TSV Ansbach": 15,
             "Post SV Nürnberg": 10
           }
+        }
+      ],
+      "timeouts": [
+        {
+          "team": "Post SV Nürnberg",
+          "team_score": 5,
+          "opponent_score": 6
+        },
+        {
+          "team": "Post SV Nürnberg",
+          "team_score": 9,
+          "opponent_score": 13
         }
       ]
     }

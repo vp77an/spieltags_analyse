@@ -1272,6 +1272,23 @@
             "DJK Augsburg Hochzoll": 25
           }
         }
+      ],
+      "timeouts": [
+        {
+          "team": "TV Bad Grönenbach",
+          "team_score": 13,
+          "opponent_score": 15
+        },
+        {
+          "team": "TV Bad Grönenbach",
+          "team_score": 20,
+          "opponent_score": 22
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 19,
+          "opponent_score": 20
+        }
       ]
     },
     {
@@ -2410,6 +2427,23 @@
             "DJK Augsburg Hochzoll": 17,
             "TV Bad Grönenbach": 25
           }
+        }
+      ],
+      "timeouts": [
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 9,
+          "opponent_score": 12
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 10,
+          "opponent_score": 16
+        },
+        {
+          "team": "TV Bad Grönenbach",
+          "team_score": 17,
+          "opponent_score": 13
         }
       ]
     },
@@ -3766,6 +3800,28 @@
             "DJK Augsburg Hochzoll": 24
           }
         }
+      ],
+      "timeouts": [
+        {
+          "team": "TV Bad Grönenbach",
+          "team_score": 3,
+          "opponent_score": 6
+        },
+        {
+          "team": "TV Bad Grönenbach",
+          "team_score": 13,
+          "opponent_score": 19
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 19,
+          "opponent_score": 15
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 21,
+          "opponent_score": 19
+        }
       ]
     },
     {
@@ -4904,6 +4960,18 @@
             "DJK Augsburg Hochzoll": 17,
             "TV Bad Grönenbach": 25
           }
+        }
+      ],
+      "timeouts": [
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 5,
+          "opponent_score": 7
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 10,
+          "opponent_score": 17
         }
       ]
     }

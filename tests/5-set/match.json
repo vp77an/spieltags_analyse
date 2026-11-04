@@ -126,7 +126,24 @@
       "points": {
         "TSV Ansbach": 21,
         "DJK Augsburg Hochzoll": 25
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 19,
+          "opponent_score": 20
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 19,
+          "opponent_score": 22
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 15,
+          "opponent_score": 17
+        }
+      ]
     },
     {
       "set_no": 2,
@@ -246,7 +263,29 @@
       "points": {
         "DJK Augsburg Hochzoll": 23,
         "TSV Ansbach": 25
-      }
+      },
+      "timeouts": [
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 14,
+          "opponent_score": 15
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 23,
+          "opponent_score": 24
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 6,
+          "opponent_score": 10
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 19,
+          "opponent_score": 20
+        }
+      ]
     },
     {
       "set_no": 3,
@@ -354,7 +393,29 @@
       "points": {
         "TSV Ansbach": 23,
         "DJK Augsburg Hochzoll": 25
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 1,
+          "opponent_score": 5
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 19,
+          "opponent_score": 19
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 14,
+          "opponent_score": 14
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 14,
+          "opponent_score": 17
+        }
+      ]
     },
     {
       "set_no": 4,
@@ -490,7 +551,24 @@
       "points": {
         "DJK Augsburg Hochzoll": 16,
         "TSV Ansbach": 25
-      }
+      },
+      "timeouts": [
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 2,
+          "opponent_score": 7
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 6,
+          "opponent_score": 14
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 15,
+          "opponent_score": 9
+        }
+      ]
     },
     {
       "set_no": 5,
@@ -624,7 +702,29 @@
       "points": {
         "DJK Augsburg Hochzoll": 17,
         "TSV Ansbach": 19
-      }
+      },
+      "timeouts": [
+        {
+          "team": "TSV Ansbach",
+          "team_score": 8,
+          "opponent_score": 8
+        },
+        {
+          "team": "TSV Ansbach",
+          "team_score": 11,
+          "opponent_score": 13
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 9,
+          "opponent_score": 10
+        },
+        {
+          "team": "DJK Augsburg Hochzoll",
+          "team_score": 13,
+          "opponent_score": 12
+        }
+      ]
     }
   ],
   "player_names": {
