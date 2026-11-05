@@ -1,4 +1,5 @@
 from pathlib import Path
+import subprocess
 import sys
 
 import pytest
@@ -6,6 +7,7 @@ import pytest
 from match_processor import (
     extract_team_header_order,
     parse_setter_numbers,
+    pdf_processing_error,
     process_match_pdf
 )
 from pdf_score_sheet import (
@@ -34,6 +36,31 @@ def test_parse_setter_numbers(value: str, expected: list[int]) -> None:
 def test_parse_setter_numbers_rejects_invalid_values(value: str) -> None:
     with pytest.raises(ValueError):
         parse_setter_numbers(value)
+
+
+@pytest.mark.parametrize(
+    ("stderr", "expected_detail"),
+    [
+        ("Access denied", "Access denied"),
+        (b"Invalid PDF header", "Invalid PDF header"),
+        ("", "Exit-Code 2")
+    ]
+)
+def test_pdf_processing_error_includes_poppler_details(
+    stderr: str | bytes,
+    expected_detail: str
+) -> None:
+    error = subprocess.CalledProcessError(
+        2,
+        ["pdftotext", "match.pdf"],
+        stderr=stderr
+    )
+
+    message = pdf_processing_error(error)
+
+    assert "Das PDF konnte nicht gelesen werden." in message
+    assert "Technische Details" in message
+    assert expected_detail in message
 
 
 def test_extract_team_header_order() -> None:

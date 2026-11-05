@@ -123,9 +123,22 @@ def pdf_processing_error(error: Exception) -> str:
             "ungeschützten Spielbericht handelt."
         )
     if isinstance(error, subprocess.CalledProcessError):
-        return (
+        message = (
             "Das PDF konnte nicht gelesen werden. Bitte verwenden Sie einen "
             "gültigen, ungeschützten Spielbericht im PDF-Format."
+        )
+        details = error.stderr or error.stdout
+        if isinstance(details, bytes):
+            details = details.decode("utf-8", errors="replace")
+        if details:
+            return (
+                f"{message}\n\nTechnische Details "
+                f"(pdftotext, Exit-Code {error.returncode}):\n"
+                f"{details.strip()}"
+            )
+        return (
+            f"{message}\n\nTechnische Details: pdftotext wurde mit "
+            f"Exit-Code {error.returncode} beendet. {error}"
         )
     if isinstance(error, FileNotFoundError):
         if error.filename != "pdftotext":
