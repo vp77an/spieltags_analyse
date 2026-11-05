@@ -775,16 +775,16 @@ def test_report_lists_setter_start_positions_and_service_side(
         "### TSV A\n\n"
         "| Set | Setter(s) starting | At set start |\n"
         "|---:|---|---|\n"
-        "| 1 | #1: Position I; #2: Position II | Own serve |\n"
-        "| 2 | #1: Position V; #2: Position VI | Reception |"
+        "| 1 | #<b>1</b>: Position I; #<b>2</b>: Position II | Own serve |\n"
+        "| 2 | #<b>1</b>: Position V; #<b>2</b>: Position VI | Reception |"
         in report_text
     )
     assert (
         "### TSV B\n\n"
         "| Set | Setter(s) starting | At set start |\n"
         "|---:|---|---|\n"
-        "| 1 | #7: Position I; #8: Position II | Reception |\n"
-        "| 2 | #7: Position V; #8: Position VI | Own serve |"
+        "| 1 | #<b>7</b>: Position I; #<b>8</b>: Position II | Reception |\n"
+        "| 2 | #<b>7</b>: Position V; #<b>8</b>: Position VI | Own serve |"
         in report_text
     )
     setter_report = report_text.split(
@@ -806,13 +806,20 @@ def test_report_shows_rally_by_rally_score_progression(
         points = []
         for rally_index, scoring_team in enumerate(scoring_sequence):
             score[scoring_team] += 1
+            team_a_rotation = (
+                [1, 13, 3, 4, 5, 6]
+                if rally_index >= 2
+                else [1, 2, 3, 4, 5, 6]
+            )
             points.append(
                 {
                     "point_no": rally_index + 1,
-                    "serving_team": team_a,
+                    "serving_team": (
+                        team_a if rally_index % 2 == 0 else team_b
+                    ),
                     "scoring_team": scoring_team,
                     "rotations": {
-                        team_a: [1, 2, 3, 4, 5, 6],
+                        team_a: team_a_rotation,
                         team_b: [7, 8, 9, 10, 11, 12]
                     },
                     "score_after": score.copy()
@@ -838,6 +845,10 @@ def test_report_shows_rally_by_rally_score_progression(
     rotation_analysis.analyze_rotation_runs(
         {
             "match_date": "01.01.2026",
+            "player_names": {
+                team_a: {"1": "Setter A", "13": "Incoming"},
+                team_b: {"7": "Setter B"}
+            },
             "sets": [
                 regular_set,
                 make_set(2, extended_set_sequence),
@@ -845,49 +856,68 @@ def test_report_shows_rally_by_rally_score_progression(
             ]
         },
         [
-            {"name": team_a, "setters": []},
-            {"name": team_b, "setters": []}
+            {"name": team_a, "setters": [1, 13]},
+            {"name": team_b, "setters": [7]}
         ],
         tmp_path
     )
 
     report_text = report["text"]
-    assert "- [Set Score Progression](#set-score-progression)" in report_text
+    assert "- [Set Progression Point-by-Point](#set-score-progression)" in report_text
     assert report_text.index("> Please take all analyses") < report_text.index(
         "## Contents"
     )
     assert report_text.index("## Contents") < report_text.index(
-        "## Set Score Progression"
+        "## Set Progression Point-by-Point"
     )
     progression_section = report_text.split(
-        "## Set Score Progression", 1
+        "## Set Progression Point-by-Point", 1
     )[1].split("## Performance per Set of Players", 1)[0]
     assert "### Set 1" in progression_section
     assert "### Set 2" in progression_section
     assert "### Set 3" in progression_section
     assert (
-        f"<tr><th>{team_a}</th><td>1</td><td>&nbsp;</td><td>2</td>"
+        f'<th colspan="6">{team_a} (S)</th>'
+        f'<th colspan="2">Score</th>'
+        f'<th colspan="6">{team_b} (R)</th>'
         in progression_section
     )
     assert (
-        f"<tr><th>{team_b}</th><td>&nbsp;</td><td>1</td><td>&nbsp;</td>"
+        f'<span style="background-color: #cfe2f3">'
+        f"<b>1</b> (Setter A)</span> (S)"
         in progression_section
     )
-    assert "<td>26</td>" in progression_section
+    assert (
+        f'<span style="background-color: #cfe2f3">'
+        f"<b>7</b> (Setter B)</span> (S)"
+        in progression_section
+    )
+    assert (
+        '<span style="background-color: #d9ead3">'
+        "<b>13</b> (Incoming)</span> (S)"
+        in progression_section
+    )
+    assert '<span style="background-color: #d9ead3">' in progression_section
+    assert "<td><b>2</b></td>" in progression_section
+    assert "(R)</td>" not in progression_section
+    assert progression_section.count("<th>I</th>") == 6
+    assert '<th colspan="2">Score</th>' in progression_section
+    assert "<td>1</td>\n<td></td>" in progression_section
+    assert "<td></td>\n<td>1</td>" in progression_section
     set_one_progression = progression_section.split(
         "### Set 1", 1
     )[1].split("### Set 2", 1)[0]
-    assert set_one_progression.count("<td>") == 100
-    team_a_row = next(
-        line for line in set_one_progression.splitlines()
-        if line.startswith(f"<tr><th>{team_a}</th>")
+    assert set_one_progression.count("<tr>") == 54
+    assert (
+        f'<td colspan="6"><strong>Timeout — {team_a}</strong></td>'
+        "<td colspan=\"2\">2:1</td><td colspan=\"6\"></td>"
+        in set_one_progression
     )
-    team_b_row = next(
-        line for line in set_one_progression.splitlines()
-        if line.startswith(f"<tr><th>{team_b}</th>")
+    assert (
+        '<td colspan="6"></td><td colspan="2">2:1</td>'
+        f'<td colspan="6"><strong>Timeout — {team_b}</strong></td>'
+        in set_one_progression
     )
-    assert "<td>2<br><strong>T</strong></td>" in team_a_row
-    assert "<td><strong>T</strong></td>" in team_b_row
 
     report_file = next(tmp_path.glob("report_*.pdf"))
     extracted_pdf = subprocess.run(
@@ -898,13 +928,13 @@ def test_report_shows_rally_by_rally_score_progression(
         encoding="utf-8"
     ).stdout
     normalized_pdf_text = " ".join(extracted_pdf.split())
-    assert "Set Score Progression" in extracted_pdf
+    assert "Set Progression Point-by-Point" in extracted_pdf
     assert team_b in normalized_pdf_text
     assert extracted_pdf.index("Please take all analyses") < extracted_pdf.index(
         "Contents"
     )
     assert extracted_pdf.index("Contents") < extracted_pdf.index(
-        "Set Score Progression"
+        "Set Progression Point-by-Point"
     )
     first_page = subprocess.run(
         ["pdftotext", "-f", "1", "-l", "1", str(report_file), "-"],
@@ -920,12 +950,51 @@ def test_report_shows_rally_by_rally_score_progression(
         text=True,
         encoding="utf-8"
     ).stdout
-    assert "Each column is one rally" not in first_page
-    assert "Each column is one rally" in second_page
+    score_intro = (
+        "Each rally shows both rotations and the winner's current score"
+    )
+    assert score_intro not in first_page
+    assert score_intro in second_page
     assert "Set 1" in extracted_pdf
     assert "Set 2" in extracted_pdf
     assert "Set 3" in extracted_pdf
-    assert "continued: rallies 51" in extracted_pdf
+    assert "26" in extracted_pdf
+    assert "24" in extracted_pdf
+    page_sizes = subprocess.run(
+        ["pdfinfo", "-f", "2", "-l", "4", str(report_file)],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    assert page_sizes.count("841.89 x 595.276 pts (A4)") == 3
+    page_two_text = subprocess.run(
+        ["pdftotext", "-f", "2", "-l", "2", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    page_three_text = subprocess.run(
+        ["pdftotext", "-f", "3", "-l", "3", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    page_four_text = subprocess.run(
+        ["pdftotext", "-f", "4", "-l", "4", str(report_file), "-"],
+        check=True,
+        capture_output=True,
+        text=True,
+        encoding="utf-8"
+    ).stdout
+    assert "Set 1" in page_two_text
+    assert "26" in page_two_text
+    assert "Set 2" in page_three_text
+    assert "27" in page_three_text
+    assert "Set 3" in page_four_text
+    assert "15" in page_four_text
 
 
 def test_timeout_scores_are_extracted_and_reconstructed_from_team_perspective() -> None:
@@ -1014,9 +1083,9 @@ def test_serving_player_stats_exclude_own_team_points(
     assert "Setter Starting Positions" not in report_text
     assert "- [Stats per Serving Player](#stats-per-serving-player)" in report_text
     assert "## Stats per Serving Player" in report_text
-    assert "| 1 (Ada, A.) | 2 | 1 | 0.50 |" in report_text
-    assert "| 2 (Bea, B.) | 1 | 1 | 1.00 |" in report_text
-    assert "| 7 (Cia, C.) | 1 | 0 | 0.00 |" in report_text
+    assert "| <b>1</b> (Ada, A.) | 2 | 1 | 0.50 |" in report_text
+    assert "| <b>2</b> (Bea, B.) | 1 | 1 | 1.00 |" in report_text
+    assert "| <b>7</b> (Cia, C.) | 1 | 0 | 0.00 |" in report_text
     assert (
         f"<th>{team_a}</th><th>{team_b}</th>" in report_text
     )
@@ -1134,7 +1203,7 @@ def test_u14_analysis_json_matches_reference(
     serving_player_section = report_text.split(
         "## Stats per Serving Player", 1
     )[1].split("## Length of Service Runs", 1)[0]
-    assert "| 10 (Sophy, B.) | 12 | 7 | 0.58 |" in serving_player_section
+    assert "| <b>10</b> (Sophy, B.) | 12 | 7 | 0.58 |" in serving_player_section
     assert "Points by setter position" not in report_text
     assert "Own service runs are shown as an overall distribution" in report_text
     assert "opponent scoring runs by own rotation" in report_text.lower()

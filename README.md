@@ -32,7 +32,7 @@ the PDF is successfully generated. At the beginning, the report shows the
 match result in a table:
 team names on the first row, sets won on the second, and all set scores in a
 joint third row. The report then shows a caution and table of contents, followed
-by a **Set Score Progression** overview. It shows each rally in order, the
+by a **Set Progression Point-by-Point** overview. It shows each rally in order, the
 updated score on the row of the team that won it, and a `T` at each timeout's
 recorded score on the row of the team that called it. Timeout scores are
 interpreted from that team's perspective. Long sets continue in labeled table

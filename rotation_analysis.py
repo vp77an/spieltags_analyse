@@ -12,12 +12,13 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, landscape
 from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
 from reportlab.lib.units import mm
-from reportlab.pdfbase import pdfmetrics
 from reportlab.platypus import (
+    BaseDocTemplate,
     Image,
+    Frame,
     PageBreak,
+    PageTemplate,
     Paragraph,
-    SimpleDocTemplate,
     Spacer,
     Table,
     TableStyle
@@ -29,7 +30,6 @@ import matplotlib.pyplot as plt
 
 
 ROMAN_NUMERALS = ("I", "II", "III", "IV", "V", "VI")
-SCORE_PROGRESSION_RALLIES_PER_TABLE = 50
 
 
 def load_point_by_point(path: str | Path) -> dict[str, Any]:
@@ -382,7 +382,12 @@ def analyze_rotation_runs(
     match_result = _match_result(point_data["sets"], list(team_names))
     score_progressions = _set_score_progressions(
         point_data["sets"],
-        list(team_names)
+        list(team_names),
+        player_names,
+        {
+            team["name"]: team["setters"]
+            for team in teams
+        }
     )
     service_run_sections = _service_run_report_sections(
         performance_report,
@@ -461,7 +466,9 @@ def _match_result(
 
 def _set_score_progressions(
     set_data_list: list[dict[str, Any]],
-    team_names: list[str]
+    team_names: list[str],
+    player_names: dict[str, dict[str, str]],
+    setter_numbers: dict[str, list[int]]
 ) -> list[dict[str, Any]]:
     if len(team_names) != 2:
         raise ValueError("The score progression requires exactly two teams")
@@ -474,46 +481,19 @@ def _set_score_progressions(
             raise ValueError(f"Set {set_no}: point list is missing")
         if not points:
             continue
+        opening_serving_team = points[0].get("serving_team")
+        if opening_serving_team not in team_names:
+            raise ValueError(f"Set {set_no}: invalid opening serving team")
 
-        team_scores = {team_name: [] for team_name in team_names}
-        timeout_markers = {
-            team_name: [False] * len(points)
-            for team_name in team_names
+        timeouts_by_point: dict[int, list[dict[str, Any]]] = {
+            index: [] for index in range(len(points))
         }
-        for point in points:
-            scoring_team = point.get("scoring_team")
-            score_after = point.get("score_after")
-            if scoring_team not in team_scores:
-                raise ValueError(
-                    f"Set {set_no}: invalid scoring team {scoring_team!r}"
-                )
-            if (
-                not isinstance(score_after, dict)
-                or any(team_name not in score_after for team_name in team_names)
-                or any(
-                    not isinstance(score_after[team_name], int)
-                    or isinstance(score_after[team_name], bool)
-                    or score_after[team_name] < 0
-                    for team_name in team_names
-                )
-            ):
-                raise ValueError(
-                    f"Set {set_no}: invalid score after rally"
-                )
-
-            for team_name in team_names:
-                team_scores[team_name].append(
-                    str(score_after[team_name])
-                    if team_name == scoring_team
-                    else ""
-                )
-
         for timeout in set_data.get("timeouts", []):
             timeout_team = timeout.get("team")
             team_score = timeout.get("team_score")
             opponent_score = timeout.get("opponent_score")
             if (
-                timeout_team not in team_scores
+                timeout_team not in team_names
                 or any(
                     not isinstance(score, int)
                     or isinstance(score, bool)
@@ -539,17 +519,111 @@ def _set_score_progressions(
                     f"{team_score}:{opponent_score} for {timeout_team} "
                     "does not match exactly one rally"
                 )
-            timeout_markers[timeout_team][matching_points[0]] = True
+            timeouts_by_point[matching_points[0]].append(timeout)
+
+        previous_lineups: dict[str, set[int] | None] = {
+            team_name: None for team_name in team_names
+        }
+        rallies = []
+        for point in points:
+            scoring_team = point.get("scoring_team")
+            serving_team = point.get("serving_team")
+            score_after = point.get("score_after")
+            if scoring_team not in team_names or serving_team not in team_names:
+                raise ValueError(
+                    f"Set {set_no}: invalid serving or scoring team"
+                )
+            if (
+                not isinstance(score_after, dict)
+                or any(team_name not in score_after for team_name in team_names)
+                or any(
+                    not isinstance(score_after[team_name], int)
+                    or isinstance(score_after[team_name], bool)
+                    or score_after[team_name] < 0
+                    for team_name in team_names
+                )
+            ):
+                raise ValueError(
+                    f"Set {set_no}: invalid score after rally"
+                )
+
+            rotations = {}
+            for team_name in team_names:
+                rotation = point.get("rotations", {}).get(team_name)
+                if (
+                    not isinstance(rotation, list)
+                    or any(
+                        not isinstance(jersey, int)
+                        or isinstance(jersey, bool)
+                        or jersey < 1
+                        for jersey in rotation
+                    )
+                ):
+                    raise ValueError(
+                        f"Set {set_no}: invalid rotation for {team_name!r}"
+                    )
+                current_lineup = set(rotation)
+                previous_lineup = previous_lineups[team_name]
+                substitutions = (
+                    current_lineup - previous_lineup
+                    if previous_lineup is not None
+                    else set()
+                )
+                rotations[team_name] = [
+                    {
+                        "jersey": jersey,
+                        "name": player_names.get(team_name, {}).get(
+                            str(jersey)
+                        ),
+                        "is_setter": jersey in setter_numbers.get(
+                            team_name, []
+                        ),
+                        "is_substitution": jersey in substitutions
+                    }
+                    for jersey in rotation
+                ]
+                previous_lineups[team_name] = current_lineup
+
+            rallies.append(
+                {
+                    "point_no": point.get("point_no"),
+                    "scoring_team": scoring_team,
+                    "serving_team": serving_team,
+                    "score_after": score_after,
+                    "rotations": rotations,
+                    "timeouts": timeouts_by_point[len(rallies)]
+                }
+            )
 
         progressions.append(
             {
                 "set_no": set_no,
-                "team_scores": team_scores,
-                "timeout_markers": timeout_markers,
-                "rally_count": len(points)
+                "opening_serving_team": opening_serving_team,
+                "rallies": rallies
             }
         )
     return progressions
+
+
+def _player_label_markup(
+    jersey: int,
+    name: str | None = None,
+    highlighted: bool = False,
+    markdown: bool = False,
+    setter: bool = False
+) -> str:
+    label = f"<b>{jersey}</b>"
+    if name:
+        label += f" ({escape(name)})"
+    if not highlighted:
+        if not setter:
+            return label
+        if markdown:
+            return f'<span style="background-color: #cfe2f3">{label}</span>'
+        return f'<font backColor="#cfe2f3">{label}</font>'
+    if markdown:
+        return f'<span style="background-color: #d9ead3">{label}</span>'
+    return f'<font backColor="#d9ead3">{label}</font>'
 
 
 def _setter_start_positions(
@@ -582,7 +656,8 @@ def _setter_start_positions(
             )
             setters = set(team["setters"])
             starting_setters = [
-                f"#{jersey}: Position {ROMAN_NUMERALS[position]}"
+                f"#{_player_label_markup(jersey)}: "
+                f"Position {ROMAN_NUMERALS[position]}"
                 for position, jersey in enumerate(rotation)
                 if jersey in setters
             ]
@@ -1007,7 +1082,7 @@ def _report_front_matter(
     if score_progressions:
         front_matter["contents"].insert(
             0,
-            ("Set Score Progression", "set-score-progression")
+            ("Set Progression Point-by-Point", "set-score-progression")
         )
         front_matter["score_progressions"] = score_progressions
     if setter_start_positions:
@@ -1067,41 +1142,117 @@ def _write_markdown_report(
         lines.extend(
             [
                 "",
-                "## Set Score Progression",
+                "## Set Progression Point-by-Point",
                 "",
-                "Each column is one rally from left to right. The score is "
-                "shown on the row of the team that won that rally. T marks "
-                "a timeout at the score shown from that team's perspective.",
+                "Each row shows the score after a rally and both teams' "
+                "rotations. The winning team's current score appears in its "
+                "score column. S/R in the team header identifies which team "
+                "serves first. Configured setters are marked (S); new players "
+                "are highlighted in green.",
                 ""
             ]
         )
         for progression in score_progressions:
+            player_counts = [
+                len(progression["rallies"][0]["rotations"][team_name])
+                for team_name in team_names
+            ]
             lines.extend(
                 [
                     f"### Set {progression['set_no']}",
                     "",
-                    "<table>"
+                    "<table>",
+                    "<tr>"
+                    f'<th colspan="{player_counts[0]}">'
+                    f"{escape(team_names[0])} "
+                    f"({'S' if progression['opening_serving_team'] == team_names[0] else 'R'})"
+                    "</th>"
+                    '<th colspan="2">Score</th>'
+                    f'<th colspan="{player_counts[1]}">'
+                    f"{escape(team_names[1])} "
+                    f"({'S' if progression['opening_serving_team'] == team_names[1] else 'R'})"
+                    "</th>",
+                    "</tr>",
+                    "<tr>"
                 ]
             )
-            for team_name in team_names:
-                cells = []
-                for score, has_timeout in zip(
-                    progression["team_scores"][team_name],
-                    progression["timeout_markers"][team_name],
-                    strict=True
-                ):
-                    if has_timeout:
-                        value = (
-                            f"{escape(score)}<br>"
-                            if score
-                            else ""
-                        ) + "<strong>T</strong>"
+            lines.extend(
+                f"<th>{position}</th>"
+                for position in ROMAN_NUMERALS[:player_counts[0]]
+            )
+            lines.extend(["<th></th>", "<th></th>"])
+            lines.extend(
+                f"<th>{position}</th>"
+                for position in ROMAN_NUMERALS[:player_counts[1]]
+            )
+            lines.append("</tr>")
+            for rally in progression["rallies"]:
+                score = rally["score_after"]
+                lines.append("<tr>")
+                for team_name in team_names:
+                    for player in rally["rotations"][team_name]:
+                        label = _player_label_markup(
+                            player["jersey"],
+                            player["name"],
+                            highlighted=player["is_substitution"],
+                            markdown=True,
+                            setter=player["is_setter"]
+                        )
+                        if player["is_setter"]:
+                            label += " (S)"
+                        lines.append(f"<td>{label}</td>")
+                    if team_name == team_names[0]:
+                        lines.append(
+                            "<td>"
+                            f"{score[team_name] if rally['scoring_team'] == team_name else ''}"
+                            "</td>"
+                        )
+                        lines.append(
+                            "<td>"
+                            f"{score[team_names[1]] if rally['scoring_team'] == team_names[1] else ''}"
+                            "</td>"
+                        )
+                lines.append("</tr>")
+                for timeout in rally["timeouts"]:
+                    timeout_team = timeout["team"]
+                    opponent = next(
+                        name for name in team_names if name != timeout_team
+                    )
+                    timeout_scores = {
+                        timeout_team: timeout["team_score"],
+                        opponent: timeout["opponent_score"]
+                    }
+                    timeout_score = ":".join(
+                        str(timeout_scores[name]) for name in team_names
+                    )
+                    timeout_cells = []
+                    if timeout_team == team_names[0]:
+                        timeout_cells.append(
+                            f'<td colspan="{player_counts[0]}">'
+                            f"<strong>Timeout — {escape(timeout_team)}</strong>"
+                            "</td>"
+                        )
+                        timeout_cells.append(
+                            f'<td colspan="2">{timeout_score}</td>'
+                        )
+                        timeout_cells.append(
+                            f'<td colspan="{player_counts[1]}"></td>'
+                        )
                     else:
-                        value = escape(score) if score else "&nbsp;"
-                    cells.append(f"<td>{value}</td>")
-                lines.append(
-                    f"<tr><th>{escape(team_name)}</th>{''.join(cells)}</tr>"
-                )
+                        timeout_cells.append(
+                            f'<td colspan="{player_counts[0]}"></td>'
+                        )
+                        timeout_cells.append(
+                            f'<td colspan="2">{timeout_score}</td>'
+                        )
+                        timeout_cells.append(
+                            f'<td colspan="{player_counts[1]}">'
+                            f"<strong>Timeout — {escape(timeout_team)}</strong>"
+                            "</td>"
+                        )
+                    lines.append(
+                        f"<tr>{''.join(timeout_cells)}</tr>"
+                    )
             lines.extend(["</table>", ""])
 
     lines.extend(
@@ -1126,9 +1277,10 @@ def _write_markdown_report(
         )
         for lineup in team["lineups"]:
             players = ", ".join(
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+                _player_label_markup(
+                    player["jersey"],
+                    player["name"]
+                )
                 for player in lineup["players"]
             )
             ratio = (
@@ -1185,10 +1337,9 @@ def _write_markdown_report(
             ]
         )
         for player in team["players"]:
-            name = (
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+            name = _player_label_markup(
+                player["jersey"],
+                player["name"]
             )
             ratio = (
                 "∞"
@@ -1221,10 +1372,9 @@ def _write_markdown_report(
             ]
         )
         for player in team["serving_players"]:
-            name = (
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+            name = _player_label_markup(
+                player["jersey"],
+                player["name"]
             )
             lines.append(
                 f"| {name} | {player['points_served']} | "
@@ -1344,20 +1494,31 @@ def _write_pdf_report(
     score_progressions = front_matter.get("score_progressions", [])
     score_progression_story: list[Any] = []
     if score_progressions:
-        team_label_style = ParagraphStyle(
-            "ScoreProgressionTeam",
+        progression_style = ParagraphStyle(
+            "ScoreProgression",
             parent=body_style,
+            fontSize=6.2,
+            leading=6.6,
+            spaceBefore=0,
+            spaceAfter=0
+        )
+        progression_header_style = ParagraphStyle(
+            "ScoreProgressionHeader",
+            parent=progression_style,
             fontName="Helvetica-Bold",
-            fontSize=6.5,
-            leading=7.5,
             textColor=colors.HexColor("#15345b")
         )
-        timeout_marker_style = ParagraphStyle(
-            "ScoreProgressionTimeout",
+        progression_intro_style = ParagraphStyle(
+            "ScoreProgressionIntro",
             parent=body_style,
-            alignment=1,
-            fontSize=6.5,
-            leading=7.5,
+            fontSize=8,
+            leading=9,
+            spaceBefore=0,
+            spaceAfter=0
+        )
+        progression_timeout_style = ParagraphStyle(
+            "ScoreProgressionTimeout",
+            parent=progression_style,
             textColor=colors.HexColor("#9c0006")
         )
         score_progression_story.extend(
@@ -1365,148 +1526,244 @@ def _write_pdf_report(
                 PageBreak(),
                 Paragraph(
                     '<a name="set-score-progression"/>'
-                    "Set Score Progression",
+                    "Set Progression Point-by-Point",
                     styles["Heading1"]
                 ),
                 Paragraph(
-                    "Each column is one rally from left to right. The score "
-                    "is shown on the row of the team that won that rally. "
-                    "T marks a timeout at the score shown from that team's "
-                    "perspective.",
-                    body_style
-                ),
-                Spacer(1, 2 * mm)
+                    "Each rally shows both rotations and the winner's current "
+                    "score on that team's side. S/R in the team header "
+                    "identifies which team serves first; configured setters "
+                    "are marked (S). Green marks substitutions.",
+                    progression_intro_style
+                )
             ]
         )
         available_width = landscape(A4)[0] - 30 * mm
-        for progression in score_progressions:
-            rally_count = progression["rally_count"]
-            score_rows = progression["team_scores"]
-            for chunk_start in range(
-                0,
-                rally_count,
-                SCORE_PROGRESSION_RALLIES_PER_TABLE
-            ):
-                chunk_end = min(
-                    chunk_start + SCORE_PROGRESSION_RALLIES_PER_TABLE,
-                    rally_count
+        score_column_width = 10 * mm
+        team_width = (available_width - 2 * score_column_width) / 2
+        for progression_index, progression in enumerate(score_progressions):
+            if progression_index:
+                score_progression_story.append(PageBreak())
+            score_progression_story.append(
+                Paragraph(
+                    f"Set {progression['set_no']}",
+                    styles["Heading2"]
                 )
-                if chunk_start == 0:
-                    heading = f"Set {progression['set_no']}"
-                else:
-                    heading = (
-                        f"Set {progression['set_no']} "
-                        f"(continued: rallies {chunk_start + 1}–{chunk_end})"
+            )
+            player_counts = [
+                len(progression["rallies"][0]["rotations"][team_name])
+                for team_name in front_matter["team_names"]
+            ]
+            column_widths = [
+                *([team_width / player_counts[0]] * player_counts[0]),
+                score_column_width,
+                score_column_width,
+                *([team_width / player_counts[1]] * player_counts[1])
+            ]
+            team_a_score_column = player_counts[0]
+            team_b_score_column = team_a_score_column + 1
+            team_b_start_column = team_b_score_column + 1
+            table_data: list[list[Any]] = [
+                [
+                    Paragraph(
+                        f"{escape(front_matter['team_names'][0])} "
+                        f"({'S' if progression['opening_serving_team'] == front_matter['team_names'][0] else 'R'})",
+                        progression_header_style
+                    ),
+                    *("" for _ in range(player_counts[0] - 1)),
+                    Paragraph("Score", progression_header_style),
+                    "",
+                    Paragraph(
+                        f"{escape(front_matter['team_names'][1])} "
+                        f"({'S' if progression['opening_serving_team'] == front_matter['team_names'][1] else 'R'})",
+                        progression_header_style
+                    ),
+                    *("" for _ in range(player_counts[1] - 1))
+                ],
+                [
+                    *(
+                        Paragraph(position, progression_header_style)
+                        for position in ROMAN_NUMERALS[:player_counts[0]]
+                    ),
+                    "",
+                    "",
+                    *(
+                        Paragraph(position, progression_header_style)
+                        for position in ROMAN_NUMERALS[:player_counts[1]]
                     )
-                score_progression_story.extend(
+                ]
+            ]
+            span_rows: list[tuple[int, int, int]] = [
+                (0, 0, player_counts[0] - 1),
+                (0, team_a_score_column, team_b_score_column),
+                (0, team_b_start_column, len(column_widths) - 1)
+            ]
+            span_rows.append(
+                (1, team_a_score_column, team_b_score_column)
+            )
+            timeout_rows: list[tuple[int, str]] = []
+            for rally in progression["rallies"]:
+                score = rally["score_after"]
+                rally_cells = []
+                for team_name in front_matter["team_names"]:
+                    for player in rally["rotations"][team_name]:
+                        label = _player_label_markup(
+                            player["jersey"],
+                            player["name"],
+                            highlighted=player["is_substitution"],
+                            setter=player["is_setter"]
+                        )
+                        if player["is_setter"]:
+                            label += " (S)"
+                        rally_cells.append(
+                            Paragraph(label, progression_style)
+                        )
+                    if team_name == front_matter["team_names"][0]:
+                        rally_cells.append(
+                            Paragraph(
+                                str(score[team_name])
+                                if rally["scoring_team"] == team_name
+                                else "",
+                                progression_style
+                            )
+                        )
+                        rally_cells.append(
+                            Paragraph(
+                                str(score[front_matter["team_names"][1]])
+                                if rally["scoring_team"] == front_matter["team_names"][1]
+                                else "",
+                                progression_style
+                            )
+                        )
+                table_data.append(rally_cells)
+                for timeout in rally["timeouts"]:
+                    timeout_row = len(table_data)
+                    timeout_team = timeout["team"]
+                    timeout_rows.append((timeout_row, timeout_team))
+                    opponent = next(
+                        name
+                        for name in front_matter["team_names"]
+                        if name != timeout_team
+                    )
+                    timeout_scores = {
+                        timeout_team: timeout["team_score"],
+                        opponent: timeout["opponent_score"]
+                    }
+                    timeout_score = ":".join(
+                        str(timeout_scores[name])
+                        for name in front_matter["team_names"]
+                    )
+                    timeout_cells = [""] * len(column_widths)
+                    if timeout_team == front_matter["team_names"][0]:
+                        timeout_cells[0] = Paragraph(
+                            f"<b>Timeout — {escape(timeout_team)}</b>",
+                            progression_timeout_style
+                        )
+                        span_rows.append(
+                            (timeout_row, 0, player_counts[0] - 1)
+                        )
+                        span_rows.append(
+                            (
+                                timeout_row,
+                                team_b_start_column,
+                                len(column_widths) - 1
+                            )
+                        )
+                    else:
+                        timeout_cells[team_b_start_column] = Paragraph(
+                            f"<b>Timeout — {escape(timeout_team)}</b>",
+                            progression_timeout_style
+                        )
+                        span_rows.append((timeout_row, 0, player_counts[0] - 1))
+                        span_rows.append(
+                            (
+                                timeout_row,
+                                team_b_start_column,
+                                len(column_widths) - 1
+                            )
+                        )
+                    timeout_cells[team_a_score_column] = Paragraph(
+                        timeout_score,
+                        progression_timeout_style
+                    )
+                    timeout_cells[team_b_score_column] = ""
+                    span_rows.append(
+                        (
+                            timeout_row,
+                            team_a_score_column,
+                            team_b_score_column
+                        )
+                    )
+                    table_data.append(
+                        timeout_cells
+                    )
+
+            score_table = Table(
+                table_data,
+                colWidths=column_widths,
+                hAlign="LEFT"
+            )
+            score_table_style = [
+                ("FONTSIZE", (0, 0), (-1, -1), 6.2),
+                ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+                ("ALIGN", (0, 0), (-1, -1), "CENTER"),
+                ("GRID", (0, 0), (-1, -1), 0.25, colors.HexColor("#b7c3d0")),
+                ("LEFTPADDING", (0, 0), (-1, -1), 0.45 * mm),
+                ("RIGHTPADDING", (0, 0), (-1, -1), 0.45 * mm),
+                ("TOPPADDING", (0, 0), (-1, -1), 0.15 * mm),
+                ("BOTTOMPADDING", (0, 0), (-1, -1), 0.15 * mm),
+                ("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e8eef5")),
+                ("BACKGROUND", (0, 1), (-1, 1), colors.HexColor("#f2f5f8")),
+                ("ALIGN", (0, 0), (-1, 1), "CENTER"),
+                ("ALIGN", (team_a_score_column, 2), (team_a_score_column, -1), "RIGHT"),
+                ("ALIGN", (team_b_score_column, 2), (team_b_score_column, -1), "LEFT")
+            ]
+            for row_index, start_column, end_column in span_rows:
+                score_table_style.append(
+                    (
+                        "SPAN",
+                        (start_column, row_index),
+                        (end_column, row_index)
+                    )
+                )
+            for row_index, timeout_team in timeout_rows:
+                timeout_team_start = (
+                    0
+                    if timeout_team == front_matter["team_names"][0]
+                    else team_b_start_column
+                )
+                timeout_team_end = (
+                    player_counts[0] - 1
+                    if timeout_team == front_matter["team_names"][0]
+                    else len(column_widths) - 1
+                )
+                score_table_style.extend(
                     [
-                        Paragraph(escape(heading), styles["Heading2"]),
-                        Spacer(1, 1 * mm)
+                        (
+                            "BACKGROUND",
+                            (timeout_team_start, row_index),
+                            (timeout_team_end, row_index),
+                            colors.HexColor("#f4cccc")
+                        ),
+                        (
+                            "BACKGROUND",
+                            (team_a_score_column, row_index),
+                            (team_b_score_column, row_index),
+                            colors.HexColor("#f4cccc")
+                        ),
+                        (
+                            "ALIGN",
+                            (team_a_score_column, row_index),
+                            (team_b_score_column, row_index),
+                            "CENTER"
+                        )
                     ]
                 )
-                table_data = []
-                for team_name in front_matter["team_names"]:
-                    cells = []
-                    for score, has_timeout in zip(
-                        score_rows[team_name],
-                        progression["timeout_markers"][team_name],
-                        strict=True
-                    ):
-                        if has_timeout:
-                            content = (
-                                f"{escape(score)}<br/>"
-                                "<b>T</b>"
-                                if score
-                                else "<b>T</b>"
-                            )
-                            cells.append(
-                                Paragraph(content, timeout_marker_style)
-                            )
-                        else:
-                            cells.append(score)
-                    table_data.append(
-                        [
-                            Paragraph(escape(team_name), team_label_style),
-                            *cells[chunk_start:chunk_end]
-                        ]
-                    )
-                label_width = min(
-                    65 * mm,
-                    *(
-                        pdfmetrics.stringWidth(
-                            team_name,
-                            "Helvetica-Bold",
-                            6.5
-                        ) + 3 * mm
-                        for team_name in front_matter["team_names"]
-                    )
-                )
-                label_width = max(36 * mm, label_width)
-                rally_column_width = (
-                    available_width - label_width
-                ) / (chunk_end - chunk_start)
-                score_table = Table(
-                    table_data,
-                    colWidths=[
-                        label_width,
-                        *([rally_column_width] * (chunk_end - chunk_start))
-                    ],
-                    hAlign="LEFT"
-                )
-                score_table_style = [
-                    ("BACKGROUND", (0, 0), (0, -1), colors.HexColor("#e8eef5")),
-                    ("FONTNAME", (0, 0), (0, -1), "Helvetica-Bold"),
-                    ("FONTSIZE", (0, 0), (-1, -1), 6.5),
-                    ("TEXTCOLOR", (0, 0), (0, -1), colors.HexColor("#15345b")),
-                    ("ALIGN", (1, 0), (-1, -1), "CENTER"),
-                    ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
-                    ("LINEBELOW", (0, 0), (-1, 0), 0.45, colors.grey),
-                    ("LINEBELOW", (0, 1), (-1, 1), 0.45, colors.grey),
-                    ("LEFTPADDING", (0, 0), (-1, -1), 0.35 * mm),
-                    ("RIGHTPADDING", (0, 0), (-1, -1), 0.35 * mm),
-                    ("TOPPADDING", (0, 0), (-1, -1), 1.2 * mm),
-                    ("BOTTOMPADDING", (0, 0), (-1, -1), 1.2 * mm)
-                ]
-                for row_index, team_name in enumerate(
-                    front_matter["team_names"]
-                ):
-                    row_color = (
-                        colors.HexColor("#dce8f5")
-                        if row_index == 0
-                        else colors.HexColor("#f5ead6")
-                    )
-                    for rally_index, score in enumerate(
-                        score_rows[team_name][chunk_start:chunk_end],
-                        start=1
-                    ):
-                        if score:
-                            score_table_style.append(
-                                (
-                                    "BACKGROUND",
-                                    (rally_index, row_index),
-                                    (rally_index, row_index),
-                                    row_color
-                                )
-                            )
-                    for rally_index, has_timeout in enumerate(
-                        progression["timeout_markers"][team_name][
-                            chunk_start:chunk_end
-                        ],
-                        start=1
-                    ):
-                        if has_timeout:
-                            score_table_style.append(
-                                (
-                                    "BACKGROUND",
-                                    (rally_index, row_index),
-                                    (rally_index, row_index),
-                                    colors.HexColor("#f4cccc")
-                                )
-                            )
-                score_table.setStyle(TableStyle(score_table_style))
-                score_progression_story.extend(
-                    [score_table, Spacer(1, 2 * mm)]
-                )
+            score_table.setStyle(TableStyle(score_table_style))
+            score_progression_story.append(score_table)
+        score_progression_story.extend(
+            [PageBreak()]
+        )
     story = [
         Paragraph(
             front_matter["report_heading"],
@@ -1563,9 +1820,10 @@ def _write_pdf_report(
         ]]
         for lineup in team["lineups"]:
             players = ", ".join(
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+                _player_label_markup(
+                    player["jersey"],
+                    player["name"]
+                )
                 for player in lineup["players"]
             )
             ratio = (
@@ -1575,7 +1833,7 @@ def _write_pdf_report(
             )
             table_data.append(
                 [
-                    Paragraph(escape(players), body_style),
+                    Paragraph(players, body_style),
                     str(lineup["own_points"]),
                     str(lineup["opponent_points"]),
                     ratio
@@ -1635,7 +1893,7 @@ def _write_pdf_report(
             setter_table_data.extend(
                 [
                     str(entry["set_no"]),
-                    Paragraph(escape(entry["setters"]), body_style),
+                    Paragraph(entry["setters"], body_style),
                     entry["start_type"]
                 ]
                 for entry in team_positions
@@ -1691,10 +1949,9 @@ def _write_pdf_report(
             "Won/lost ratio"
         ]]
         for player in team["players"]:
-            name = (
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+            name = _player_label_markup(
+                player["jersey"],
+                player["name"]
             )
             ratio = (
                 "Infinity"
@@ -1703,7 +1960,7 @@ def _write_pdf_report(
             )
             table_data.append(
                 [
-                    Paragraph(escape(name), body_style),
+                    Paragraph(name, body_style),
                     str(player["points_played"]),
                     str(player["won_points"]),
                     str(player["lost_points"]),
@@ -1763,14 +2020,13 @@ def _write_pdf_report(
             "Opponent points per serve"
         ]]
         for player in team["serving_players"]:
-            name = (
-                f"{player['jersey']} ({player['name']})"
-                if player["name"]
-                else str(player["jersey"])
+            name = _player_label_markup(
+                player["jersey"],
+                player["name"]
             )
             table_data.append(
                 [
-                    Paragraph(escape(name), body_style),
+                    Paragraph(name, body_style),
                     str(player["points_served"]),
                     str(player["opponent_points"]),
                     f"{player['opponent_points_per_serve']:.2f}"
@@ -1841,7 +2097,8 @@ def _write_pdf_report(
                 ]
             )
 
-    document = SimpleDocTemplate(
+    landscape_width, landscape_height = landscape(A4)
+    document = BaseDocTemplate(
         str(output_file),
         pagesize=landscape(A4),
         rightMargin=15 * mm,
@@ -1849,6 +2106,23 @@ def _write_pdf_report(
         topMargin=15 * mm,
         bottomMargin=15 * mm,
         title="Match analysis"
+    )
+    document.addPageTemplates(
+        [
+            PageTemplate(
+                id="landscape",
+                frames=[
+                    Frame(
+                        15 * mm,
+                        15 * mm,
+                        landscape_width - 30 * mm,
+                        landscape_height - 30 * mm,
+                        id="landscape-frame"
+                    )
+                ],
+                pagesize=landscape(A4)
+            )
+        ]
     )
     document.build(story)
 
