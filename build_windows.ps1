@@ -10,8 +10,9 @@ if (-not $env:POPPLER_BIN) {
     }
     if (-not $pdftotextCommand) {
         throw @"
-Could not find pdftotext.exe. Install Poppler (it is included with MiKTeX),
-add its bin directory to PATH, or set POPPLER_BIN to that directory.
+Could not find pdftotext.exe. Install standalone Poppler for Windows and set
+POPPLER_BIN to its bin directory, or add that directory to PATH. Do not use
+the MiKTeX version, which requires a separate MiKTeX installation.
 "@
     }
     $env:POPPLER_BIN = Split-Path $pdftotextCommand.Source
@@ -37,6 +38,10 @@ Write-Host "Using Poppler from: $env:POPPLER_BIN"
 & $python -m pip install -r (Join-Path $projectRoot "requirements-build.txt")
 if ($LASTEXITCODE -ne 0) {
     throw "Could not install application/build dependencies."
+}
+& $python -c "import pefile, sys; from pathlib import Path; sys.path.insert(0, sys.argv[2]); from windows_build_support import collect_poppler_binaries; collect_poppler_binaries(Path(sys.argv[1]), pefile)" (Join-Path $env:POPPLER_BIN "pdftotext.exe") $projectRoot
+if ($LASTEXITCODE -ne 0) {
+    throw "Poppler validation failed. Select a standalone Poppler bin directory using POPPLER_BIN."
 }
 & $python -m PyInstaller --clean --noconfirm (
     Join-Path $projectRoot "spieltaganalyse.spec"

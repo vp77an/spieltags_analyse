@@ -195,9 +195,11 @@ You need:
 
 - 64-bit Python 3.12 installed for Windows, including Tcl/Tk and the `py`
   launcher.
-- Poppler for Windows, which provides `pdftotext.exe`. MiKTeX also includes
-  Poppler. The `pdftotext.exe` folder must be on `PATH`, or you can set
-  `POPPLER_BIN` as shown below.
+- A **standalone** Poppler for Windows build, which provides `pdftotext.exe`.
+  The MiKTeX version is not suitable: it depends on an initialized MiKTeX
+  installation on the recipient's machine. Download a packaged Windows build
+  from [Poppler for Windows releases](https://github.com/oschwartz10612/poppler-windows/releases/latest),
+  extract it, and set `POPPLER_BIN` to its `Library\bin` folder as shown below.
 - An internet connection for the first build, so pip can install the build
   dependencies.
 
@@ -208,15 +210,19 @@ yours is elsewhere):
 cd C:\Users\volke\code\spieltags_analyse
 py -3.12 --version
 py -3.12 -c "import tkinter; print('Tkinter is available')"
-Get-Command pdftotext.exe
 ```
 
-If `Get-Command` cannot find Poppler but you know its `bin` folder, set it for
-the current PowerShell window (replace the example path):
+Set the extracted standalone Poppler `bin` folder for the current PowerShell
+window (replace the example path with the actual extracted folder):
 
 ```powershell
 $env:POPPLER_BIN = "C:\path\to\poppler\Library\bin"
+Test-Path "$env:POPPLER_BIN\pdftotext.exe"
 ```
+
+The check should print `True`. If `POPPLER_BIN` is not set, the script uses
+`pdftotext.exe` from `PATH`; it rejects MiKTeX-linked versions instead of
+building an executable that depends on the recipient's MiKTeX setup.
 
 Then build:
 
@@ -242,6 +248,10 @@ executable to distribute it; recipients do not need Python, Tkinter, or
 Poppler installed.
 Close any running copy of Spieltaganalyse before rebuilding so Windows can
 replace the existing executable.
+
+For an existing executable that reports a MiKTeX setup error, rebuild it with
+standalone Poppler and redistribute the new executable. Installing MiKTeX on
+the recipient's computer is not required.
 
 The build is not code-signed, so Windows SmartScreen may show a warning when
 someone runs a newly built copy.
