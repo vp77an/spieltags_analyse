@@ -2543,6 +2543,7 @@ def _write_merged_csv(
     teams: tuple[str, ...]
 ) -> None:
     rows = [row.copy() for row in rallies]
+    event_teams: dict[int, int] = {}
     for event in sorted(events, key=lambda item: item.order_seconds):
         event_row = {name: "" for name in fieldnames}
         event_row["timestamp"] = (
@@ -2551,6 +2552,7 @@ def _write_merged_csv(
         )
         event_row["event_type"] = event.event_type
         event_row["timeout_team"] = teams[event.team_index]
+        event_teams[id(event_row)] = event.team_index
         position = next(
             (
                 index for index, row in enumerate(rows)
@@ -2562,14 +2564,25 @@ def _write_merged_csv(
         rows.insert(position, event_row)
     previous_timestamp = "hh:mm:ss.ms"
     uncertain_rally = False
-    active_timeouts: set[str] = set()
+    active_timeouts: set[int] = set()
+    timeout_rows: dict[int, dict[str, str]] = {}
+    output_rows: list[dict[str, str]] = []
     for row in rows:
         event_type = row["event_type"]
         if event_type == "timeout_start":
-            active_timeouts.add(row["timeout_team"])
+            team_index = event_teams[id(row)]
+            active_timeouts.add(team_index)
             previous_timestamp = "hh:mm:ss.ms"
+            row["start_timestamp"] = row["timestamp"]
+            row["end_timestamp"] = "hh:mm:ss.ms"
+            row["timestamp"] = ""
+            row["event_type"] = "timeout"
+            timeout_rows[team_index] = row
+            output_rows.append(row)
         elif event_type == "timeout_end":
-            active_timeouts.discard(row["timeout_team"])
+            team_index = event_teams[id(row)]
+            active_timeouts.discard(team_index)
+            timeout_rows.pop(team_index)["end_timestamp"] = row["timestamp"]
             if not active_timeouts and not uncertain_rally:
                 previous_timestamp = row["timestamp"]
         elif event_type == "rally":
@@ -2580,6 +2593,7 @@ def _write_merged_csv(
                 previous_timestamp = "hh:mm:ss.ms"
             else:
                 previous_timestamp = row["timestamp"]
+            output_rows.append(row)
     temporary_path: str | None = None
     try:
         with tempfile.NamedTemporaryFile(
@@ -2589,7 +2603,7 @@ def _write_merged_csv(
             temporary_path = file.name
             writer = csv.DictWriter(file, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(rows)
+            writer.writerows(output_rows)
         os.replace(temporary_path, log_path)
         temporary_path = None
     finally:

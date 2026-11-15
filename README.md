@@ -188,8 +188,7 @@ same scoreboard-change time as `timestamp`, which is retained for compatibility.
 The start is an approximation: the preceding
 rally's end, or the end of a subsequent timeout. It is not a detected whistle.
 The first rally's start and boundaries following an unverified rally or
-timeout are placeholders (`hh:mm:ss.ms`). Timeout rows
-leave these rally-specific columns empty.
+timeout are placeholders (`hh:mm:ss.ms`).
 
 ### Timeout banners
 
@@ -201,13 +200,16 @@ A different scoreboard style or language may require its own
 template. Blue extensions with different labels, such as `Satzball`, are not
 timeouts.
 
-The CSV has an `event_type` column: `rally`, `timeout_start`, or `timeout_end`.
+The CSV has an `event_type` column: `rally` or `timeout`. Each timeout occupies
+one row ordered by its start, with its two boundaries in `start_timestamp` and
+`end_timestamp`; its `timestamp` field is empty because it is an interval.
 For timeout rows, `timeout_team` identifies the team whose scoreboard row
 contains the banner; the score and serving-team columns are empty. Start and
 end refer to the banner appearing and disappearing, not necessarily the
 precise start and end of the actual stoppage. They have the same sampling
 precision as rally timestamps. An unreadable or out-of-video boundary is
-written as `hh:mm:ss.ms` and needs review.
+written as `hh:mm:ss.ms` and needs review. A timeout currently in progress
+also has an `hh:mm:ss.ms` end until the boundary is confirmed.
 The detector can miss a banner that is too short, occluded, or unlike the
 template; a successful rally analysis does not prove that all timeouts were
 detected.

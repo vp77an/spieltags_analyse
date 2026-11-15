@@ -280,19 +280,20 @@ def test_timeout_events_are_ordered_and_do_not_change_rallies(
     with path.open(encoding="utf-8", newline="") as file:
         rows = list(csv.DictReader(file))
     assert [row["event_type"] for row in rows] == [
-        "rally", "timeout_start", "timeout_end", "rally"
+        "rally", "timeout", "rally"
     ]
     assert [row["timestamp"] for row in rows] == [
-        "00:00:01.000", "00:00:03.000",
-        "00:00:06.000", "00:00:08.000"
+        "00:00:01.000", "", "00:00:08.000"
     ]
-    assert [row["timeout_team"] for row in rows] == ["", "B", "B", ""]
-    assert rows[1]["team_a_points"] == rows[2]["team_a_points"] == ""
+    assert [row["timeout_team"] for row in rows] == ["", "B", ""]
+    assert rows[1]["team_a_points"] == ""
     assert rows[0]["start_timestamp"] == "hh:mm:ss.ms"
     assert rows[0]["end_timestamp"] == "00:00:01.000"
-    assert rows[1]["start_timestamp"] == rows[2]["end_timestamp"] == ""
-    assert rows[3]["start_timestamp"] == "00:00:06.000"
-    assert rows[3]["end_timestamp"] == "00:00:08.000"
+    assert (rows[1]["start_timestamp"], rows[1]["end_timestamp"]) == (
+        "00:00:03.000", "00:00:06.000"
+    )
+    assert rows[2]["start_timestamp"] == "00:00:06.000"
+    assert rows[2]["end_timestamp"] == "00:00:08.000"
     assert len(changes) == 2
     assert not guide.unverified_rally_numbers
     assert [event.event_type for event in analyzer.timeout_events] == [
@@ -342,13 +343,15 @@ def test_partial_log_contains_confirmed_timeouts_and_rally_starts(
     )
     with pytest.raises(RuntimeError, match="interrupted"):
         analyzer.analyze("match.mp4", path)
-    assert [r["event_type"] for r in snapshots[0]] == ["rally", "timeout_start"]
+    assert [r["event_type"] for r in snapshots[0]] == ["rally", "timeout"]
+    assert snapshots[0][-1]["start_timestamp"] == "00:00:03.000"
+    assert snapshots[0][-1]["end_timestamp"] == "hh:mm:ss.ms"
     assert [r["event_type"] for r in snapshots[1]] == [
-        "rally", "timeout_start", "timeout_end"
+        "rally", "timeout"
     ]
-    assert snapshots[1][-1]["timestamp"] == "00:00:05.000"
+    assert snapshots[1][-1]["end_timestamp"] == "00:00:05.000"
     assert [r["event_type"] for r in snapshots[2]] == [
-        "rally", "timeout_start", "timeout_end", "rally"
+        "rally", "timeout", "rally"
     ]
     assert snapshots[2][-1]["start_timestamp"] == "00:00:05.000"
     assert snapshots[3][-1]["start_timestamp"] == "00:00:07.000"
@@ -395,8 +398,8 @@ def test_timeout_ending_after_rally_keeps_rally_start_unknown(
         timeout_detector=Detector()
     ).analyze("match.mp4", path)
     assert snapshots[0][-1]["start_timestamp"] == "hh:mm:ss.ms"
-    assert snapshots[1][-2]["event_type"] == "rally"
-    assert snapshots[1][-2]["start_timestamp"] == "hh:mm:ss.ms"
+    assert snapshots[1][-1]["event_type"] == "rally"
+    assert snapshots[1][-1]["start_timestamp"] == "hh:mm:ss.ms"
 
 
 def test_timeout_unreadable_boundaries_are_placeholders(tmp_path: Path) -> None:
@@ -421,11 +424,9 @@ def test_timeout_unreadable_boundaries_are_placeholders(tmp_path: Path) -> None:
     ).analyze("match.mp4", path)
     with path.open(encoding="utf-8", newline="") as file:
         rows = list(csv.DictReader(file))
-    assert [row["event_type"] for row in rows] == [
-        "timeout_start", "timeout_end", "timeout_start", "timeout_end"
-    ]
-    assert [row["timestamp"] for row in rows] == [
-        "hh:mm:ss.ms", "hh:mm:ss.ms", "00:00:05.000", "hh:mm:ss.ms"
+    assert [row["event_type"] for row in rows] == ["timeout", "timeout"]
+    assert [(row["start_timestamp"], row["end_timestamp"]) for row in rows] == [
+        ("hh:mm:ss.ms", "hh:mm:ss.ms"), ("00:00:05.000", "hh:mm:ss.ms")
     ]
 
 
@@ -512,14 +513,50 @@ def test_timeout_tracker_ignores_flicker_and_tracks_each_team(tmp_path: Path) ->
     with path.open(encoding="utf-8", newline="") as file:
         rows = [row for row in csv.DictReader(file) if row["event_type"] != "rally"]
     assert [
-        (row["event_type"], row["timeout_team"], row["timestamp"])
+        (row["event_type"], row["timeout_team"],
+         row["start_timestamp"], row["end_timestamp"])
         for row in rows
     ] == [
-        ("timeout_start", "A", "00:00:05.000"),
-        ("timeout_start", "B", "00:00:06.000"),
-        ("timeout_end", "A", "00:00:08.000"),
-        ("timeout_end", "B", "00:00:10.000")
+        ("timeout", "A", "00:00:05.000", "00:00:08.000"),
+        ("timeout", "B", "00:00:06.000", "00:00:10.000")
     ]
+
+
+def test_overlapping_timeouts_without_guide_remain_separate(tmp_path: Path) -> None:
+    observations = [
+        (0, False, False), (1, False, False), (1, False, False),
+        (1, True, False), (1, True, True), (1, True, True),
+        (1, False, True), (1, False, True), (1, False, False),
+        (1, False, False), (2, False, False), (2, False, False)
+    ]
+
+    class Source:
+        def iter_frames(self, *args: object) -> Iterable[tuple[float, object]]:
+            return ((float(i), frame) for i, frame in enumerate(observations))
+
+    class Detector:
+        def detect(self, frame: object) -> tuple[bool | None, bool | None]:
+            assert isinstance(frame, tuple)
+            return frame[1], frame[2]
+
+    class Recognizer:
+        def recognize(self, frame: object) -> ScoreboardState:
+            assert isinstance(frame, tuple)
+            return ScoreboardState((TeamScore("A", 0, frame[0]), TeamScore("B", 0, 0)))
+
+    path = tmp_path / "overlapping.csv"
+    VideoScoreboardAnalyzer(
+        Recognizer(), frame_source=Source(), sample_interval_seconds=1,
+        timeout_detector=Detector()
+    ).analyze("match.mp4", path)
+    with path.open(encoding="utf-8", newline="") as file:
+        rows = list(csv.DictReader(file))
+    timeouts = [row for row in rows if row["event_type"] == "timeout"]
+    assert [(row["start_timestamp"], row["end_timestamp"]) for row in timeouts] == [
+        ("00:00:03.000", "00:00:06.000"),
+        ("00:00:04.000", "00:00:08.000")
+    ]
+    assert rows[-1]["start_timestamp"] == "00:00:08.000"
 
 
 def test_timeout_banner_detects_sample_video_boundaries() -> None:
