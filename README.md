@@ -155,6 +155,158 @@ setter is configured, the legend identifies the active setter's position as
 To rerun only the analysis from the existing point-by-point JSON, use
 `python main.py --analyze-only`.
 
+## Video scoreboard extraction
+
+The `cell_classifier` backend classifies each of the four visible score cells
+using OCR-free, whole-cell image templates trained on labeled video frames.
+It reads the score independently, then uses the point-by-point reconstruction
+to align readings with the match. After a longer gap it can resynchronize with
+a later score; this does not verify the intervening rallies. The scoreboard's
+top and bottom teams must appear in the same order as in the PDF match header.
+Serving-team names in the CSV come from the match reconstruction, not from
+independent recognition of the service icon.
+
+If a non-final set jumps directly from its last-but-one score to the next
+set's 0:0, the reset time is used for the set-winning rally, provided the
+preceding score and reset are read in consecutive samples. That CSV row uses
+the set counters from before the reset and the final points from the report.
+If the transition cannot be established, the timestamp remains a placeholder.
+
+Confirmed scores are added to the CSV as they are found. Each unverified
+rally gets a row in match order with `hh:mm:ss.ms` in the `timestamp` column
+and needs manual review;
+they are written when a later score is confirmed or when processing ends.
+The cell classifier also uses a placeholder if a score can be read but its
+change was not bracketed by readable consecutive samples (for example, when
+analysis starts after the score is already displayed). The final status is
+failure unless every rally has a verified score and timestamp.
+The times are sampled estimates (normally within one sampling interval), and
+template classification can still make mistakes; review suspicious results.
+
+Each rally row also has `start_timestamp` and `end_timestamp`. The end is the
+same scoreboard-change time as `timestamp`, which is retained for compatibility.
+The start is an approximation: the preceding
+rally's end, or the end of a subsequent timeout. It is not a detected whistle.
+The first rally's start and boundaries following an unverified rally or
+timeout are placeholders (`hh:mm:ss.ms`). Timeout rows
+leave these rally-specific columns empty.
+
+### Timeout banners
+
+Timeout detection is always enabled and compares a cropped image of the
+timeout **label** visually; it does not use OCR. By default it uses the static
+[`Auszeit` label template](./training_data/scoreboard/bvv/timeout_banner_template.png)
+cropped from the supplied example; it is reused, not extracted from each video.
+A different scoreboard style or language may require its own
+template. Blue extensions with different labels, such as `Satzball`, are not
+timeouts.
+
+The CSV has an `event_type` column: `rally`, `timeout_start`, or `timeout_end`.
+For timeout rows, `timeout_team` identifies the team whose scoreboard row
+contains the banner; the score and serving-team columns are empty. Start and
+end refer to the banner appearing and disappearing, not necessarily the
+precise start and end of the actual stoppage. They have the same sampling
+precision as rally timestamps. An unreadable or out-of-video boundary is
+written as `hh:mm:ss.ms` and needs review.
+The detector can miss a banner that is too short, occluded, or unlike the
+template; a successful rally analysis does not prove that all timeouts were
+detected.
+
+Confirmed rally and timeout events are written during processing, with
+approximate rally starts calculated from the events known so far. The CSV is
+atomically replaced after each confirmed event; later observations can revise
+the ordering or a start boundary. If processing is interrupted, the CSV
+contains the events confirmed up to that point, not the full match.
+Placeholder rows retain their match order, but their exact position relative
+to nearby timed events cannot be established.
+
+Install the optional video dependencies:
+
+```bash
+python -m pip install -r requirements-video.txt
+```
+
+Train the classifier from labeled samples. Each CSV row identifies a timestamp
+and the visible scores in top-to-bottom scoreboard order:
+
+```csv
+timestamp_seconds,top_sets,top_points,bottom_sets,bottom_points
+422,0,0,0,0
+423,0,0,0,1
+```
+
+```bash
+python train_video_scoreboard_classifier.py \
+  --video input/D3_Ansbach_Altdorf/TSV\ Ansbach3_\ TV\ Altdorf3_17.10.2026.mp4 \
+  --labels input/D3_Ansbach_Altdorf/scoreboard_cell_training_samples.csv \
+  --model training_data/scoreboard/bvv/scoreboard_cell_templates.json \
+  --whole-cells
+```
+
+For another scoreboard style, provide independently checked examples of the
+displayed set and point values, including both rows and multiple appearances
+where possible, and train a separate model. The example templates cover
+scores seen in the sample frames, not every possible score: missing or
+ambiguous values may still need manual review. The detector is designed for
+the sample's two-row blue scoreboard in the upper-left; it is not a general
+scoreboard locator. It re-detects bounds for each sampled frame, keeps the
+crop stable across small detection jitters, ignores a blue timeout extension
+on one row, and reuses the last detected crop if detection temporarily
+fails. `scoreboard_region` can be set to a tight
+normalized `[left, top, right, bottom]` crop if automatic detection fails.
+Training includes nearby crop variants so small differences in automatically
+detected bounds do not necessarily require a new model.
+If a stable crop is unreadable, a nearby detected crop may be used only when
+its complete reading agrees with the readable cells in the stable crop and
+other complete nearby readings that agree with those cells do not conflict.
+
+The older `digit_classifier` backend remains available with its own digit
+model and training command (omit `--whole-cells`). The legacy `image_changes`
+backend only detects changes in the expected score
+cell. It does not classify the digits and therefore cannot report a verified
+success, even if its candidate count happens to equal the rally count. The
+legacy `tesseract` and optional `transformers` backends remain available; this
+classifier does not use either of them.
+
+Video analysis is optional. Add a `video_scoreboard` section to a normal
+match config to run it after the required PDF has been parsed and its
+point-by-point reconstruction generated:
+
+```yaml
+pdf_file: input/configured_match.pdf
+teams:
+  - name: TSV Ansbach III
+  - name: TV Altdorf III
+
+video_scoreboard:
+  backend: cell_classifier
+  video_file: input/D3_Ansbach_Altdorf/TSV Ansbach3_ TV Altdorf3_17.10.2026.mp4
+  scoreboard_format: bvv
+  output_file: analysis/score_progression.csv
+  start_time_seconds: 422
+  sample_interval_seconds: 1.0
+  stable_observations: 2
+```
+
+`scoreboard_format` defaults to `bvv` and selects assets in
+`training_data/scoreboard/<format>/`: `scoreboard_cell_templates.json` for
+the cell classifier and `timeout_banner_template.png` for timeout detection.
+The supplied BVV assets were trained or cropped from the example scoreboard;
+they may not work for every BVV overlay. For another format, provide both
+assets in its folder, or override their paths with `classifier_file` and
+`timeout_template_file`. Missing assets produce an error. Format names may
+contain only letters, digits, underscores, and hyphens.
+
+`start_time_seconds` skips stream preroll before the match starts and defaults
+to `0`. It does not shift the timestamps in the CSV; they remain relative to
+the beginning of the stream. The sample config starts at 422 seconds (07:02).
+The CSV header is created when analysis begins and confirmed events are
+written as processing continues, so the file can be monitored during the run.
+
+The point-by-point reconstruction guides the optional video pass: accepted
+scores must occur in the expected match sequence and use the reconstruction's
+team names and ordering. The PDF report is still generated without video when
+this section is omitted.
 
 ## Requirements
 

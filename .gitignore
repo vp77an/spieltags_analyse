@@ -16,3 +16,4 @@ analysis/*.md
 !tests/**/*.json
 !tests/**/*.yaml
 !tests/**/*.yml
+!training_data/scoreboard/**/*.json

@@ -19,6 +19,18 @@ from rotation_analysis import (
     analyze_rotation_runs,
     load_point_by_point
 )
+from video_scoreboard import (
+    ScoreboardCellClassifier,
+    ScoreboardCellRecognizer,
+    HuggingFaceScoreboardRecognizer,
+    ScoreboardChangeRecognizer,
+    ScoreboardDigitClassifier,
+    ScoreboardDigitRecognizer,
+    ScoreProgressionGuide,
+    TimeoutBannerDetector,
+    TesseractScoreboardRecognizer,
+    VideoScoreboardAnalyzer
+)
 
 
 def main(
@@ -27,7 +39,7 @@ def main(
     analyze_only=False,
     pdf_file=None,
     setters=None
-):
+) -> bool:
     parser = PdfScoreSheetParser()
     if pdf_file is not None:
         pdf_team_order = parser.extract_team_header_order(pdf_file)
@@ -119,6 +131,12 @@ def main(
         "Saved PDF report to "
         f"{config['analysis_output_dir']}/{report_stem}.pdf"
     )
+    if "video_scoreboard" in config:
+        return _run_video_scoreboard(
+            config["video_scoreboard"],
+            point_data
+        )
+    return True
 
 
 def _load_config(config_file):
@@ -164,7 +182,164 @@ def _load_config(config_file):
             for team in teams
         ]
     }
+    if "video_scoreboard" in config:
+        video_config = config["video_scoreboard"]
+        scoreboard_format = video_config.get("scoreboard_format", "bvv")
+        training_dir = (
+            Path(__file__).parent / "training_data" / "scoreboard"
+            / scoreboard_format
+        )
+        normalized_config["video_scoreboard"] = {
+            **video_config,
+            "backend": video_config.get("backend", "image_changes"),
+            "scoreboard_format": scoreboard_format,
+            "timeout_template_file": video_config.get(
+                "timeout_template_file",
+                str(training_dir / "timeout_banner_template.png")
+            ),
+            "output_file": video_config.get(
+                "output_file",
+                "analysis/score_progression.csv"
+            ),
+            "sample_interval_seconds": video_config.get(
+                "sample_interval_seconds",
+                0.5
+            ),
+            "start_time_seconds": video_config.get(
+                "start_time_seconds",
+                0.0
+            ),
+            "stable_observations": video_config.get(
+                "stable_observations",
+                2
+            ),
+            "crop_region": tuple(
+                video_config.get("crop_region", [0, 0, 0.6, 0.35])
+            ),
+            "scoreboard_region": (
+                tuple(video_config["scoreboard_region"])
+                if video_config.get("scoreboard_region") is not None
+                else None
+            )
+        }
+        if (
+            normalized_config["video_scoreboard"]["backend"] == "cell_classifier"
+            and "classifier_file" not in video_config
+        ):
+            normalized_config["video_scoreboard"]["classifier_file"] = str(
+                training_dir / "scoreboard_cell_templates.json"
+            )
     return normalized_config
+
+
+def _run_video_scoreboard(
+    video_config: dict[str, Any],
+    point_data: dict[str, Any]
+) -> bool:
+    backend = video_config["backend"]
+    if backend == "image_changes":
+        recognizer = ScoreboardChangeRecognizer(
+            scoreboard_region=video_config["scoreboard_region"]
+        )
+    elif backend == "digit_classifier":
+        recognizer = ScoreboardDigitRecognizer(
+            ScoreboardDigitClassifier.load(video_config["classifier_file"]),
+            scoreboard_region=video_config["scoreboard_region"]
+        )
+    elif backend == "cell_classifier":
+        recognizer = ScoreboardCellRecognizer(
+            ScoreboardCellClassifier.load(video_config["classifier_file"]),
+            scoreboard_region=video_config["scoreboard_region"]
+        )
+    elif backend == "tesseract":
+        recognizer = TesseractScoreboardRecognizer(
+            scoreboard_region=video_config["scoreboard_region"] or (
+                0.002,
+                0.069,
+                0.162,
+                0.158
+            )
+        )
+    elif backend == "transformers":
+        recognizer = HuggingFaceScoreboardRecognizer(
+            video_config["model_path"],
+            crop_region=video_config["crop_region"]
+        )
+    else:
+        raise ValueError(f"Unsupported video scoreboard backend: {backend}")
+
+    guide = ScoreProgressionGuide(point_data)
+    analyzer = VideoScoreboardAnalyzer(
+        recognizer,
+        sample_interval_seconds=video_config["sample_interval_seconds"],
+        stable_observations=video_config["stable_observations"],
+        progression_guide=guide,
+        start_time_seconds=video_config["start_time_seconds"],
+        timeout_detector=TimeoutBannerDetector(
+            video_config["timeout_template_file"],
+            video_config["scoreboard_region"]
+        )
+    )
+    print(
+        f"Analyzing video from {video_config['start_time_seconds']:.1f}s; "
+        f"confirmed events will be written to {video_config['output_file']}.",
+        flush=True
+    )
+    changes = analyzer.analyze(
+        video_config["video_file"],
+        video_config["output_file"]
+    )
+    timeout_count = sum(
+        event.event_type == "timeout_start"
+        for event in analyzer.timeout_events
+    )
+    uncertain_boundaries = sum(
+        event.timestamp_seconds is None
+        for event in analyzer.timeout_events
+    )
+    print(
+        f"Timeout banners: {timeout_count} detected; "
+        f"{uncertain_boundaries} boundaries need review. "
+        "Undetected banners cannot be counted."
+    )
+    expected_rallies = guide.total_rallies
+    if backend == "image_changes":
+        print(
+            "Video scoreboard analysis: FAILURE - image-change detection "
+            f"observed {len(changes)} candidate transitions for "
+            f"{expected_rallies} expected rallies, but this backend does not "
+            "classify the displayed scores and cannot verify completion. "
+            "Use a score-reading backend to confirm the rally sequence."
+        )
+        return False
+
+    if (
+        len(changes) == expected_rallies
+        and not guide.unverified_rally_numbers
+    ):
+        print(
+            "Video scoreboard analysis: SUCCESS - matched and timestamped "
+            f"all {expected_rallies} expected rallies, including any inferred "
+            f"set-reset transitions. Output: {video_config['output_file']}."
+        )
+        return True
+
+    print(
+        "Video scoreboard analysis: FAILURE - matched and timestamped "
+        f"{len(changes)} of {expected_rallies} expected rallies, including "
+        "any inferred set-reset transitions. "
+        f"Results with placeholder timestamps are in {video_config['output_file']}."
+    )
+    if guide.unverified_rally_numbers:
+        unverified_numbers = ", ".join(
+            str(number)
+            for number in guide.unverified_rally_numbers
+        )
+        print(
+            "The analyzer did not verify the score or timestamp for rally "
+            f"number(s): {unverified_numbers}."
+        )
+    return False
 
 
 def _validate_setter_lists(setters: Any, team_count: int) -> list[list[int]]:
@@ -265,14 +440,16 @@ if __name__ == "__main__":
     if args.setters and not args.file:
         parser.error("--setters requires --file")
 
-    main(
-        config_file=args.config,
-        load_match=args.load_match,
-        analyze_only=args.analyze_only,
-        pdf_file=args.file,
-        setters=(
-            _parse_setters_argument(args.setters)
-            if args.setters
-            else None
-        )
+    raise SystemExit(
+        0 if main(
+            config_file=args.config,
+            load_match=args.load_match,
+            analyze_only=args.analyze_only,
+            pdf_file=args.file,
+            setters=(
+                _parse_setters_argument(args.setters)
+                if args.setters
+                else None
+            )
+        ) else 1
     )

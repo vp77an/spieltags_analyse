@@ -1,0 +1,146 @@
+timestamp,serving_team,team_a,team_a_sets,team_a_points,team_b,team_b_sets,team_b_points,event_type,timeout_team,start_timestamp,end_timestamp
+00:07:03.004,TSV Ansbach III - a.K.,TV Altdorf III,0,0,TSV Ansbach III - a.K.,0,1,rally,,hh:mm:ss.ms,00:07:03.004
+00:07:32.033,TSV Ansbach III - a.K.,TV Altdorf III,0,1,TSV Ansbach III - a.K.,0,1,rally,,00:07:03.004,00:07:32.033
+00:08:25.085,TV Altdorf III,TV Altdorf III,0,1,TSV Ansbach III - a.K.,0,2,rally,,00:07:32.033,00:08:25.085
+00:08:39.099,TSV Ansbach III - a.K.,TV Altdorf III,0,2,TSV Ansbach III - a.K.,0,2,rally,,00:08:25.085,00:08:39.099
+00:09:37.157,TV Altdorf III,TV Altdorf III,0,2,TSV Ansbach III - a.K.,0,3,rally,,00:08:39.099,00:09:37.157
+00:10:14.194,TSV Ansbach III - a.K.,TV Altdorf III,0,2,TSV Ansbach III - a.K.,0,4,rally,,00:09:37.157,00:10:14.194
+00:10:47.227,TSV Ansbach III - a.K.,TV Altdorf III,0,3,TSV Ansbach III - a.K.,0,4,rally,,00:10:14.194,00:10:47.227
+00:11:19.258,TV Altdorf III,TV Altdorf III,0,4,TSV Ansbach III - a.K.,0,4,rally,,00:10:47.227,00:11:19.258
+00:11:41.280,TV Altdorf III,TV Altdorf III,0,5,TSV Ansbach III - a.K.,0,4,rally,,00:11:19.258,00:11:41.280
+00:12:04.303,TV Altdorf III,TV Altdorf III,0,6,TSV Ansbach III - a.K.,0,4,rally,,00:11:41.280,00:12:04.303
+00:12:28.327,TV Altdorf III,TV Altdorf III,0,7,TSV Ansbach III - a.K.,0,4,rally,,00:12:04.303,00:12:28.327
+00:12:37.336,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+00:13:07.366,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+00:13:40.399,TV Altdorf III,TV Altdorf III,0,7,TSV Ansbach III - a.K.,0,5,rally,,00:13:07.366,00:13:40.399
+00:14:13.432,TSV Ansbach III - a.K.,TV Altdorf III,0,7,TSV Ansbach III - a.K.,0,6,rally,,00:13:40.399,00:14:13.432
+00:14:36.454,TSV Ansbach III - a.K.,TV Altdorf III,0,8,TSV Ansbach III - a.K.,0,6,rally,,00:14:13.432,00:14:36.454
+00:15:02.480,TV Altdorf III,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,6,rally,,00:14:36.454,00:15:02.480
+00:15:30.508,TV Altdorf III,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,7,rally,,00:15:02.480,00:15:30.508
+00:15:58.536,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,8,rally,,00:15:30.508,00:15:58.536
+00:16:26.564,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,9,rally,,00:15:58.536,00:16:26.564
+00:17:01.599,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,10,rally,,00:16:26.564,00:17:01.599
+00:17:04.602,,,,,,,,timeout_start,TV Altdorf III,,
+00:17:34.632,,,,,,,,timeout_end,TV Altdorf III,,
+00:18:07.664,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,11,rally,,00:17:34.632,00:18:07.664
+00:18:51.708,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,12,rally,,00:18:07.664,00:18:51.708
+00:19:55.772,TSV Ansbach III - a.K.,TV Altdorf III,0,9,TSV Ansbach III - a.K.,0,13,rally,,00:18:51.708,00:19:55.772
+00:20:29.806,TSV Ansbach III - a.K.,TV Altdorf III,0,10,TSV Ansbach III - a.K.,0,13,rally,,00:19:55.772,00:20:29.806
+00:21:07.843,TV Altdorf III,TV Altdorf III,0,10,TSV Ansbach III - a.K.,0,14,rally,,00:20:29.806,00:21:07.843
+00:21:31.867,TSV Ansbach III - a.K.,TV Altdorf III,0,10,TSV Ansbach III - a.K.,0,15,rally,,00:21:07.843,00:21:31.867
+00:22:15.911,TSV Ansbach III - a.K.,TV Altdorf III,0,11,TSV Ansbach III - a.K.,0,15,rally,,00:21:31.867,00:22:15.911
+00:22:37.933,TV Altdorf III,TV Altdorf III,0,12,TSV Ansbach III - a.K.,0,15,rally,,00:22:15.911,00:22:37.933
+00:23:04.960,TV Altdorf III,TV Altdorf III,0,12,TSV Ansbach III - a.K.,0,16,rally,,00:22:37.933,00:23:04.960
+00:23:38.994,TSV Ansbach III - a.K.,TV Altdorf III,0,13,TSV Ansbach III - a.K.,0,16,rally,,00:23:04.960,00:23:38.994
+00:24:12.027,TV Altdorf III,TV Altdorf III,0,14,TSV Ansbach III - a.K.,0,16,rally,,00:23:38.994,00:24:12.027
+00:24:59.073,TV Altdorf III,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,16,rally,,00:24:12.027,00:24:59.073
+00:25:56.130,TV Altdorf III,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,17,rally,,00:24:59.073,00:25:56.130
+00:26:27.161,TSV Ansbach III - a.K.,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,18,rally,,00:25:56.130,00:26:27.161
+hh:mm:ss.ms,TSV Ansbach III - a.K.,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,19,rally,,00:26:27.161,hh:mm:ss.ms
+00:27:11.205,TSV Ansbach III - a.K.,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,20,rally,,hh:mm:ss.ms,00:27:11.205
+00:27:42.235,TSV Ansbach III - a.K.,TV Altdorf III,0,15,TSV Ansbach III - a.K.,0,21,rally,,00:27:11.205,00:27:42.235
+00:28:05.258,TSV Ansbach III - a.K.,TV Altdorf III,0,16,TSV Ansbach III - a.K.,0,21,rally,,00:27:42.235,00:28:05.258
+00:28:27.280,TV Altdorf III,TV Altdorf III,0,17,TSV Ansbach III - a.K.,0,21,rally,,00:28:05.258,00:28:27.280
+00:28:55.308,TV Altdorf III,TV Altdorf III,0,18,TSV Ansbach III - a.K.,0,21,rally,,00:28:27.280,00:28:55.308
+00:29:20.333,TV Altdorf III,TV Altdorf III,0,18,TSV Ansbach III - a.K.,0,22,rally,,00:28:55.308,00:29:20.333
+00:30:04.377,TSV Ansbach III - a.K.,TV Altdorf III,0,19,TSV Ansbach III - a.K.,0,22,rally,,00:29:20.333,00:30:04.377
+00:30:27.400,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+00:30:57.429,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+00:31:24.456,TV Altdorf III,TV Altdorf III,0,20,TSV Ansbach III - a.K.,0,22,rally,,00:30:57.429,00:31:24.456
+00:31:48.480,TV Altdorf III,TV Altdorf III,0,21,TSV Ansbach III - a.K.,0,22,rally,,00:31:24.456,00:31:48.480
+00:32:25.517,TV Altdorf III,TV Altdorf III,0,21,TSV Ansbach III - a.K.,0,23,rally,,00:31:48.480,00:32:25.517
+00:32:51.543,TSV Ansbach III - a.K.,TV Altdorf III,0,22,TSV Ansbach III - a.K.,0,23,rally,,00:32:25.517,00:32:51.543
+00:33:21.573,TV Altdorf III,TV Altdorf III,0,23,TSV Ansbach III - a.K.,0,23,rally,,00:32:51.543,00:33:21.573
+00:33:47.599,TV Altdorf III,TV Altdorf III,0,24,TSV Ansbach III - a.K.,0,23,rally,,00:33:21.573,00:33:47.599
+00:34:23.634,TV Altdorf III,TV Altdorf III,0,24,TSV Ansbach III - a.K.,0,24,rally,,00:33:47.599,00:34:23.634
+00:35:01.672,TSV Ansbach III - a.K.,TV Altdorf III,0,25,TSV Ansbach III - a.K.,0,24,rally,,00:34:23.634,00:35:01.672
+00:35:24.695,TV Altdorf III,TV Altdorf III,0,26,TSV Ansbach III - a.K.,0,24,rally,,00:35:01.672,00:35:24.695
+00:40:10.980,TV Altdorf III,TV Altdorf III,1,0,TSV Ansbach III - a.K.,0,1,rally,,00:35:24.695,00:40:10.980
+00:41:19.047,TSV Ansbach III - a.K.,TV Altdorf III,1,1,TSV Ansbach III - a.K.,0,1,rally,,00:40:10.980,00:41:19.047
+00:41:50.078,TV Altdorf III,TV Altdorf III,1,2,TSV Ansbach III - a.K.,0,1,rally,,00:41:19.047,00:41:50.078
+00:42:17.105,TV Altdorf III,TV Altdorf III,1,2,TSV Ansbach III - a.K.,0,2,rally,,00:41:50.078,00:42:17.105
+00:42:54.142,TSV Ansbach III - a.K.,TV Altdorf III,1,2,TSV Ansbach III - a.K.,0,3,rally,,00:42:17.105,00:42:54.142
+00:43:18.166,TSV Ansbach III - a.K.,TV Altdorf III,1,3,TSV Ansbach III - a.K.,0,3,rally,,00:42:54.142,00:43:18.166
+00:43:40.188,TV Altdorf III,TV Altdorf III,1,3,TSV Ansbach III - a.K.,0,4,rally,,00:43:18.166,00:43:40.188
+00:44:06.213,TSV Ansbach III - a.K.,TV Altdorf III,1,4,TSV Ansbach III - a.K.,0,4,rally,,00:43:40.188,00:44:06.213
+00:44:30.237,TV Altdorf III,TV Altdorf III,1,5,TSV Ansbach III - a.K.,0,4,rally,,00:44:06.213,00:44:30.237
+00:44:52.259,TV Altdorf III,TV Altdorf III,1,6,TSV Ansbach III - a.K.,0,4,rally,,00:44:30.237,00:44:52.259
+00:45:45.312,TV Altdorf III,TV Altdorf III,1,7,TSV Ansbach III - a.K.,0,4,rally,,00:44:52.259,00:45:45.312
+00:46:20.347,TV Altdorf III,TV Altdorf III,1,8,TSV Ansbach III - a.K.,0,4,rally,,00:45:45.312,00:46:20.347
+00:46:51.378,TV Altdorf III,TV Altdorf III,1,9,TSV Ansbach III - a.K.,0,4,rally,,00:46:20.347,00:46:51.378
+00:47:12.399,TV Altdorf III,TV Altdorf III,1,10,TSV Ansbach III - a.K.,0,4,rally,,00:46:51.378,00:47:12.399
+00:47:15.402,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+00:47:45.431,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+00:48:31.477,TV Altdorf III,TV Altdorf III,1,11,TSV Ansbach III - a.K.,0,4,rally,,00:47:45.431,00:48:31.477
+00:49:46.552,TV Altdorf III,TV Altdorf III,1,12,TSV Ansbach III - a.K.,0,4,rally,,00:48:31.477,00:49:46.552
+00:50:31.597,TV Altdorf III,TV Altdorf III,1,13,TSV Ansbach III - a.K.,0,4,rally,,00:49:46.552,00:50:31.597
+00:51:05.630,TV Altdorf III,TV Altdorf III,1,13,TSV Ansbach III - a.K.,0,5,rally,,00:50:31.597,00:51:05.630
+00:52:12.697,TSV Ansbach III - a.K.,TV Altdorf III,1,14,TSV Ansbach III - a.K.,0,5,rally,,00:51:05.630,00:52:12.697
+00:52:44.729,TV Altdorf III,TV Altdorf III,1,15,TSV Ansbach III - a.K.,0,5,rally,,00:52:12.697,00:52:44.729
+00:52:46.731,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+00:53:16.761,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+00:54:05.809,TV Altdorf III,TV Altdorf III,1,16,TSV Ansbach III - a.K.,0,5,rally,,00:53:16.761,00:54:05.809
+00:54:28.832,TV Altdorf III,TV Altdorf III,1,16,TSV Ansbach III - a.K.,0,6,rally,,00:54:05.809,00:54:28.832
+00:54:57.861,TSV Ansbach III - a.K.,TV Altdorf III,1,16,TSV Ansbach III - a.K.,0,7,rally,,00:54:28.832,00:54:57.861
+00:55:20.884,TSV Ansbach III - a.K.,TV Altdorf III,1,17,TSV Ansbach III - a.K.,0,7,rally,,00:54:57.861,00:55:20.884
+00:56:07.931,TV Altdorf III,TV Altdorf III,1,18,TSV Ansbach III - a.K.,0,7,rally,,00:55:20.884,00:56:07.931
+00:56:09.933,TV Altdorf III,TV Altdorf III,1,18,TSV Ansbach III - a.K.,0,8,rally,,00:56:07.931,00:56:09.933
+00:56:38.962,TSV Ansbach III - a.K.,TV Altdorf III,1,18,TSV Ansbach III - a.K.,0,9,rally,,00:56:09.933,00:56:38.962
+00:57:06.990,TSV Ansbach III - a.K.,TV Altdorf III,1,18,TSV Ansbach III - a.K.,0,10,rally,,00:56:38.962,00:57:06.990
+00:57:31.013,TSV Ansbach III - a.K.,TV Altdorf III,1,19,TSV Ansbach III - a.K.,0,10,rally,,00:57:06.990,00:57:31.013
+00:57:50.032,TV Altdorf III,TV Altdorf III,1,20,TSV Ansbach III - a.K.,0,10,rally,,00:57:31.013,00:57:50.032
+00:58:14.056,TV Altdorf III,TV Altdorf III,1,21,TSV Ansbach III - a.K.,0,10,rally,,00:57:50.032,00:58:14.056
+00:58:43.085,TV Altdorf III,TV Altdorf III,1,21,TSV Ansbach III - a.K.,0,11,rally,,00:58:14.056,00:58:43.085
+01:00:05.167,TSV Ansbach III - a.K.,TV Altdorf III,1,22,TSV Ansbach III - a.K.,0,11,rally,,00:58:43.085,01:00:05.167
+01:00:53.214,TV Altdorf III,TV Altdorf III,1,23,TSV Ansbach III - a.K.,0,11,rally,,01:00:05.167,01:00:53.214
+01:01:27.248,TV Altdorf III,TV Altdorf III,1,24,TSV Ansbach III - a.K.,0,11,rally,,01:00:53.214,01:01:27.248
+01:01:58.279,TV Altdorf III,TV Altdorf III,1,24,TSV Ansbach III - a.K.,0,12,rally,,01:01:27.248,01:01:58.279
+01:02:24.305,TSV Ansbach III - a.K.,TV Altdorf III,1,25,TSV Ansbach III - a.K.,0,12,rally,,01:01:58.279,01:02:24.305
+01:07:10.589,TSV Ansbach III - a.K.,TV Altdorf III,2,0,TSV Ansbach III - a.K.,0,1,rally,,01:02:24.305,01:07:10.589
+01:07:30.609,TSV Ansbach III - a.K.,TV Altdorf III,2,0,TSV Ansbach III - a.K.,0,2,rally,,01:07:10.589,01:07:30.609
+01:07:56.635,TSV Ansbach III - a.K.,TV Altdorf III,2,0,TSV Ansbach III - a.K.,0,3,rally,,01:07:30.609,01:07:56.635
+01:08:21.660,TSV Ansbach III - a.K.,TV Altdorf III,2,1,TSV Ansbach III - a.K.,0,3,rally,,01:07:56.635,01:08:21.660
+01:08:55.694,TV Altdorf III,TV Altdorf III,2,2,TSV Ansbach III - a.K.,0,3,rally,,01:08:21.660,01:08:55.694
+01:09:03.702,TV Altdorf III,TV Altdorf III,2,2,TSV Ansbach III - a.K.,0,4,rally,,01:08:55.694,01:09:03.702
+01:09:48.747,TSV Ansbach III - a.K.,TV Altdorf III,2,3,TSV Ansbach III - a.K.,0,4,rally,,01:09:03.702,01:09:48.747
+01:11:03.821,TV Altdorf III,TV Altdorf III,2,3,TSV Ansbach III - a.K.,0,5,rally,,01:09:48.747,01:11:03.821
+01:11:50.868,TSV Ansbach III - a.K.,TV Altdorf III,2,3,TSV Ansbach III - a.K.,0,6,rally,,01:11:03.821,01:11:50.868
+01:12:10.888,TSV Ansbach III - a.K.,TV Altdorf III,2,4,TSV Ansbach III - a.K.,0,6,rally,,01:11:50.868,01:12:10.888
+01:13:02.940,TV Altdorf III,TV Altdorf III,2,5,TSV Ansbach III - a.K.,0,6,rally,,01:12:10.888,01:13:02.940
+01:13:28.966,TV Altdorf III,TV Altdorf III,2,6,TSV Ansbach III - a.K.,0,6,rally,,01:13:02.940,01:13:28.966
+01:13:53.990,TV Altdorf III,TV Altdorf III,2,7,TSV Ansbach III - a.K.,0,6,rally,,01:13:28.966,01:13:53.990
+01:15:16.072,TV Altdorf III,TV Altdorf III,2,8,TSV Ansbach III - a.K.,0,6,rally,,01:13:53.990,01:15:16.072
+01:15:23.079,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+01:15:53.109,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+01:16:31.147,TV Altdorf III,TV Altdorf III,2,9,TSV Ansbach III - a.K.,0,6,rally,,01:15:53.109,01:16:31.147
+01:16:55.170,TV Altdorf III,TV Altdorf III,2,9,TSV Ansbach III - a.K.,0,7,rally,,01:16:31.147,01:16:55.170
+01:17:17.192,TSV Ansbach III - a.K.,TV Altdorf III,2,9,TSV Ansbach III - a.K.,0,8,rally,,01:16:55.170,01:17:17.192
+01:17:58.233,TSV Ansbach III - a.K.,TV Altdorf III,2,10,TSV Ansbach III - a.K.,0,8,rally,,01:17:17.192,01:17:58.233
+01:18:31.266,TV Altdorf III,TV Altdorf III,2,11,TSV Ansbach III - a.K.,0,8,rally,,01:17:58.233,01:18:31.266
+01:19:02.297,TV Altdorf III,TV Altdorf III,2,12,TSV Ansbach III - a.K.,0,8,rally,,01:18:31.266,01:19:02.297
+01:19:39.334,TV Altdorf III,TV Altdorf III,2,12,TSV Ansbach III - a.K.,0,9,rally,,01:19:02.297,01:19:39.334
+01:20:10.364,TSV Ansbach III - a.K.,TV Altdorf III,2,12,TSV Ansbach III - a.K.,0,10,rally,,01:19:39.334,01:20:10.364
+01:21:11.425,TSV Ansbach III - a.K.,TV Altdorf III,2,13,TSV Ansbach III - a.K.,0,10,rally,,01:20:10.364,01:21:11.425
+01:21:43.457,TV Altdorf III,TV Altdorf III,2,13,TSV Ansbach III - a.K.,0,11,rally,,01:21:11.425,01:21:43.457
+01:22:14.488,TSV Ansbach III - a.K.,TV Altdorf III,2,14,TSV Ansbach III - a.K.,0,11,rally,,01:21:43.457,01:22:14.488
+01:22:57.531,TV Altdorf III,TV Altdorf III,2,15,TSV Ansbach III - a.K.,0,11,rally,,01:22:14.488,01:22:57.531
+01:23:11.545,TV Altdorf III,TV Altdorf III,2,16,TSV Ansbach III - a.K.,0,11,rally,,01:22:57.531,01:23:11.545
+01:23:25.558,,,,,,,,timeout_start,TSV Ansbach III - a.K.,,
+01:23:55.588,,,,,,,,timeout_end,TSV Ansbach III - a.K.,,
+01:24:27.620,TV Altdorf III,TV Altdorf III,2,16,TSV Ansbach III - a.K.,0,12,rally,,01:23:55.588,01:24:27.620
+01:24:49.642,TSV Ansbach III - a.K.,TV Altdorf III,2,16,TSV Ansbach III - a.K.,0,13,rally,,01:24:27.620,01:24:49.642
+01:25:16.669,TSV Ansbach III - a.K.,TV Altdorf III,2,17,TSV Ansbach III - a.K.,0,13,rally,,01:24:49.642,01:25:16.669
+01:25:56.709,TV Altdorf III,TV Altdorf III,2,18,TSV Ansbach III - a.K.,0,13,rally,,01:25:16.669,01:25:56.709
+01:26:27.740,TV Altdorf III,TV Altdorf III,2,18,TSV Ansbach III - a.K.,0,14,rally,,01:25:56.709,01:26:27.740
+01:26:56.768,TSV Ansbach III - a.K.,TV Altdorf III,2,18,TSV Ansbach III - a.K.,0,15,rally,,01:26:27.740,01:26:56.768
+01:27:41.813,TSV Ansbach III - a.K.,TV Altdorf III,2,19,TSV Ansbach III - a.K.,0,15,rally,,01:26:56.768,01:27:41.813
+01:28:18.850,TV Altdorf III,TV Altdorf III,2,20,TSV Ansbach III - a.K.,0,15,rally,,01:27:41.813,01:28:18.850
+01:28:40.872,TV Altdorf III,TV Altdorf III,2,21,TSV Ansbach III - a.K.,0,15,rally,,01:28:18.850,01:28:40.872
+01:29:00.892,TV Altdorf III,TV Altdorf III,2,21,TSV Ansbach III - a.K.,0,16,rally,,01:28:40.872,01:29:00.892
+01:29:25.917,TSV Ansbach III - a.K.,TV Altdorf III,2,22,TSV Ansbach III - a.K.,0,16,rally,,01:29:00.892,01:29:25.917
+01:29:52.944,TV Altdorf III,TV Altdorf III,2,23,TSV Ansbach III - a.K.,0,16,rally,,01:29:25.917,01:29:52.944
+01:30:19.970,TV Altdorf III,TV Altdorf III,2,23,TSV Ansbach III - a.K.,0,17,rally,,01:29:52.944,01:30:19.970
+01:31:11.021,TSV Ansbach III - a.K.,TV Altdorf III,2,23,TSV Ansbach III - a.K.,0,18,rally,,01:30:19.970,01:31:11.021
+01:31:37.047,TSV Ansbach III - a.K.,TV Altdorf III,2,23,TSV Ansbach III - a.K.,0,19,rally,,01:31:11.021,01:31:37.047
+01:32:13.083,TSV Ansbach III - a.K.,TV Altdorf III,2,24,TSV Ansbach III - a.K.,0,19,rally,,01:31:37.047,01:32:13.083
+01:32:43.113,TV Altdorf III,TV Altdorf III,3,25,TSV Ansbach III - a.K.,0,19,rally,,01:32:13.083,01:32:43.113

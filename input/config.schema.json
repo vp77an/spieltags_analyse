@@ -27,6 +27,106 @@
       "minLength": 1,
       "default": "analysis"
     },
+    "video_scoreboard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["video_file"],
+      "properties": {
+        "backend": {
+          "type": "string",
+          "enum": [
+            "image_changes",
+            "digit_classifier",
+            "cell_classifier",
+            "tesseract",
+            "transformers"
+          ],
+          "default": "image_changes"
+        },
+        "scoreboard_format": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9_-]+$",
+          "default": "bvv"
+        },
+        "video_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "model_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "classifier_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "timeout_template_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "output_file": {
+          "type": "string",
+          "minLength": 1,
+          "default": "analysis/score_progression.csv"
+        },
+        "sample_interval_seconds": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "default": 0.5
+        },
+        "start_time_seconds": {
+          "type": "number",
+          "minimum": 0,
+          "default": 0
+        },
+        "stable_observations": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 2
+        },
+        "crop_region": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "default": [0, 0, 0.6, 0.35]
+        },
+        "scoreboard_region": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "backend": {"const": "transformers"}
+            },
+            "required": ["backend"]
+          },
+          "then": {"required": ["model_path"]}
+        },
+        {
+          "if": {
+            "properties": {
+              "backend": {"const": "digit_classifier"}
+            },
+            "required": ["backend"]
+          },
+          "then": {"required": ["classifier_file"]}
+        }
+      ]
+    },
     "teams": {
       "type": "array",
       "minItems": 2,
